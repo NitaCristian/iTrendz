@@ -1,4 +1,6 @@
-﻿namespace iTrendz.MauiUI;
+﻿using Microsoft.Maui.Controls;
+
+namespace iTrendz.MauiUI;
 
 public partial class App : Application
 {
