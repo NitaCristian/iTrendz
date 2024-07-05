@@ -14,11 +14,11 @@ namespace iTrendz.Api.Controllers;
 [ApiController]
 public class AuthenticationController : ControllerBase
 {
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<TrendzUser> _userManager;
     private readonly IConfiguration _configuration;
     private readonly ILogger<AuthenticationController> _logger;
 
-    public AuthenticationController(UserManager<ApplicationUser> userManager, IConfiguration configuration,
+    public AuthenticationController(UserManager<TrendzUser> userManager, IConfiguration configuration,
         ILogger<AuthenticationController> logger)
     {
         _userManager = userManager;
@@ -39,11 +39,12 @@ public class AuthenticationController : ControllerBase
         if (existingUser != null)
             return Conflict("User already exists.");
 
-        var newUser = new ApplicationUser()
+        var newUser = new TrendzUser()
         {
             UserName = model.Username,
             Email = model.Email,
-            SecurityStamp = Guid.NewGuid().ToString()
+            SecurityStamp = Guid.NewGuid().ToString(),
+            Description = model.Description
         };
 
         var result = await _userManager.CreateAsync(newUser, model.Password);

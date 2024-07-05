@@ -5,19 +5,19 @@ namespace iTrendz.Api.DataAccess.Repositories;
 
 public class SqliteCampaignRepository : ICampaignRepository
 {
-    private readonly ApplicationContext _applicationContext;
+    private readonly TrendzDbContext _trendzDbContext;
 
 
-    public SqliteCampaignRepository(ApplicationContext applicationContext, IQueryable<Campaign> allReviews)
+    public SqliteCampaignRepository(TrendzDbContext trendzDbContext, IQueryable<Campaign> allReviews)
     {
-        _applicationContext = applicationContext;
+        _trendzDbContext = trendzDbContext;
     }
 
-    public IQueryable<Campaign> AllReviews => _applicationContext.Campaigns;
+    public IQueryable<Campaign> AllReviews => _trendzDbContext.Campaigns;
 
-    public void Create(Campaign campaign) => _applicationContext.Campaigns.Add(campaign);
+    public void Create(Campaign campaign) => _trendzDbContext.Campaigns.Add(campaign);
 
-    public void Remove(Campaign campaign) => _applicationContext.Remove(campaign);
+    public void Remove(Campaign campaign) => _trendzDbContext.Remove(campaign);
 
-    public void SaveChanges() => _applicationContext.SaveChanges();
+    public void SaveChanges() => _trendzDbContext.SaveChanges();
 }

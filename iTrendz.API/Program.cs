@@ -13,15 +13,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<ApplicationContext>(options =>
+builder.Services.AddDbContext<TrendzDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+builder.Services.AddIdentity<TrendzUser, IdentityRole<int>>(options =>
         options.User.AllowedUserNameCharacters += " ")
-    .AddEntityFrameworkStores<ApplicationContext>()
+    .AddEntityFrameworkStores<TrendzDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<ICampaignRepository, SqliteCampaignRepository>();
+//builder.Services.AddScoped<ICampaignRepository, SqliteCampaignRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
