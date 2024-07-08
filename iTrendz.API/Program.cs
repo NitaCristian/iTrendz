@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using iTrendz.Api.Authentication;
 using iTrendz.Api.DataAccess.Context;
-using iTrendz.Api.DataAccess.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +21,7 @@ builder.Services.AddIdentity<TrendzUser, IdentityRole<int>>(options =>
     .AddEntityFrameworkStores<TrendzDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddTransient<ICampaignRepository, SqliteCampaignRepository>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
