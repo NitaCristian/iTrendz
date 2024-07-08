@@ -8,7 +8,7 @@ public class SqliteCampaignRepository : ICampaignRepository
     private readonly TrendzDbContext _trendzDbContext;
 
 
-    public SqliteCampaignRepository(TrendzDbContext trendzDbContext, IQueryable<Campaign> allReviews)
+    public SqliteCampaignRepository(TrendzDbContext trendzDbContext)
     {
         _trendzDbContext = trendzDbContext;
     }

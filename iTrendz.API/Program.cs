@@ -21,7 +21,7 @@ builder.Services.AddIdentity<TrendzUser, IdentityRole<int>>(options =>
     .AddEntityFrameworkStores<TrendzDbContext>()
     .AddDefaultTokenProviders();
 
-//builder.Services.AddScoped<ICampaignRepository, SqliteCampaignRepository>();
+builder.Services.AddTransient<ICampaignRepository, SqliteCampaignRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
