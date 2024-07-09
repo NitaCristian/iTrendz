@@ -4,8 +4,8 @@ namespace iTrendz.Api.DataAccess.Services;
 
 public  class CampaignService
 {
-	
 	private readonly TrendzDbContext _trendzDbContext;
+	
     public CampaignService(TrendzDbContext dbContext )
     {
         _trendzDbContext = dbContext;
