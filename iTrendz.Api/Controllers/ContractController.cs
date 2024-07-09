@@ -1,5 +1,5 @@
-﻿using iTrendz.Api.DataAccess.Entities;
-using iTrendz.Api.DataAccess.Services;
+﻿using iTrendz.API.Entities;
+using iTrendz.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iTrendz.API.Controllers;
