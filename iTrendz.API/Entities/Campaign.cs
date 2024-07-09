@@ -1,6 +1,6 @@
 ﻿using iTrendz.Api.Authentication;
 
-namespace  iTrendz.Api.DataAccess.Entities;
+namespace  iTrendz.API.Entities;
 
 public class Campaign
 {

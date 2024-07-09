@@ -1,6 +1,7 @@
-﻿using iTrendz.Api.DataAccess.Context;
-using iTrendz.Api.DataAccess.Entities;
-namespace iTrendz.Api.DataAccess.Services;
+﻿using iTrendz.API.Context;
+using iTrendz.API.Entities;
+
+namespace iTrendz.API.Services;
 
 public  class CampaignService
 {

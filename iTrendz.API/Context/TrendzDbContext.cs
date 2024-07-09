@@ -1,10 +1,10 @@
 using iTrendz.Api.Authentication;
-using iTrendz.Api.DataAccess.Entities;
+using iTrendz.API.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace iTrendz.Api.DataAccess.Context;
+namespace iTrendz.API.Context;
 
 public class TrendzDbContext : IdentityDbContext<TrendzUser, IdentityRole<int>, int>
 {

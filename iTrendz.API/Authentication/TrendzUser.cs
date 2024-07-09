@@ -1,4 +1,4 @@
-﻿using iTrendz.Api.DataAccess.Entities;
+﻿using iTrendz.API.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace iTrendz.Api.Authentication;

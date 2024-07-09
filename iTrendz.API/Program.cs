@@ -6,7 +6,7 @@ using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using iTrendz.Api.Authentication;
-using iTrendz.Api.DataAccess.Context;
+using iTrendz.API.Context;
 
 
 var builder = WebApplication.CreateBuilder(args);

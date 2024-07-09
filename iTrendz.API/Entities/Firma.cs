@@ -1,4 +1,4 @@
-﻿namespace iTrendz.Api.DataAccess.Entities;
+﻿namespace iTrendz.API.Entities;
 
 public class Firma
 {

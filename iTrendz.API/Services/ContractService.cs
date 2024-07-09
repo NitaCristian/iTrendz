@@ -1,7 +1,7 @@
-﻿using iTrendz.Api.DataAccess.Context;
-using iTrendz.Api.DataAccess.Entities;
+﻿using iTrendz.API.Context;
+using iTrendz.API.Entities;
 
-namespace iTrendz.Api.DataAccess.Services;
+namespace iTrendz.API.Services;
 
 public class ContractService
 {
