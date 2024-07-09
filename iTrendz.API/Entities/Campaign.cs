@@ -1,23 +1,15 @@
-﻿using iTrendz.Api.Authentication;
+﻿using System.Collections;
+using iTrendz.Api.Authentication;
 
-namespace  iTrendz.API.Entities;
+namespace iTrendz.API.Entities;
 
 public class Campaign
 {
-	public int Id { get; set; }
-	public string? Name { get; set; }
-	public int BrandId { get; set; }
-	public TrendzUser Brand { get; set; }
-	
-	public List<Influencer> Influencers { get; set; }
-
-	public DateTime Datefinalization { get; set; }
-	/// trebuie sa scadem din data  la care trebuie finalizat contractul data curenta 
-	/// cum iau data la care trebuie finalizat contractul <summary>
-	/// trebuie sa scadem din data  la care trebuie finalizat contractul data curenta 
-	public int TimpRamas()
-	{
-		return (Datefinalization - DateTime.Now).Days;
-	}
-	public bool Isfinalizat { get; set; }
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public int BrandId { get; set; }
+    public User Brand { get; set; }
+    public DateOnly StartTime { get; set; }
+    public DateOnly DateTime { get; set; }
+    public ICollection<Contract>? Contracts { get; set; }
 }

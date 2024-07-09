@@ -1,9 +1,8 @@
-﻿namespace iTrendz.API.Entities;
+﻿using iTrendz.Api.Authentication;
 
-public class Influencer
+namespace iTrendz.API.Entities;
+
+public class Influencer : User
 {
-	public int Id { get; set; }
-	public string? Name { get; set; }
-	public List<Video> Videos { get; set; }=new List<Video>();
-	public List<Poza> Poza { get; set; } =new List<Poza>();
+    public ICollection<Contract> Contracts { get; set; }
 }

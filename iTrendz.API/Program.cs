@@ -7,24 +7,29 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using iTrendz.Api.Authentication;
 using iTrendz.API.Context;
+using iTrendz.API.Entities;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
-builder.Services.AddControllers();
+services.AddControllers();
 
-builder.Services.AddDbContext<TrendzDbContext>(options =>
+services.AddDbContext<TrendzDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<TrendzUser, IdentityRole<int>>(options =>
-        options.User.AllowedUserNameCharacters += " ")
+services.AddIdentity<User, IdentityRole<int>>(options => options.User.AllowedUserNameCharacters += " ")
     .AddEntityFrameworkStores<TrendzDbContext>()
     .AddDefaultTokenProviders();
 
+services.AddIdentityCore<Brand>()
+    .AddEntityFrameworkStores<TrendzDbContext>();
 
+services.AddIdentityCore<Influencer>()
+    .AddEntityFrameworkStores<TrendzDbContext>();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -50,7 +55,7 @@ using var loggerFactory = LoggerFactory.Create(b => b.SetMinimumLevel(LogLevel.T
 
 var secret = builder.Configuration["JWT:Secret"] ?? throw new InvalidOperationException("Secret not configured");
 
-builder.Services.AddAuthentication(options =>
+services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -75,7 +80,7 @@ builder.Services.AddAuthentication(options =>
 
 const string policy = "defaultPolicy";
 
-builder.Services.AddCors(options =>
+services.AddCors(options =>
 {
     options.AddPolicy(policy,
         p =>

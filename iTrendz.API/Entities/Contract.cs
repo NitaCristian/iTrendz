@@ -1,14 +1,11 @@
 ﻿namespace iTrendz.API.Entities;
 
 public class Contract
-{ 
-	public int Id { get; set; }
-	public string Name { get; set; }
-	Influencer influencer { get; set; }
-	Firma firma { get; set; }
-	public string Conditii {  get; set; }
-	DateOnly date { get; set; }
-	public int salariu { get; set; }
-
-
+{
+    public int Id { get; set; }
+    public int InfluencerId { get; set; }
+    Influencer Influencer { get; set; }
+    public int CampaignId { get; set; }
+    private Campaign Campaign { get; set; }
+    DateOnly SignedDate { get; set; }
 }
