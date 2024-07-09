@@ -1,9 +1,14 @@
-﻿namespace  iTrendz.Api.DataAccess.Entities;
+﻿using iTrendz.Api.Authentication;
+
+namespace  iTrendz.Api.DataAccess.Entities;
 
 public class Campaign
 {
 	public int Id { get; set; }
 	public string? Name { get; set; }
+	public int BrandId { get; set; }
+	public TrendzUser Brand { get; set; }
+	
 	public List<Influencer> Influencers { get; set; }
 
 	public DateTime Datefinalization { get; set; }

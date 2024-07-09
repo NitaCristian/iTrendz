@@ -14,6 +14,7 @@ public class TrendzDbContext : IdentityDbContext<TrendzUser, IdentityRole<int>, 
 
     public DbSet<TrendzUser> TrendzUsers { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
+    public DbSet<Contract> Contracts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
