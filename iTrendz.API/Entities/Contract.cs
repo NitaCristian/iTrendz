@@ -4,8 +4,8 @@ public class Contract
 {
     public int Id { get; set; }
     public int InfluencerId { get; set; }
-    Influencer Influencer { get; set; }
+    public Influencer Influencer { get; set; }
     public int CampaignId { get; set; }
-    private Campaign Campaign { get; set; }
-    DateOnly SignedDate { get; set; }
+    public Campaign Campaign { get; set; }
+    public DateOnly SignedDate { get; set; }
 }
