@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace iTrendz.MauiUI;
 
@@ -17,6 +18,9 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
+
+        builder.Services.AddAuthorizationCore();
+        builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
         return builder.Build();
     }
