@@ -1,40 +1,41 @@
-﻿using System.Security.Claims;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Components.Authorization;
 
 namespace iTrendz.MauiUI;
 
 public class CustomAuthenticationStateProvider : AuthenticationStateProvider
 {
-    public async Task Login(string token)
-    {
-        await SecureStorage.SetAsync("accounttoken", token);
-
-        NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
-    }
-
-    public async Task Logout()
-    {
-        SecureStorage.Remove("accounttoken");
-        NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
-    }
+    private const string TokenKey = "authToken";
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        try
-        {
-            var userInfo = await SecureStorage.GetAsync("accounttoken");
-            if (userInfo != null)
-            {
-                var claims = new[] { new Claim(ClaimTypes.Name, "Sample User") };
-                var identity = new ClaimsIdentity(claims, "Custom authentication");
-                return new AuthenticationState(new ClaimsPrincipal(identity));
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Request failed:" + ex.ToString());
-        }
+        var token = await SecureStorage.GetAsync(TokenKey);
+        var identity = string.IsNullOrEmpty(token) ? new ClaimsIdentity() : GetClaimsIdentity(token);
+        return new AuthenticationState(new ClaimsPrincipal(identity));
+    }
 
-        return new AuthenticationState(new ClaimsPrincipal());
+    public async Task Login(string token)
+    {
+        await SecureStorage.SetAsync(TokenKey, token);
+        var identity = GetClaimsIdentity(token);
+        var user = new ClaimsPrincipal(identity);
+        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
+    }
+
+    public void Logout()
+    {
+        SecureStorage.Remove(TokenKey);
+        var identity = new ClaimsIdentity();
+        var user = new ClaimsPrincipal(identity);
+        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
+    }
+
+    private ClaimsIdentity GetClaimsIdentity(string token)
+    {
+        var jwtHandler = new JwtSecurityTokenHandler();
+        var jwtToken = jwtHandler.ReadJwtToken(token);
+        var claims = jwtToken.Claims;
+        return new ClaimsIdentity(claims, "jwt");
     }
 }
