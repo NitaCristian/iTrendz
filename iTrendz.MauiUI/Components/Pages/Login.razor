@@ -6,10 +6,6 @@
 
 <h3>Login to Access Application</h3>
 
-<div class="alert alert-info">
-    This is a dummy login page, providing `Test` for the Username and Password will authenticate you.
-</div>
-
 <EditForm Model="@_loginModel" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
@@ -35,7 +31,7 @@
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
-            await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).Login(result.JwtToken);
+            await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).Login(result.JwtToken, result.Expiration, result.RefreshToken);
             Navigation.NavigateTo("/");
         }
     }
