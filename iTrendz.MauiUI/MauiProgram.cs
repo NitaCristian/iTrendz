@@ -24,7 +24,8 @@ public static class MauiProgram
         builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>(sp =>
         {
             var httpClient = sp.GetRequiredService<HttpClient>();
-            return new CustomAuthenticationStateProvider(httpClient);
+            var logger = sp.GetRequiredService<ILogger<CustomAuthenticationStateProvider>>();
+            return new CustomAuthenticationStateProvider(httpClient, logger);
         });
 
         return builder.Build();
