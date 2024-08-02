@@ -1,0 +1,34 @@
+﻿.login-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 1.5rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background: #fff;
+}
+.social-login-btns button {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.social-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+.login-header {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.login-footer {
+    text-align: center;
+    margin-top: 1rem;
+}
+.register-link {
+    color: #007bff;
+    text-decoration: none;
+}
+.register-link:hover {
+    text-decoration: underline;
+}

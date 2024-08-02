@@ -4,23 +4,43 @@
 @inject NavigationManager Navigation;
 @inject HttpClient Http
 
-<h3>Login to Access Application</h3>
+<div class="login-container">
+    <div class="login-header">
+        <h3>Login to Access iTrendz</h3>
+    </div>
 
-<EditForm Model="@_loginModel" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
-    <div class="form-group">
-        <label>Username</label>
-        <InputText id="email" @bind-Value="_loginModel.Username" class="form-control"/>
+    <EditForm Model="@_loginModel" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <InputText id="username" @bind-Value="_loginModel.Username" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <InputText id="password" type="password" @bind-Value="_loginModel.Password" class="form-control"/>
+        </div>
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-primary w-100">Login Now</button>
+        </div>
+    </EditForm>
+
+    <div class="social-login-btns mt-3">
+        <button class="btn btn-outline-primary w-100">
+            <img src="images/facebook-logo.png" alt="Facebook" class="social-icon"> Continue with Facebook
+        </button>
+        <button class="btn btn-outline-danger w-100">
+            <img src="images/instagram-logo.png" alt="Instagram" class="social-icon"> Continue with Instagram
+        </button>
+        <button class="btn btn-outline-dark w-100">
+            <img src="images/tiktok-logo.png" alt="TikTok" class="social-icon"> Continue with TikTok
+        </button>
     </div>
-    <div class="form-group">
-        <label>Password</label>
-        <InputText id="password" type="password" @bind-Value="_loginModel.Password" class="form-control"/>
+
+    <div class="login-footer mt-3">
+        <p>Don't have an account? <a href="/register" class="register-link">Register here</a></p>
     </div>
-    <div class="form-group mt-1">
-        <button type="submit" class="btn btn-primary w-100">Login Now</button>
-    </div>
-</EditForm>
+</div>
 
 @code {
     private readonly LoginViewModel _loginModel = new();
@@ -35,4 +55,5 @@
             Navigation.NavigateTo("/");
         }
     }
+
 }
