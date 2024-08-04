@@ -1,0 +1,79 @@
+﻿@page "/register"
+@inject NavigationManager Navigation;
+@inject HttpClient Http
+
+<div class="register-container">
+    <div class="register-header">
+        <h3>Create Your iTrendz Account</h3>
+        <p>Join us today and start exploring!</p>
+    </div>
+
+    <EditForm Model="@_registerModel" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <InputText id="username" @bind-Value="_registerModel.Username" class="form-control input-custom"/>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <InputText id="email" @bind-Value="_registerModel.Email" class="form-control input-custom"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <InputText id="password" type="password" @bind-Value="_registerModel.Password" class="form-control input-custom"/>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <InputText id="confirmPassword" type="password" @bind-Value="_registerModel.ConfirmPassword" class="form-control input-custom"/>
+        </div>
+
+        <div class="form-group">
+            <label for="userType">User Type</label>
+            <InputSelect id="userType" @bind-Value="_registerModel.UserType" class="form-control input-custom">
+                <option value="">Select user type</option>
+                <option value="Brand">Brand</option>
+                <option value="Influencer">Influencer</option>
+            </InputSelect>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <InputTextArea id="description" @bind-Value="_registerModel.Description" class="form-control input-custom"/>
+        </div>
+
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-primary w-100">Register Now</button>
+        </div>
+    </EditForm>
+
+    <div class="social-login-btns mt-3">
+        <button class="btn btn-outline-primary w-100">
+            <img src="images/facebook-logo.png" alt="Facebook" class="social-icon"> Continue with Facebook
+        </button>
+        <button class="btn btn-outline-danger w-100">
+            <img src="images/instagram-logo.png" alt="Instagram" class="social-icon"> Continue with Instagram
+        </button>
+        <button class="btn btn-outline-dark w-100">
+            <img src="images/tiktok-logo.png" alt="TikTok" class="social-icon"> Continue with TikTok
+        </button>
+    </div>
+
+    <div class="register-footer mt-3">
+        <p>Already have an account? <a href="/login" class="login-link">Login here</a></p>
+    </div>
+</div>
+
+@code {
+    private readonly RegisterViewModel _registerModel = new();
+
+    private async Task HandleValidSubmit()
+    {
+        var response = await Http.PostAsJsonAsync("https://localhost:7061/api/authentication/register", _registerModel);
+        if (response.IsSuccessStatusCode)
+        {
+            Navigation.NavigateTo("/login");
+        }
+    }
+
+}
