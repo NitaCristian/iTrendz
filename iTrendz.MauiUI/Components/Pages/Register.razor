@@ -69,10 +69,17 @@
 
     private async Task HandleValidSubmit()
     {
-        var response = await Http.PostAsJsonAsync("https://localhost:7061/api/authentication/register", _registerModel);
-        if (response.IsSuccessStatusCode)
+        try
         {
-            Navigation.NavigateTo("/login");
+            var response = await Http.PostAsJsonAsync("https://localhost:7061/api/authentication/register", _registerModel);
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/login");
+            }
+        }
+        catch (Exception e)
+        {
+            // Process error here
         }
     }
 
