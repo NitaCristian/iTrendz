@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iTrendz.MauiUI", "iTrendz.MauiUI\iTrendz.MauiUI.csproj", "{EF89251E-6F3A-49D2-A8B1-ED9AE813F7CE}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iTrendz.MauiUI", "iTrendz.MauiUI\iTrendz.MauiUI.csproj", "{EF89251E-6F3A-49D2-A8B1-ED9AE813F7CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iTrendz.API", "iTrendz.API\iTrendz.API.csproj", "{4919A56B-CDBE-4CF9-A394-48DE474E8819}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iTrendz.API", "iTrendz.API\iTrendz.API.csproj", "{4919A56B-CDBE-4CF9-A394-48DE474E8819}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +14,16 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EF89251E-6F3A-49D2-A8B1-ED9AE813F7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF89251E-6F3A-49D2-A8B1-ED9AE813F7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF89251E-6F3A-49D2-A8B1-ED9AE813F7CE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{EF89251E-6F3A-49D2-A8B1-ED9AE813F7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF89251E-6F3A-49D2-A8B1-ED9AE813F7CE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF89251E-6F3A-49D2-A8B1-ED9AE813F7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4919A56B-CDBE-4CF9-A394-48DE474E8819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4919A56B-CDBE-4CF9-A394-48DE474E8819}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4919A56B-CDBE-4CF9-A394-48DE474E8819}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4919A56B-CDBE-4CF9-A394-48DE474E8819}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
