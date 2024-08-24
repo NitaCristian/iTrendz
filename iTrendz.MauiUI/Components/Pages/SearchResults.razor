@@ -1,23 +1,63 @@
 ﻿@page "/search-results"
 
-<MudCarousel Class="mud-width-full" Style="height:200px;" ShowArrows="true" ShowBullets="true" EnableSwipeGesture="true" AutoCycle="true" TData="object">
-    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
-        <div class="d-flex" style="height:100%">
-            <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
-        </div>
-    </MudCarouselItem>
-    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Secondary">
-        <div class="d-flex" style="height:100%">
-            <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
-        </div>
-    </MudCarouselItem>
-    <MudCarouselItem Transition="Transition.Slide">
-        <div class="d-flex" style="height:100%">
-            <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Color="@Color.Primary" Size="@Size.Large" />
-        </div>
-    </MudCarouselItem>
+<MudCarousel ShowArrows="true" Style="height:100%;" EnableSwipeGesture="true" AutoCycle="true" TData="object">
+	<MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
+		<div class="d-flex flex-column align-items-center">
+
+			<MudCard Class="d-flex flex-column align-items-center">
+				<MudCardHeader Style="background-color: var(--mud-palette-appbar-background);">
+					<MudGrid Class="align-items-center">
+						<MudItem xs="3">
+							<!-- Gol -->
+						</MudItem>
+
+						<MudItem xs="6" Class="text-center">
+							<MudImage Src="https://picsum.photos/200" Width="150" Height="150" Alt="Mony the dog" Elevation="25" Class="rounded-circle" />
+						</MudItem>
+
+						<MudItem xs="3" Class="text-center">
+							<MudStack>
+								<MudIconButton Icon="@Icons.Custom.Brands.Facebook" Color="Color.Dark" Size="Size.Small" />
+								<MudIconButton Icon="@Icons.Custom.Brands.Instagram" Color="Color.Dark" Size="Size.Small" />
+								<MudIconButton Icon="@Icons.Custom.Brands.TikTok" Color="Color.Dark" Size="Size.Small" />
+							</MudStack>
+						</MudItem>
+					</MudGrid>
+				</MudCardHeader>
+
+				<MudCardContent>
+					<MudText Typo="Typo.h5" Class="text-center mt-3">Marius</MudText>
+					<MudText Typo="Typo.h6" Class="text-center">Programator</MudText>
+
+					<div class="d-flex flex-column align-items-center mt-3">
+						<MudRating @bind-SelectedValue="selectedVal" HoveredValueChanged="HandleHoveredValueChanged" />
+						<MudText Typo="Typo.subtitle2" Class="deep-purple-text mt-2">@LabelText</MudText>
+					</div>
+
+					<MudStack Row="true" JustifyContent="center" Class="mt-3">
+						<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mx-2">About Me</MudButton>
+						<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mx-2">Hire Me</MudButton>
+					</MudStack>
+				</MudCardContent>
+			</MudCard>
+		</div>
+
+	</MudCarouselItem>
 </MudCarousel>
 
-@code{ 
-    
+@code {
+	private int selectedVal = 0;
+	private int? activeVal;
+
+	private void HandleHoveredValueChanged(int? val) => activeVal = val;
+
+	private string LabelText => (activeVal ?? selectedVal) switch
+	{
+		1 => "Very bad",
+		2 => "Bad",
+		3 => "Sufficient",
+		4 => "Good",
+		5 => "Awesome!",
+		_ => "Rate our product!"
+	};
 }
