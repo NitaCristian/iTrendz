@@ -1,19 +1,30 @@
 ﻿@page "/mycampaigns"
 <MudGrid >
 	<MudItem xs="4">
-        <MudCard Elevation="3">
-			<MudCardMedia Image="https://picsum.photos/200" Height="165" />
-            <MudCardContent>
-				<MudText Typo="Typo.h5" Class="text-center" Style="text-align: center" Icon="@Icons.Material.Filled.Folder">Nume Campanie</MudText>
-				<MudList T="string">
-					<MudListItem Text="Aici o sa aduag cateva idei despre acesta campanie." Icon="@Icons.Material.Filled.ArrowRight" />
-					<MudListItem Text="Aici o sa aduag cateva idei despre acesta campanie." Icon="@Icons.Material.Filled.ArrowRight" />
-					<MudListItem Text="Aici o sa aduag cateva idei despre acesta campanie." Icon="@Icons.Material.Filled.ArrowRight" />
-					
-				</MudList>
-            </MudCardContent>
-		
-        </MudCard>
+		<MudCard Elevation="1" Style="position: relative;">
+			<div Style="position: relative; height: 165px;">
+				<MudCardMedia Image="https://picsum.photos/200" Height="165" Style="width: 100%; height: 100%;" />
+
+				<!-- Butoanele de sus peste imagine -->
+				<MudFab Color="Color.Primary" StartIcon=@Icons.Material.Filled.PushPin Size="Size.Small"
+						Style="position: absolute; right: 10px; top: 10px; z-index: 10;" />
+			</div>
+
+			<MudCardContent Style="position: relative;">
+				<MudText Typo="Typo.h5" Class="text-center" Style="text-align: center; margin-bottom: 20px;">Munte</MudText>
+				<MudText Typo="Typo.body2">Campanie la munte cu elemente dinamice si peisaje</MudText>
+				<MudText Typo="Typo.body2">Include cascadori, efecte speciale, actori si influenceri</MudText>
+				<MudText Typo="Typo.body2" Style="margin-bottom: 20px;">Este cea mai de succes campanie.</MudText>
+
+				<!-- Butoanele în colțuri opuse -->
+				<div Style="display: flex; justify-content: space-between;">
+					<MudFab Color="Color.Secondary" StartIcon=@Icons.Material.Filled.Delete Size="Size.Small" />
+					<MudFab Color="Color.Tertiary" StartIcon=@Icons.Material.Filled.Edit Size="Size.Small" />
+				</div>
+			</MudCardContent>
+		</MudCard>
+
+
 
 	</MudItem>
 
@@ -37,12 +48,12 @@
 				<MudText Typo="Typo.body2">Aici o sa aduag cateva idei despre acesta campanie.</MudText>
 				<MudText Typo="Typo.body2">Aici o sa aduag cateva idei despre acesta campanie.</MudText>
 				<MudText Typo="Typo.body2">Aici o sa aduag cateva idei despre acesta campanie.</MudText>
-				<MudStack Row="true">
-					<MudFab Color="Color.Primary" StartIcon=@Icons.Material.Filled.Edit Size="Size.Small" />
+
+				    <MudFab Color="Color.Primary" StartIcon=@Icons.Material.Filled.Edit Size="Size.Small" />
 					<MudFab Color="Color.Primary" StartIcon=@Icons.Material.Filled.Delete Size="Size.Small" />
 					<MudFab Color=" Color.Primary" StartIcon=@Icons.Material.Filled.PushPin Size="Size.Small" />
 					
-				</MudStack>
+
 			</MudCardContent>
 			
 			
