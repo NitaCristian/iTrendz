@@ -12,11 +12,22 @@
 
         <MudDataGrid Items="@employees" Filterable="false" SortMode="@SortMode.None" Groupable="false">
             <Columns>
+                <!-- Coloană cu imaginea rotundă -->
+                <TemplateColumn>
+                    <CellTemplate>
+                        <MudImage Src="https://picsum.photos/50" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2" />
+                    </CellTemplate>
+                </TemplateColumn>
+
+                <!-- Coloană cu numele angajatului -->
                 <PropertyColumn Property="x => x.Name" />
+
+                <!-- Celelalte coloane -->
                 <PropertyColumn Property="x => x.Advertise_name" Title="Advertise Name" />
                 <PropertyColumn Property="x => x.MonthsEmployed" Title="Months Employed" />
                 <PropertyColumn Property="x => x.Salary" Format="C" />
                 <PropertyColumn Property="x => x.Status" Title="Status" />
+
                 <TemplateColumn CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudStack Row>
