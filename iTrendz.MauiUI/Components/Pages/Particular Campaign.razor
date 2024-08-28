@@ -1,0 +1,53 @@
+﻿@page "/particular-campaign"
+@using System.Net.Http.Json
+
+@inject HttpClient httpClient
+
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+    <MudTabPanel Text="Tab One">
+        <MudText>Content One</MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="Tab Two">
+        <MudText>Content Two</MudText>
+
+        <MudDataGrid Items="@employees" Filterable="false" SortMode="@SortMode.None" Groupable="false">
+            <Columns>
+                <PropertyColumn Property="x => x.Name" />
+                <PropertyColumn Property="x => x.Advertise_name" Title="Advertise Name" />
+                <PropertyColumn Property="x => x.MonthsEmployed" Title="Months Employed" />
+                <PropertyColumn Property="x => x.Salary" Format="C" />
+                <PropertyColumn Property="x => x.Status" Title="Status" />
+                <TemplateColumn CellClass="d-flex justify-end">
+                    <CellTemplate>
+                        <MudStack Row>
+                            <MudRating Size="@Size.Small" SelectedValue="@context.Item.Rating" />
+                            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary">Hire</MudButton>
+                        </MudStack>
+                    </CellTemplate>
+                </TemplateColumn>
+            </Columns>
+        </MudDataGrid>
+    </MudTabPanel>
+    <MudTabPanel Text="Tab Three">
+        <MudText>Content Three</MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="Tab Disabled" Disabled="true">
+        <MudText>Content Disabled</MudText>
+    </MudTabPanel>
+</MudTabs>
+
+@code {
+    public record Employee(string Name, string Advertise_name, int MonthsEmployed, int Salary, string Status, int Rating);
+    public IEnumerable<Employee> employees;
+
+    protected override void OnInitialized()
+    {
+        employees = new List<Employee>
+        {
+            new Employee("Sam", "CPA", 276, 87_000, "Active", 4),
+            new Employee("Alicia", "Product Manager", 132, 143_000, "On Leave", 5),
+            new Employee("Ira", "Developer", 48, 92_000, "Active", 3),
+            new Employee("John", "IT Director", 204, 229_000, "Retired", 4),
+        };
+    }
+}
