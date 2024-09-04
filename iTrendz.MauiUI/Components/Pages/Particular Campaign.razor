@@ -4,61 +4,79 @@
 @inject HttpClient httpClient
 
 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
-    <MudTabPanel Text="Tab One">
-        <MudText>Content One</MudText>
-    </MudTabPanel>
-    <MudTabPanel Text="Tab Two">
-        <MudText>Content Two</MudText>
+	<MudTabPanel Text="Overview">
+		<MudText>Content that should appear in an overview page.</MudText>
+	</MudTabPanel>
 
-        <MudDataGrid Items="@employees" Filterable="false" SortMode="@SortMode.None" Groupable="false">
-            <Columns>
-                <!-- Coloană cu imaginea rotundă -->
-                <TemplateColumn>
-                    <CellTemplate>
-                        <MudImage Src="https://picsum.photos/50" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2" />
-                    </CellTemplate>
-                </TemplateColumn>
+	<MudTabPanel Text="Influencers">
+		<MudDataGrid Items="@employees" Filterable="true" QuickFilter="_quickFilter" SortMode="@SortMode.None" Groupable="false">
+			<ToolBarContent>
+				<MudText Typo="Typo.h6">Periodic Elements</MudText>
+				<MudSpacer />
+				<MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+			</ToolBarContent>
+			<Columns>
+				<TemplateColumn Title="Name">
+					<CellTemplate>
+						<div class="d-flex flex-row align-center">
+							<MudImage Src="@context.Item.AvatarURL" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2" />
+							<MudText>@context.Item.Name</MudText>
+						</div>
+					</CellTemplate>
+				</TemplateColumn>
 
-                <!-- Coloană cu numele angajatului -->
-                <PropertyColumn Property="x => x.Name" />
+				<PropertyColumn Property="x => x.MonthsEmployed" Title="Followers" />
+				<PropertyColumn Property="x => x.Salary" Format="Price" />
+				<PropertyColumn Property="x => x.Status" Title="Status" />
+				<PropertyColumn Property="x => x.Salary" Format="Location" />
 
-                <!-- Celelalte coloane -->
-                <PropertyColumn Property="x => x.Advertise_name" Title="Advertise Name" />
-                <PropertyColumn Property="x => x.MonthsEmployed" Title="Months Employed" />
-                <PropertyColumn Property="x => x.Salary" Format="C" />
-                <PropertyColumn Property="x => x.Status" Title="Status" />
+				<TemplateColumn Title="Rating">
+					<CellTemplate>
+						<MudRating Size="@Size.Small" SelectedValue="@context.Item.Rating" />
+					</CellTemplate>
+				</TemplateColumn>
 
-                <TemplateColumn CellClass="d-flex justify-end">
-                    <CellTemplate>
-                        <MudStack Row>
-                            <MudRating Size="@Size.Small" SelectedValue="@context.Item.Rating" />
-                            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary">Hire</MudButton>
-                        </MudStack>
-                    </CellTemplate>
-                </TemplateColumn>
-            </Columns>
-        </MudDataGrid>
-    </MudTabPanel>
-    <MudTabPanel Text="Tab Three">
-        <MudText>Content Three</MudText>
-    </MudTabPanel>
-    <MudTabPanel Text="Tab Disabled" Disabled="true">
-        <MudText>Content Disabled</MudText>
-    </MudTabPanel>
+				<TemplateColumn>
+					<CellTemplate>
+						<MudIconButton Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" />
+					</CellTemplate>
+				</TemplateColumn>
+			</Columns>
+		</MudDataGrid>
+	</MudTabPanel>
+	<MudTabPanel Text="Insights">
+		<MudText>Here we should have insights about the campian like reach, engagement, views, likes, conversions, comments, shares</MudText>
+	</MudTabPanel>
 </MudTabs>
 
 @code {
-    public record Employee(string Name, string Advertise_name, int MonthsEmployed, int Salary, string Status, int Rating);
-    public IEnumerable<Employee> employees;
+	private string _searchString;
 
-    protected override void OnInitialized()
-    {
-        employees = new List<Employee>
-        {
-            new Employee("Sam", "CPA", 276, 87_000, "Active", 4),
-            new Employee("Alicia", "Product Manager", 132, 143_000, "On Leave", 5),
-            new Employee("Ira", "Developer", 48, 92_000, "Active", 3),
-            new Employee("John", "IT Director", 204, 229_000, "Retired", 4),
-        };
-    }
+	public record Employee(string Name, string AvatarURL, string Advertise_name, int MonthsEmployed, int Salary, string Status, int Rating);
+
+	public IEnumerable<Employee> employees;
+
+	protected override void OnInitialized()
+	{
+		employees = new List<Employee>
+		{
+			new Employee("Sam", "https://picsum.photos/200", "CPA", 276, 87_000, "Active", 4),
+			new Employee("Alicia","https://picsum.photos/200", "Product Manager", 132, 143_000, "On Leave", 5),
+			new Employee("Ira", "https://picsum.photos/200", "Developer", 48, 92_000, "Active", 3),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+		};
+	}
+
+	private Func<Employee, bool> _quickFilter => x =>
+	{
+		if (string.IsNullOrWhiteSpace(_searchString))
+			return true;
+
+		if (x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+			return true;
+
+		return false;
+	};
+
 }
