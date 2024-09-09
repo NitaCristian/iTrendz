@@ -53,26 +53,42 @@
 		<MudText>Here we should have insights about the campian like reach, engagement, views, likes, conversions, comments, shares</MudText>
 		<MudGrid>
 			<MudItem xs="5">
-				
-				<MudCard>
-					<div class="d-flex flex-row align-left">
-					<MudCardContent>
-						<MudText Typo="Typo.h6" Class="mt-3" Style="text-align: left">Organic Reach</MudText>
-						<MudStack Row="true">
-						<MudText Typo="Typo.h4" Class="mt-3" Style="text-align: left">250k/</MudText>
-						<MudText Typo="Typo.h6" Class="mt-3" Style="text-align: left">500k</MudText>
-						</MudStack>
-					</MudCardContent>
-						</div>
-						<div class="d-flex flex-row align-right">
-						<MudChart ChartType="ChartType.Donut" Width="50px" Height="50px" InputData="@data" InputLabels="@labels">
-							<CustomGraphics>
-								<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">@data.Sum().ToString()%</text>
-							</CustomGraphics>
-						</MudChart>
-						</div>
-				</MudCard>
-				
+				<div class="d-flex justify-between align-center mt-5">
+					<MudCard >
+						<MudCardContent>
+							<div class="d-flex justify-start align-start">
+								<!-- Textul din stânga -->
+								<div class="d-flex flex-column">
+									<!-- Textul de sus - Organic Reach -->
+									<MudStack Wrap="Wrap.Wrap" Spacing="6">
+
+									<MudText Typo="Typo.h5" Class="mb-2" Style="font-size: 15px;">Organic Reach</MudText>
+										<MudFlexBreak />
+
+									<!-- Textul de jos - 250k/500k -->
+									<MudStack Row="true">
+										<MudText Typo="Typo.h4" Style="display: inline-block; margin-right: 4px;">250k/</MudText>
+										<MudText Typo="Typo.h5" Style="display: inline-block; font-size: 12px;">500k</MudText>
+									</MudStack>
+
+									</MudStack>
+								</div>
+
+								<!-- Diagrama din dreapta -->
+								<div class="ml-auto">
+									<MudChart ChartType="ChartType.Donut" Width="70px" Height="70px" InputData="@data" InputLabels="@labels">
+										<CustomGraphics>
+											<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
+												@data.Sum().ToString()%
+											</text>
+										</CustomGraphics>
+									</MudChart>
+								</div>
+							</div>
+						</MudCardContent>
+					</MudCard>
+				</div>
+
 			</MudItem>
 			<MudItem xs="5">
 				<MudCard>
@@ -93,8 +109,8 @@
 
 @code {
 	
-		public double[] data = { 25, 77, 28, 5 };
-		public string[] labels = { "Oil", "Coal", "Gas", "Biomass" };
+		public double[] data = { 28, 5 };
+		public string[] labels = {  "Gas", "Biomass" };
 	
 	private string _searchString;
 
