@@ -47,25 +47,57 @@
 				<MudDataGridPager T="Employee" />
 			</PagerContent>
 		</MudDataGrid>
-		
+
 	</MudTabPanel>
 	<MudTabPanel Text="Insights">
 		<MudText>Here we should have insights about the campian like reach, engagement, views, likes, conversions, comments, shares</MudText>
 		<MudGrid>
-		<MudItem xs="5">
+			<MudItem xs="5">
+				
 				<MudCard>
-					<MudText > </MudText>
+					<div class="d-flex flex-row align-left">
+					<MudCardContent>
+						<MudText Typo="Typo.h6" Class="mt-3" Style="text-align: left">Organic Reach</MudText>
+						<MudStack Row="true">
+						<MudText Typo="Typo.h4" Class="mt-3" Style="text-align: left">250k/</MudText>
+						<MudText Typo="Typo.h6" Class="mt-3" Style="text-align: left">500k</MudText>
+						</MudStack>
+					</MudCardContent>
+						</div>
+						<div class="d-flex flex-row align-right">
+						<MudChart ChartType="ChartType.Donut" Width="50px" Height="50px" InputData="@data" InputLabels="@labels">
+							<CustomGraphics>
+								<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">@data.Sum().ToString()%</text>
+							</CustomGraphics>
+						</MudChart>
+						</div>
 				</MudCard>
-		</MudItem>
+				
+			</MudItem>
+			<MudItem xs="5">
+				<MudCard>
+					<MudText Typo="Typo.h6" Class="mt-3" Style="text-align: left">Organic Engagement</MudText>
+				</MudCard>
+			</MudItem>
+			<MudItem xs="2">
+				<MudCard>
+					<MudText Typo="Typo.h6" Class="text-center mt-3" Style="text-align: center">Total Post</MudText>
+					<MudText Typo="Typo.h6" Class="text-center mt-3" Style="text-align: center">Total Creators</MudText>
+				</MudCard>
+			</MudItem>
 
 		</MudGrid>
-	
+
 	</MudTabPanel>
 </MudTabs>
 
 @code {
-	private string _searchString;
 	
+		public double[] data = { 25, 77, 28, 5 };
+		public string[] labels = { "Oil", "Coal", "Gas", "Biomass" };
+	
+	private string _searchString;
+
 
 	public record Employee(string Name, string AvatarURL, string Advertise_name, int MonthsEmployed, int Salary, string Status, int Rating);
 
