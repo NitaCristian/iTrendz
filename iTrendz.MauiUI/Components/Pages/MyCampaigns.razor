@@ -1,0 +1,73 @@
+﻿@page "/campaigns"
+@inject NavigationManager Navigation
+@inject ICampaignService CampaignService
+
+@if (Campaigns is null)
+{
+    <MudText Align="Align.Center">Loading data...</MudText>
+}
+else if (!Campaigns.Any())
+{
+    <MudText Align="Align.Center">No campaigns found!</MudText>
+}
+else
+{
+    <MudGrid Spacing="2">
+        @foreach (var campaign in Campaigns)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <MudCard Elevation="1" Class="relative" OnClick="NavigateToPage">
+                    <div class="relative" Style="height: 165px;">
+                        <MudCardMedia Image=@campaign.ImageURL Height="165" Style="width: 100%; height: 100%;"/>
+                        <MudFab Color="Color.Primary" StartIcon=@Icons.Material.Filled.PushPin Size="Size.Small"
+                                Class="absolute" Style="right: 10px; top: 10px; z-index: 10;" OnClick="() => PinCampaign(campaign.Id)"/>
+                    </div>
+
+                    <MudCardContent Class="relative">
+                        <MudText Typo="Typo.h5" Style="text-align: center; margin-bottom: 20px;">@campaign.Title</MudText>
+                        <MudText Typo="Typo.body2">@campaign.Description</MudText>
+
+                        <div class="d-flex justify-space-between">
+                            <MudFab Color="Color.Secondary" StartIcon=@Icons.Material.Filled.Delete Size="Size.Small" OnClick="() => DeleteCampaign(campaign.Id)"/>
+                            <MudFab Color="Color.Tertiary" StartIcon=@Icons.Material.Filled.Edit Size="Size.Small" OnClick="() => EditCampaign(campaign.Id)"/>
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+}
+
+@code {
+    private IEnumerable<Campaign>? Campaigns;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Campaigns = await CampaignService.GetCampaignsAsync();
+    }
+
+    private async Task DeleteCampaign(int campaignId)
+    {
+        var isDeleted = await CampaignService.DeleteCampaignAsync(campaignId);
+        // TODO: If the campaign was not deleted, log the error and display a message
+        RefreshPage();
+    }
+
+    private void EditCampaign(int campaignId)
+    {
+        Navigation.NavigateTo($"campaigns/{campaignId}");
+    }
+
+    private async Task PinCampaign(int campaignId)
+    {
+        var isToggled = await CampaignService.TogglePinCampaignAsync(campaignId);
+        // TODO: If the campaign's pinned status was not changed, log the error and display a message
+        RefreshPage();
+    }
+
+    private void RefreshPage()
+    {
+        Navigation.NavigateTo(Navigation.Uri, true);
+    }
+
+}

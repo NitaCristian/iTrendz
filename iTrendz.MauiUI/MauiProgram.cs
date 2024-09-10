@@ -29,6 +29,11 @@ public static class MauiProgram
             var logger = sp.GetRequiredService<ILogger<CustomAuthenticationStateProvider>>();
             return new CustomAuthenticationStateProvider(httpClient, logger);
         });
+        builder.Services.AddScoped<ICampaignService, CampaignService>(sp =>
+        {
+            var httpClient = sp.GetRequiredService<HttpClient>();
+            return new CampaignService(httpClient);
+        });
 
         builder.Services.AddScoped<ICreatorService, CreatorService>(sp =>
         {
