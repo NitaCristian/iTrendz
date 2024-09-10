@@ -73,7 +73,7 @@
 
 								<!-- Diagrama din dreapta -->
 								<div class="ml-auto">
-									<MudChart ChartType="ChartType.Donut" Width="80px" Height="80px" InputData="@data" InputLabels="@labels">
+									<MudChart  ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="80px" Height="80px" InputData="@data" >
 										<CustomGraphics>
 											<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
 												@data.Sum().ToString()%
@@ -88,41 +88,40 @@
 
 			</MudItem>
 			<MudItem xs="5">
-				
-					<div class="d-flex justify-between align-center mt-5">
-						<MudCard>
-							<MudCardContent>
-								<div class="d-flex justify-start align-start">
-									<!-- Textul din stânga -->
-									<div class="d-flex flex-column">
-										<!-- Textul de sus - Organic Reach -->
-										<MudStack Wrap="Wrap.Wrap" Spacing="6">
+				<div class="d-flex justify-between align-center mt-5">
+					<MudCard>
+						<MudCardContent>
+							<div class="d-flex justify-start align-start">
+								<!-- Textul din stânga -->
+								<div class="d-flex flex-column">
+									<!-- Textul de sus - Organic Reach -->
+									<MudStack Wrap="Wrap.Wrap" Spacing="6">
 
-											<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Engagement</MudText>
-											<MudFlexBreak />
+										<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Engagement</MudText>
+										<MudFlexBreak />
 
-											<!-- Textul de jos - 250k/500k -->
-											<MudText Typo="Typo.h5" Style="display: inline-block; margin-right: 4px;">250k/500k</MudText>
+										<!-- Textul de jos - 250k/500k -->
+										<MudText Typo="Typo.h5" Style="display: inline-block; margin-right: 4px;">250k/500k</MudText>
 
-										</MudStack>
-									</div>
-
-									<!-- Diagrama din dreapta -->
-									<div class="ml-auto">
-										<MudChart ChartType="ChartType.Donut" Width="80px" Height="80px" InputData="@data" InputLabels="@labels">
-											<CustomGraphics>
-												<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
-													@data.Sum().ToString()%
-												</text>
-											</CustomGraphics>
-										</MudChart>
-									</div>
+									</MudStack>
 								</div>
-							</MudCardContent>
-						</MudCard>
-					</div>
-				
+
+								<!-- Diagrama din dreapta -->
+								<div class="ml-auto">
+									<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="80px" Height="80px" InputData="@data">
+										<CustomGraphics>
+											<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
+												@data.Sum().ToString()%
+											</text>
+										</CustomGraphics>
+									</MudChart>
+								</div>
+							</div>
+						</MudCardContent>
+					</MudCard>
+				</div>
 			</MudItem>
+
 			<MudItem xs="2">
 				<MudCard>
 					<MudStack Spacing="2" AlignItems="AlignItems.Center" JustifyContent="Center">
@@ -148,7 +147,7 @@
 @code {
 	
 		public double[] data = { 28, 5 };
-		public string[] labels = {  "Gas", "Biomass" };
+		
 	
 	private string _searchString;
 
