@@ -6,35 +6,27 @@
 
 <div class="login-container">
     <div class="login-header">
-        <h3>Login to Access iTrendz</h3>
+        <MudText Typo="Typo.h5">Login to iTrendz</MudText>
     </div>
 
     <EditForm Model="@_loginModel" OnValidSubmit="@HandleValidSubmit">
         <DataAnnotationsValidator/>
-        <ValidationSummary/>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <InputText id="username" @bind-Value="_loginModel.Username" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <InputText id="password" type="password" @bind-Value="_loginModel.Password" class="form-control"/>
-        </div>
-        <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary w-100">Login Now</button>
+
+        <MudTextField Label="Username" HelperText="Max. 8 characters" @bind-Value="_loginModel.Username" For="@(() => _loginModel.Username)"/>
+
+        <MudTextField Label="Password" HelperText="Choose a strong password" @bind-Value="_loginModel.Password" For="@(() => _loginModel.Password)"/>
+
+        <div class="d-flex justify-center my-6">
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Login Now</MudButton>
         </div>
     </EditForm>
-
-    <div class="social-login-btns mt-3">
-        <button class="btn btn-outline-primary w-100">
-            <img src="images/facebook-logo.png" alt="Facebook" class="social-icon"> Continue with Facebook
-        </button>
-        <button class="btn btn-outline-danger w-100">
-            <img src="images/instagram-logo.png" alt="Instagram" class="social-icon"> Continue with Instagram
-        </button>
-        <button class="btn btn-outline-dark w-100">
-            <img src="images/tiktok-logo.png" alt="TikTok" class="social-icon"> Continue with TikTok
-        </button>
+    
+    <div class="d-flex flex-row justify-center">
+        <MudStack Row="true" Spacing="3">
+            <MudIconButton Icon="@Icons.Custom.Brands.Facebook" Color="Color.Primary" aria-label="facebook"/>
+            <MudIconButton Icon="@Icons.Custom.Brands.Instagram" Color="Color.Primary" aria-label="instagram"/>
+            <MudIconButton Icon="@Icons.Custom.Brands.TikTok" Color="Color.Primary" aria-label="tiktok"/>
+        </MudStack>
     </div>
 
     <div class="login-footer mt-3">
