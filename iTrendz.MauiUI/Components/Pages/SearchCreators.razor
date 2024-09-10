@@ -114,51 +114,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.CompletedTask;
-        //Creators = await CreatorService.GetAllCreatorsAsync();
-        AllCreators = new List<Influencer>
-        {
-            new()
-            {
-                Id = 1,
-                Name = "Sophia Martinez",
-                Domain = "Lifestyle",
-                Rating = 4,
-                ImageUrl = "https://picsum.photos/200/300?random=1"
-            },
-            new()
-            {
-                Id = 2,
-                Name = "Liam Johnson",
-                Domain = "Technology",
-                Rating = 4,
-                ImageUrl = "https://picsum.photos/200/300?random=2"
-            },
-            new()
-            {
-                Id = 3,
-                Name = "Olivia Brown",
-                Domain = "Fitness",
-                Rating = 4,
-                ImageUrl = "https://picsum.photos/200/300?random=3"
-            },
-            new()
-            {
-                Id = 4,
-                Name = "Noah Smith",
-                Domain = "Travel",
-                Rating = 4,
-                ImageUrl = "https://picsum.photos/200/300?random=4"
-            },
-            new()
-            {
-                Id = 5,
-                Name = "Emma Wilson",
-                Domain = "Food",
-                Rating = 4,
-                ImageUrl = "https://picsum.photos/200/300?random=5"
-            }
-        };
+        AllCreators = await CreatorService.GetAllCreatorsAsync();
         FilteredCreators = AllCreators;
     }
 
