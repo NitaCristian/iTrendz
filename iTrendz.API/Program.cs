@@ -8,6 +8,7 @@ using System.Text;
 using iTrendz.Api.Authentication;
 using iTrendz.API.Context;
 using iTrendz.API.Entities;
+using iTrendz.API.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,8 @@ services.AddIdentityCore<Brand>()
 
 services.AddIdentityCore<Influencer>()
     .AddEntityFrameworkStores<TrendzDbContext>();
+
+services.AddScoped<CampaignService>();
 
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(options =>
