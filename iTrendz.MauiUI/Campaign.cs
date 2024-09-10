@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using iTrendz.Api.Authentication;
-
-namespace iTrendz.API.Entities;
+﻿namespace iTrendz.MauiUI;
 
 public class Campaign
 {
@@ -11,8 +8,6 @@ public class Campaign
     public string Description { get; set; }
     public double AllocatedBudget { get; set; }
     public int BrandId { get; set; }
-    public Brand Brand { get; set; }
     public DateOnly StartTime { get; set; }
     public DateOnly DateTime { get; set; }
-    public ICollection<Contract>? Contracts { get; set; }
 }
