@@ -35,6 +35,12 @@ public static class MauiProgram
             return new CampaignService(httpClient);
         });
 
+        builder.Services.AddScoped<ICreatorService, CreatorService>(sp =>
+        {
+            var httpClient = sp.GetRequiredService<HttpClient>();
+            return new CreatorService(httpClient);
+        });
+
         return builder.Build();
     }
 }
