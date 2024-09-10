@@ -5,6 +5,7 @@ namespace iTrendz.Api.Authentication;
 
 public class User : IdentityUser<int>
 {
+    public string Name { get; set; }
     public string? Description { get; set; }
     public string? Domain { get; set; }
     public string? WebsiteUrl { get; set; }

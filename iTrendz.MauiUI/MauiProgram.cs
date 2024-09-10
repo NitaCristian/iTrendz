@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
+
 namespace iTrendz.MauiUI;
 
 public static class MauiProgram
@@ -27,6 +28,12 @@ public static class MauiProgram
             var httpClient = sp.GetRequiredService<HttpClient>();
             var logger = sp.GetRequiredService<ILogger<CustomAuthenticationStateProvider>>();
             return new CustomAuthenticationStateProvider(httpClient, logger);
+        });
+
+        builder.Services.AddScoped<ICreatorService, CreatorService>(sp =>
+        {
+            var httpClient = sp.GetRequiredService<HttpClient>();
+            return new CreatorService(httpClient);
         });
 
         return builder.Build();
