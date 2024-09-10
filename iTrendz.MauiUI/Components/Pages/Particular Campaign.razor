@@ -52,7 +52,7 @@
 	<MudTabPanel Text="Insights">
 		<MudText>Here we should have insights about the campian like reach, engagement, views, likes, conversions, comments, shares</MudText>
 		<MudGrid>
-			<MudItem xs="5">
+			<MudItem xs="4">
 				<div class="d-flex justify-between align-center mt-5">
 					<MudCard >
 						<MudCardContent>
@@ -87,7 +87,7 @@
 				</div>
 
 			</MudItem>
-			<MudItem xs="5">
+			<MudItem xs="4">
 				<div class="d-flex justify-between align-center mt-5">
 					<MudCard>
 						<MudCardContent>
@@ -121,23 +121,37 @@
 					</MudCard>
 				</div>
 			</MudItem>
+			<MudItem xs="3">
+				<MudCard Class="pa-4" Style="border-radius: 12px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
 
-			<MudItem xs="2">
-				<MudCard>
-					<MudStack Spacing="2" AlignItems="AlignItems.Center" JustifyContent="Center">
-						<!-- Icon with primary color and slightly bigger size -->
-						<MudIconButton Icon="@Icons.Material.Filled.Image" Color="Color.Primary" Size="Size.Medium" />
 
-						<!-- Adjusted MudStack for text -->
-						<MudStack Row="false" AlignItems="AlignItems.Center">
-							<!-- Total Posts number -->
-							<MudText Typo="Typo.h6" Class="text-center" Style="font-size: 16px;">27</MudText>
-							<!-- Description for Total Posts -->
-							<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 14px;">Total Posts</MudText>
+					<MudStack Row="false" Spacing="3" AlignItems="AlignItems.Center" JustifyContent="SpaceBetween">
+						<!-- First Section: Total Posts -->
+						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="1">
+							<!-- Icon for Total Posts -->
+							<MudIcon Icon="@Icons.Material.Filled.Image" Color="Color.Primary" Size="Size.Large" Class="mb-2" />
+							<!-- Text for Total Posts -->
+							<MudStack Spacing="0">
+							<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 22px; font-weight: 600;">27</MudText>
+							<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 16px; color: #6e6e6e;">Total Posts</MudText>
+							</MudStack>
+						</MudStack>
+
+						<!-- Second Section: Total Creators -->
+						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="1">
+							<!-- Icon for Total Creators -->
+							<MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Primary" Size="Size.Large" Class="mb-2" />
+							<!-- Text for Total Creators -->
+							<MudStack Spacing="0">
+							<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 22px; font-weight: 600;">27</MudText>
+							<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 16px; color: #6e6e6e;">Total Creators</MudText>
+							</MudStack>
 						</MudStack>
 					</MudStack>
 				</MudCard>
 			</MudItem>
+
+
 
 		</MudGrid>
 
