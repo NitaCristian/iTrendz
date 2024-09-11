@@ -3,65 +3,65 @@
 @inject HttpClient Http
 
 <div class="register-container">
-	<div class="register-header">
-		<MudText Typo="Typo.h5">Create Your iTrendz Account</MudText>
-		<MudText>Join us today and start exploring!</MudText>
-	</div>
+    <div class="register-header">
+        <MudText Typo="Typo.h5">Create Your iTrendz Account</MudText>
+        <MudText>Join us today and start exploring!</MudText>
+    </div>
 
-	<EditForm Model="@_registerModel" OnValidSubmit="@HandleValidSubmit">
-		<DataAnnotationsValidator />
+    <EditForm Model="@_registerModel" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator/>
 
-		<MudTextField Label="Username" HelperText="Max. 8 characters" @bind-Value="_registerModel.Username" For="@(() => _registerModel.Username)" />
+        <MudTextField Label="Username" HelperText="Max. 8 characters" @bind-Value="_registerModel.Username" For="@(() => _registerModel.Username)"/>
 
-		<MudTextField Label="Email" HelperText="Enter your email" @bind-Value="_registerModel.Email" For="@(() => _registerModel.Email)" />
+        <MudTextField Label="Email" HelperText="Enter your email" @bind-Value="_registerModel.Email" For="@(() => _registerModel.Email)"/>
 
-		<MudTextField Label="Password" HelperText="Choose a strong password" @bind-Value="_registerModel.Password" For="@(() => _registerModel.Password)" />
+        <MudTextField Label="Password" HelperText="Choose a strong password" @bind-Value="_registerModel.Password" For="@(() => _registerModel.Password)"/>
 
-		<div class="d-flex">
-			<MudRadioGroup T="string">
-				<MudRadio Value="@("Brand")">Brand</MudRadio>
-				<MudRadio Value="@("Influencer")">Influencer</MudRadio>
-			</MudRadioGroup>
-		</div>
+        <div class="d-flex">
+            <MudRadioGroup T="string">
+                <MudRadio Value="@("Brand")">Brand</MudRadio>
+                <MudRadio Value="@("Influencer")">Influencer</MudRadio>
+            </MudRadioGroup>
+        </div>
 
-		<MudTextField Label="Description" HelperText="Say something about yourself" AutoGrow @bind-Value="_registerModel.Description" For="@(() => _registerModel.Description)" />
+        <MudTextField Label="Description" HelperText="Say something about yourself" AutoGrow @bind-Value="_registerModel.Description" For="@(() => _registerModel.Description)"/>
 
-		<div class="d-flex justify-center my-6">
-			<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Register Now</MudButton>
-		</div>
+        <div class="d-flex justify-center my-6">
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Register Now</MudButton>
+        </div>
 
-	</EditForm>
+    </EditForm>
 
-	<div class="d-flex flex-row justify-center">
-		<MudStack Row="true" Spacing="3">
-			<MudIconButton Icon="@Icons.Custom.Brands.Facebook" Color="Color.Primary" aria-label="facebook" />
-			<MudIconButton Icon="@Icons.Custom.Brands.Instagram" Color="Color.Primary" aria-label="instagram" />
-			<MudIconButton Icon="@Icons.Custom.Brands.TikTok" Color="Color.Primary" aria-label="tiktok" />
-		</MudStack>
-	</div>
+    <div class="d-flex flex-row justify-center">
+        <MudStack Row="true" Spacing="3">
+            <MudIconButton Icon="@Icons.Custom.Brands.Facebook" Color="Color.Primary" aria-label="facebook"/>
+            <MudIconButton Icon="@Icons.Custom.Brands.Instagram" Color="Color.Primary" aria-label="instagram"/>
+            <MudIconButton Icon="@Icons.Custom.Brands.TikTok" Color="Color.Primary" aria-label="tiktok"/>
+        </MudStack>
+    </div>
 
-	<div class="register-footer mt-3">
-		<p>Already have an account? <a href="/login" class="login-link">Login here</a></p>
-	</div>
+    <div class="register-footer mt-3">
+        <p>Already have an account? <a href="/login" class="login-link">Login here</a></p>
+    </div>
 </div>
 
 @code {
-	private readonly RegisterViewModel _registerModel = new();
+    private readonly RegisterViewModel _registerModel = new();
 
-	private async Task HandleValidSubmit()
-	{
-		try
-		{
-			var response = await Http.PostAsJsonAsync("https://localhost:7061/api/authentication/register", _registerModel);
-			if (response.IsSuccessStatusCode)
-			{
-				Navigation.NavigateTo("/login");
-			}
-		}
-		catch (Exception e)
-		{
-			// Process error here
-		}
-	}
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("https://localhost:7061/api/authentication/register", _registerModel);
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/login");
+            }
+        }
+        catch (Exception e)
+        {
+            // Process error here
+        }
+    }
 
 }

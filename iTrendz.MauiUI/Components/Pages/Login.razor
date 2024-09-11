@@ -1,5 +1,4 @@
 ﻿@page "/login"
-@using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider;
 @inject NavigationManager Navigation;
 @inject HttpClient Http
@@ -42,7 +41,7 @@
         var response = await Http.PostAsJsonAsync("https://localhost:7061/api/authentication/login", _loginModel);
         if (response.IsSuccessStatusCode)
         {
-            var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
+            var result = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
             await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).Login(result.JwtToken, result.Expiration, result.RefreshToken);
             Navigation.NavigateTo("/");
         }
