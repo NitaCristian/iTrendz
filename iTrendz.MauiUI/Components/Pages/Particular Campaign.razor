@@ -50,7 +50,6 @@
 
 	</MudTabPanel>
 	<MudTabPanel Text="Insights">
-		<MudText>Here we should have insights about the campian like reach, engagement, views, likes, conversions, comments, shares</MudText>
 		<MudGrid>
 			<MudItem xs="4">
 				<div class="d-flex justify-between align-center mt-5">
@@ -122,29 +121,29 @@
 				</div>
 			</MudItem>
 			<MudItem xs="3">
-				<MudCard Class="pa-4" Style="border-radius: 12px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+				<MudCard Class="pa-4" Style="box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
 
 
 					<MudStack Row="false" Spacing="3" AlignItems="AlignItems.Center" JustifyContent="SpaceBetween">
 						<!-- First Section: Total Posts -->
 						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="2">
 							<!-- Icon for Total Posts -->
-							<MudIcon Icon="@Icons.Material.Filled.Image" Color="Color.Primary" Size="Size.Large" Class="mb-2" />
+							<MudIcon Icon="@Icons.Material.Filled.Image" Color="Color.Primary" Size="Size.Medium"  />
 							<!-- Text for Total Posts -->
 							<MudStack Spacing="0">
-							<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 22px; font-weight: 600;">27</MudText>
-							<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 16px; color: #6e6e6e;">Total Posts</MudText>
+							<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 15px; font-weight: 600;">27</MudText>
+							<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">Total Posts</MudText>
 							</MudStack>
 						</MudStack>
 
 						<!-- Second Section: Total Creators -->
 						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="2">
 							<!-- Icon for Total Creators -->
-							<MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Primary" Size="Size.Large" Class="mb-2" />
+							<MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Primary" Size="Size.Medium"  />
 							<!-- Text for Total Creators -->
 							<MudStack Spacing="0">
-							<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 22px; font-weight: 600;">27</MudText>
-							<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 16px; color: #6e6e6e;">Total Creators</MudText>
+							<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 15px; font-weight: 600;">27</MudText>
+							<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">Total Creators</MudText>
 							</MudStack>
 						</MudStack>
 					</MudStack>
@@ -153,9 +152,124 @@
 
 
 			<MudItem xs="3">
-				<MudCard>
+				<div class="d-flex justify-between align-center mt-5">
+					<MudCard>
+						<MudCardContent>
+							<div class="d-flex justify-start align-start">
+								<!-- Textul din stânga -->
+								<div class="d-flex flex-column">
+									<!-- Textul de sus - Organic Reach -->
+									<MudStack Wrap="Wrap.Wrap" Spacing="1" >
 
-				</MudCard>
+										<MudText Typo="Typo.h6" Style="font-size: 10px;font-weight: 200">Views</MudText>
+										
+
+										<!-- Textul de jos - 250k/500k -->
+										<MudText Typo="Typo.h4" Style="display: inline-block; margin-right: 30px;font-size:25px;font-weight: 500;">13.1k</MudText>
+
+									</MudStack>
+								</div>
+
+								<!-- Diagrama din dreapta -->
+								<div class="ml-auto">
+									
+									<MudIcon Icon ="@Icons.Material.Filled.RemoveRedEye" Color="Color.Tertiary"Size="Size.Medium" />
+
+								</div>
+							</div>
+						</MudCardContent>
+					</MudCard>
+				</div>
+			</MudItem>
+			<MudItem xs="3">
+				<div class="d-flex justify-between align-center mt-5">
+					<MudCard>
+						<MudCardContent>
+							<div class="d-flex justify-start align-start">
+								<!-- Textul din stânga -->
+								<div class="d-flex flex-column">
+									<!-- Textul de sus - Organic Reach -->
+									<MudStack Wrap="Wrap.Wrap" Spacing="1">
+
+										<MudText Typo="Typo.h6" Style="font-size: 10px;font-weight: 200">Likes</MudText>
+
+
+										<!-- Textul de jos - 250k/500k -->
+										<MudText Typo="Typo.h4" Style="display: inline-block; margin-right: 30px;font-size:25px;font-weight: 500;">9.1k</MudText>
+
+									</MudStack>
+								</div>
+
+								<!-- Diagrama din dreapta -->
+								<div class="ml-auto">
+
+									<MudIcon Icon="@Icons.Material.Rounded.HeartBroken" Color="Color.Secondary" Size="Size.Medium" />
+
+								</div>
+							</div>
+						</MudCardContent>
+					</MudCard>
+				</div>
+			</MudItem>
+			<MudItem xs="3">
+				<div class="d-flex justify-between align-center mt-5">
+					<MudCard>
+						<MudCardContent>
+							<div class="d-flex justify-start align-start">
+								<!-- Textul din stânga -->
+								<div class="d-flex flex-column">
+									<!-- Textul de sus - Organic Reach -->
+									<MudStack Wrap="Wrap.Wrap" Spacing="1">
+
+										<MudText Typo="Typo.h6" Style="font-size: 10px;font-weight: 200">Comments</MudText>
+
+
+										<!-- Textul de jos - 250k/500k -->
+										<MudText Typo="Typo.h4" Style="display: inline-block; margin-right: 30px;font-size:25px;font-weight: 500;">10.12k</MudText>
+
+									</MudStack>
+								</div>
+
+								<!-- Diagrama din dreapta -->
+								<div class="ml-auto">
+
+									<MudIcon Icon="@Icons.Material.Rounded.Comment" Color="Color.Secondary" Size="Size.Medium" />
+
+								</div>
+							</div>
+						</MudCardContent>
+					</MudCard>
+				</div>
+			</MudItem>
+			<MudItem xs="3">
+				<div class="d-flex justify-between align-center mt-5">
+					<MudCard>
+						<MudCardContent>
+							<div class="d-flex justify-start align-start">
+								<!-- Textul din stânga -->
+								<div class="d-flex flex-column">
+									<!-- Textul de sus - Organic Reach -->
+									<MudStack Wrap="Wrap.Wrap" Spacing="1">
+
+										<MudText Typo="Typo.h6" Style="font-size: 10px;font-weight: 200">Shares</MudText>
+
+
+										<!-- Textul de jos - 250k/500k -->
+										<MudText Typo="Typo.h4" Style="display: inline-block; margin-right: 30px;font-size:25px;font-weight: 500;">20.7k</MudText>
+
+									</MudStack>
+								</div>
+
+								<!-- Diagrama din dreapta -->
+								<div class="ml-auto">
+
+									<MudIcon Icon="@Icons.Material.Filled.Share" Color="Color.Secondary" Size="Size.Medium" />
+
+								</div>
+							</div>
+						</MudCardContent>
+					</MudCard>
+				</div>
 			</MudItem>
 		</MudGrid>
 
