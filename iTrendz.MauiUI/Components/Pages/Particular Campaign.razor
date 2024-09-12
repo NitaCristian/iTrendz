@@ -54,7 +54,7 @@
 		<MudGrid>
 			<MudItem xs="4">
 				<div class="d-flex justify-between align-center mt-5">
-					<MudCard >
+					<MudCard>
 						<MudCardContent>
 							<div class="d-flex justify-start align-start">
 								<!-- Textul din stânga -->
@@ -62,18 +62,18 @@
 									<!-- Textul de sus - Organic Reach -->
 									<MudStack Wrap="Wrap.Wrap" Spacing="6">
 
-									<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Reach</MudText>
+										<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Reach</MudText>
 										<MudFlexBreak />
 
-									<!-- Textul de jos - 250k/500k -->
-									<MudText Typo="Typo.h5" Style="display: inline-block; margin-right: 4px;">@FormatNumber(Campaign.Reach)/@FormatNumber(Campaign.Views)</MudText>
+										<!-- Textul de jos - 250k/500k -->
+										<MudText Typo="Typo.h5" Style="display: inline-block; margin-right: 4px;">@FormatNumber(Campaign.Reach)/@FormatNumber(Campaign.Views)</MudText>
 
 									</MudStack>
 								</div>
 
 								<!-- Diagrama din dreapta -->
 								<div class="ml-auto">
-									<MudChart  ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="80px" Height="80px" InputData="@data" >
+									<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="80px" Height="80px" InputData="@data">
 										<CustomGraphics>
 											<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
 												@data.Sum().ToString()%
@@ -89,7 +89,7 @@
 			</MudItem>
 			<MudItem xs="4">
 				<div class="d-flex justify-between align-center mt-5">
-					<MudCard >
+					<MudCard>
 						<MudCardContent>
 							<div class="d-flex justify-start align-start">
 								<!-- Textul din stânga -->
@@ -129,22 +129,22 @@
 						<!-- First Section: Total Posts -->
 						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="2">
 							<!-- Icon for Total Posts -->
-							<MudIcon Icon="@Icons.Material.Filled.Image" Color="Color.Primary" Size="Size.Medium"  />
+							<MudIcon Icon="@Icons.Material.Filled.Image" Color="Color.Primary" Size="Size.Medium" />
 							<!-- Text for Total Posts -->
 							<MudStack Spacing="0">
-							<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 15px; font-weight: 600;">27</MudText>
-							<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">Total Posts</MudText>
+								<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 15px; font-weight: 600;">27</MudText>
+								<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">Total Posts</MudText>
 							</MudStack>
 						</MudStack>
 
 						<!-- Second Section: Total Creators -->
 						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="2">
 							<!-- Icon for Total Creators -->
-							<MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Primary" Size="Size.Medium"  />
+							<MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Primary" Size="Size.Medium" />
 							<!-- Text for Total Creators -->
 							<MudStack Spacing="0">
-							<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 15px; font-weight: 600;">27</MudText>
-							<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">Total Creators</MudText>
+								<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 15px; font-weight: 600;">27</MudText>
+								<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">Total Creators</MudText>
 							</MudStack>
 						</MudStack>
 					</MudStack>
@@ -152,135 +152,22 @@
 			</MudItem>
 
 
-			<MudItem xs="3">
-				<div class="d-flex justify-between align-center mt-5">
-					<MudCard>
-						<MudCardContent>
-							<div class="d-flex justify-start align-start">
-								<!-- Textul din stânga -->
-								<div class="d-flex flex-column">
-									<!-- Textul de sus - Organic Reach -->
-									<MudStack Wrap="Wrap.Wrap" Spacing="1" >
-
-										<MudText Typo="Typo.h6" Style="font-size: 10px;font-weight: 200">Views</MudText>
-										
-
-										<!-- Textul de jos - 250k/500k -->
-										<MudText Typo="Typo.h4" Style="display: inline-block; margin-right: 30px;font-size:25px;font-weight: 500;">@FormatNumber(Campaign.Views)</MudText>
-
-									</MudStack>
-								</div>
-
-								<!-- Diagrama din dreapta -->
-								<div class="ml-auto">
-									
-									<MudIcon Icon ="@Icons.Material.Filled.RemoveRedEye" Color="Color.Tertiary"Size="Size.Medium" />
-
-								</div>
-							</div>
-						</MudCardContent>
-					</MudCard>
-				</div>
-			</MudItem>
-			<MudItem xs="3">
-				<div class="d-flex justify-between align-center mt-5">
-					<MudCard>
-						<MudCardContent>
-							<div class="d-flex justify-start align-start">
-								<!-- Textul din stânga -->
-								<div class="d-flex flex-column">
-									<!-- Textul de sus - Organic Reach -->
-									<MudStack Wrap="Wrap.Wrap" Spacing="1">
-
-										<MudText Typo="Typo.h6" Style="font-size: 10px;font-weight: 200">Likes</MudText>
-
-
-										<!-- Textul de jos - 250k/500k -->
-										<MudText Typo="Typo.h4" Style="display: inline-block; margin-right: 30px;font-size:25px;font-weight: 500;">9.1k</MudText>
-
-									</MudStack>
-								</div>
-
-								<!-- Diagrama din dreapta -->
-								<div class="ml-auto">
-
-									<MudIcon Icon="@Icons.Material.Rounded.HeartBroken" Color="Color.Secondary" Size="Size.Medium" />
-
-								</div>
-							</div>
-						</MudCardContent>
-					</MudCard>
-				</div>
-			</MudItem>
-			<MudItem xs="3">
-				<div class="d-flex justify-between align-center mt-5">
-					<MudCard>
-						<MudCardContent>
-							<div class="d-flex justify-start align-start">
-								<!-- Textul din stânga -->
-								<div class="d-flex flex-column">
-									<!-- Textul de sus - Organic Reach -->
-									<MudStack Wrap="Wrap.Wrap" Spacing="1">
-
-										<MudText Typo="Typo.h6" Style="font-size: 10px;font-weight: 200">Comments</MudText>
-
-
-										<!-- Textul de jos - 250k/500k -->
-										<MudText Typo="Typo.h4" Style="display: inline-block; margin-right: 30px;font-size:25px;font-weight: 500;">@FormatNumber((Campaign.Comments))</MudText>
-
-									</MudStack>
-								</div>
-
-								<!-- Diagrama din dreapta -->
-								<div class="ml-auto">
-
-									<MudIcon Icon="@Icons.Material.Rounded.Comment" Color="Color.Secondary" Size="Size.Medium" />
-
-								</div>
-							</div>
-						</MudCardContent>
-					</MudCard>
-				</div>
-			</MudItem>
-			<MudItem xs="3">
-				<div class="d-flex justify-between align-center mt-5">
-					<MudCard>
-						<MudCardContent>
-							<div class="d-flex justify-start align-start">
-								<!-- Textul din stânga -->
-								<div class="d-flex flex-column">
-									<!-- Textul de sus - Organic Reach -->
-									<MudStack Wrap="Wrap.Wrap" Spacing="1">
-
-										<MudText Typo="Typo.h6" Style="font-size: 10px;font-weight: 200">Shares</MudText>
-
-										<!-- Textul de jos - 250k/500k -->
-										<MudText Typo="Typo.h4" Style="display: inline-block; margin-right: 30px;font-size:25px;font-weight: 500;">@FormatNumber(Campaign.Shares)</MudText>
-
-									</MudStack>
-								</div>
-
-								<!-- Diagrama din dreapta -->
-								<div class="ml-auto">
-
-									<MudIcon Icon="@Icons.Material.Filled.Share" Color="Color.Secondary" Size="Size.Medium" />
-
-								</div>
-							</div>
-						</MudCardContent>
-					</MudCard>
-				</div>
-			</MudItem>
+			<MediaCard Label="Views" Value="@FormatNumber(Campaign.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary" />
+			<MediaCard Label="Likes" Value="9.1k" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary" />
+			<MediaCard Label="Comments" Value="@FormatNumber(Campaign.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary" />
+			<MediaCard Label="Shares" Value="@FormatNumber(Campaign.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary" />
 		</MudGrid>
 
 	</MudTabPanel>
 </MudTabs>
 
 @code {
-	
-		public double[] data = { 28, 5 };
-		
-	
+
+
+
+	public double[] data = { 28, 5 };
+
+
 	private string _searchString;
 
 	private Campaign Campaign;
@@ -293,13 +180,13 @@
 		// Apelam API pentru a obtine date despre campign
 		// Gampaign = await CampaignService.Get(id);
 		Campaign = new()
-		{
-			Views = 13100,
-            Likes = 9100,
-            Comments = 10200,
-            Shares = 20700
-		};
-		
+			{
+				Views = 13100,
+				Likes = 9100,
+				Comments = 10200,
+				Shares = 20700
+			};
+
 		employees = new List<Employee>
 		{
 			new Employee("Sam", "https://picsum.photos/200", "CPA", 276, 87_000, "Active", 4),
