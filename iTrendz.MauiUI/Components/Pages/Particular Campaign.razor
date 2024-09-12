@@ -8,7 +8,6 @@
 	<MudTabPanel Text="Overview">
 		<MudText>Content that should appear in an overview page.</MudText>
 	</MudTabPanel>
-
 	<MudTabPanel Text="Influencers">
 		<MudDataGrid Items="@employees" Filterable="true" QuickFilter="_quickFilter" SortMode="@SortMode.None" Groupable="false">
 			<ToolBarContent>
@@ -51,9 +50,10 @@
 
 	</MudTabPanel>
 	<MudTabPanel Text="Insights">
-		<MudGrid>
+		<MudGrid Spacing="8">
 			<MudItem xs="4">
-				<div class="d-flex justify-between align-center mt-5">
+				@* <div class="d-flex justify-between align-center mt-5">
+				</div> *@
 					<MudCard>
 						<MudCardContent>
 							<div class="d-flex justify-start align-start">
@@ -84,11 +84,11 @@
 							</div>
 						</MudCardContent>
 					</MudCard>
-				</div>
 
 			</MudItem>
 			<MudItem xs="4">
-				<div class="d-flex justify-between align-center mt-5">
+				@* <div class="d-flex justify-between align-center mt-5">
+				</div> *@
 					<MudCard>
 						<MudCardContent>
 							<div class="d-flex justify-start align-start">
@@ -119,12 +119,9 @@
 							</div>
 						</MudCardContent>
 					</MudCard>
-				</div>
 			</MudItem>
-			<MudItem xs="3">
+			<MudItem xs="4">
 				<MudCard Class="pa-4" Style="box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-
-
 					<MudStack Row="false" Spacing="3" AlignItems="AlignItems.Center" JustifyContent="SpaceBetween">
 						<!-- First Section: Total Posts -->
 						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="2">
@@ -150,17 +147,25 @@
 					</MudStack>
 				</MudCard>
 			</MudItem>
-
-
 			<MediaCard Label="Views" Value="@FormatNumber(Campaign.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary" />
 			<MediaCard Label="Likes" Value="9.1k" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary" />
 			<MediaCard Label="Comments" Value="@FormatNumber(Campaign.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary" />
 			<MediaCard Label="Shares" Value="@FormatNumber(Campaign.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary" />
 		</MudGrid>
-
 	</MudTabPanel>
 	<MudTabPanel Text="Posts">
-
+		<MudGrid>
+			@foreach(Video video in Videos)
+			{
+				<MudItem xs="4">
+					<MudCard>
+						<video width="100%" controls poster="@video.PosterUrl">
+							<source src="@video.VideoUrl" type="video/mp4">
+						</video>
+					</MudCard>
+				</MudItem>
+			}
+		</MudGrid>
 	</MudTabPanel>
 </MudTabs>
 
@@ -174,6 +179,8 @@
 	private string _searchString;
 
 	private Campaign Campaign;
+	private List<Video> Videos;
+
 	public record Employee(string Name, string AvatarURL, string Advertise_name, int MonthsEmployed, int Salary, string Status, int Rating);
 
 	public IEnumerable<Employee> employees;
@@ -182,6 +189,39 @@
 	{
 		// Apelam API pentru a obtine date despre campign
 		// Gampaign = await CampaignService.Get(id);
+
+		Videos = new()
+		{
+			new ()
+			{
+				Id = 1,
+				Title = "Masina in Padure",
+				VideoUrl = "/assets/videos/video.mp4",
+				PosterUrl = "/assets/image/poster.jpg"
+			},
+			new ()
+			{
+				Id = 1,
+				Title = "Masina in Padure",
+				VideoUrl = "/assets/videos/video.mp4",
+				PosterUrl = "/assets/image/poster.jpg"
+			},
+			new ()
+			{
+				Id = 1,
+				Title = "Masina in Padure",
+				VideoUrl = "/assets/videos/video.mp4",
+				PosterUrl = "/assets/image/poster.jpg"
+			},
+			new ()
+			{
+				Id = 1,
+				Title = "Masina in Padure",
+				VideoUrl = "/assets/videos/video.mp4",
+				PosterUrl = "/assets/image/poster.jpg"
+			},
+		};
+
 		Campaign = new()
 			{
 				Views = 13100,
