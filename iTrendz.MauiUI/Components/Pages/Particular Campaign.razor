@@ -51,10 +51,11 @@
 	</MudTabPanel>
 	<MudTabPanel Text="Insights">
 		<MudGrid Spacing="8">
+			
 			<MudItem xs="4">
 				@* <div class="d-flex justify-between align-center mt-5">
 				</div> *@
-					<MudCard>
+					<MudCard Class="card-equal-height">
 						<MudCardContent>
 							<div class="d-flex justify-start align-start">
 								<!-- Textul din stânga -->
@@ -66,14 +67,14 @@
 										<MudFlexBreak />
 
 										<!-- Textul de jos - 250k/500k -->
-										<MudText Typo="Typo.h5" Style="display: inline-block; margin-right: 4px;">@FormatNumber(Campaign.Reach)/@FormatNumber(Campaign.Views)</MudText>
+									<MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">@FormatNumber(Campaign.Reach)/@FormatNumber(Campaign.Views)</MudText>
 
 									</MudStack>
 								</div>
 
 								<!-- Diagrama din dreapta -->
 								<div class="ml-auto">
-									<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="80px" Height="80px" InputData="@data">
+									<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@data">
 										<CustomGraphics>
 											<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
 												@data.Sum().ToString()%
@@ -89,7 +90,7 @@
 			<MudItem xs="4">
 				@* <div class="d-flex justify-between align-center mt-5">
 				</div> *@
-					<MudCard>
+					<MudCard Class="card-equal-height">
 						<MudCardContent>
 							<div class="d-flex justify-start align-start">
 								<!-- Textul din stânga -->
@@ -97,20 +98,20 @@
 									<!-- Textul de sus - Organic Reach -->
 									<MudStack Wrap="Wrap.Wrap" Spacing="6">
 
-										<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">OrganicEngagement</MudText>
+										<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Engagement</MudText>
 										<MudFlexBreak />
 
 										<!-- Textul de jos - 250k/500k -->
-										<MudText Typo="Typo.h5" Style="display: inline-block; margin-right: 4px;">@FormatNumber(Campaign.Engagement)/@FormatNumber(Campaign.Views)</MudText>
+									<MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">@FormatNumber(Campaign.Engagement)/@FormatNumber(Campaign.Views)</MudText>
 
 									</MudStack>
 								</div>
 
 								<!-- Diagrama din dreapta -->
 								<div class="ml-auto">
-									<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="80px" Height="80px" InputData="@data">
+									<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@data">
 										<CustomGraphics>
-											<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
+											<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="6">
 												@data.Sum().ToString()%
 											</text>
 										</CustomGraphics>
@@ -121,15 +122,15 @@
 					</MudCard>
 			</MudItem>
 			<MudItem xs="4">
-				<MudCard Class="pa-4" Style="box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+					<MudCard Class="card-equal-height pa-4" Style="box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
 					<MudStack Row="false" Spacing="3" AlignItems="AlignItems.Center" JustifyContent="SpaceBetween">
 						<!-- First Section: Total Posts -->
 						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="2">
 							<!-- Icon for Total Posts -->
-							<MudIcon Icon="@Icons.Material.Filled.Image" Color="Color.Primary" Size="Size.Medium" />
+							<MudIcon Icon="@Icons.Material.Filled.Image" Color="Color.Primary" Size="Size.Large" />
 							<!-- Text for Total Posts -->
 							<MudStack Spacing="0">
-								<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 15px; font-weight: 600;">27</MudText>
+								<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 20px; font-weight: 600;">27</MudText>
 								<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">Total Posts</MudText>
 							</MudStack>
 						</MudStack>
@@ -137,20 +138,23 @@
 						<!-- Second Section: Total Creators -->
 						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="2">
 							<!-- Icon for Total Creators -->
-							<MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Primary" Size="Size.Medium" />
+							<MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Primary" Size="Size.Large" />
 							<!-- Text for Total Creators -->
 							<MudStack Spacing="0">
-								<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 15px; font-weight: 600;">27</MudText>
+								<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 20px; font-weight: 600;">27</MudText>
 								<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">Total Creators</MudText>
 							</MudStack>
 						</MudStack>
 					</MudStack>
 				</MudCard>
 			</MudItem>
+		
+			
 			<MediaCard Label="Views" Value="@FormatNumber(Campaign.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary" />
 			<MediaCard Label="Likes" Value="9.1k" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary" />
 			<MediaCard Label="Comments" Value="@FormatNumber(Campaign.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary" />
 			<MediaCard Label="Shares" Value="@FormatNumber(Campaign.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary" />
+			
 		</MudGrid>
 	</MudTabPanel>
 	<MudTabPanel Text="Posts">
@@ -168,6 +172,12 @@
 		</MudGrid>
 	</MudTabPanel>
 </MudTabs>
+<style>
+	.card-equal-height {
+		gap:20px;
+		height: 100%;
+	}
+</style>
 
 @code {
 
