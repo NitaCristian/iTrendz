@@ -5,10 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using iTrendz.Api.Authentication;
-using iTrendz.API.Context;
-using iTrendz.API.Entities;
-using iTrendz.API.Services;
+using iTrendz.API.Repositories;
+using iTrendz.Domain.Context;
+using iTrendz.Domain.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +28,7 @@ services.AddIdentityCore<Brand>()
 services.AddIdentityCore<Influencer>()
     .AddEntityFrameworkStores<TrendzDbContext>();
 
-services.AddScoped<CampaignService>();
+services.AddScoped<CampaignRepository>();
 
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(options =>

@@ -6,9 +6,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using iTrendz.Api.Authentication;
-using iTrendz.API.Entities;
-using Microsoft.EntityFrameworkCore;
+using iTrendz.Domain.DTOs;
+using iTrendz.Domain.Models;
 
 namespace iTrendz.Api.Controllers;
 
@@ -25,38 +24,38 @@ public class AuthenticationController(
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Register([FromBody] RegistrationModel model)
+    public async Task<IActionResult> Register([FromBody] RegistrationRequestDto requestDto)
     {
-        var existingUser = await userManager.FindByNameAsync(model.Username);
+        var existingUser = await userManager.FindByNameAsync(requestDto.Username);
         if (existingUser != null)
             return Conflict("User already exists.");
 
         User newUser;
-        switch (model.UserType)
+        switch (requestDto.UserType)
         {
             case "Brand":
                 newUser = new Brand()
                 {
-                    UserName = model.Username,
-                    Email = model.Email,
+                    UserName = requestDto.Username,
+                    Email = requestDto.Email,
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    Description = model.Description
+                    Description = requestDto.Description
                 };
                 break;
             case "Influencer":
                 newUser = new Influencer()
                 {
-                    UserName = model.Username,
-                    Email = model.Email,
+                    UserName = requestDto.Username,
+                    Email = requestDto.Email,
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    Description = model.Description
+                    Description = requestDto.Description
                 };
                 break;
             default:
                 return BadRequest("Invalid user type specified.");
         }
 
-        var result = await userManager.CreateAsync(newUser, model.Password);
+        var result = await userManager.CreateAsync(newUser, requestDto.Password);
 
         if (!result.Succeeded)
         {
@@ -64,30 +63,30 @@ public class AuthenticationController(
                 $"Failed to create user: {string.Join(" ", result.Errors.Select(e => e.Description))}");
         }
 
-        if (!await roleManager.RoleExistsAsync(model.UserType))
+        if (!await roleManager.RoleExistsAsync(requestDto.UserType))
         {
-            await roleManager.CreateAsync(new IdentityRole<int>(model.UserType));
+            await roleManager.CreateAsync(new IdentityRole<int>(requestDto.UserType));
         }
 
-        await userManager.AddToRoleAsync(newUser, model.UserType);
+        await userManager.AddToRoleAsync(newUser, requestDto.UserType);
 
         return Ok("User successfully created");
     }
 
     [HttpPost("Login")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponseDto))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Login([FromBody] LoginModel model)
+    public async Task<IActionResult> Login([FromBody] LoginRequestDto requestDto)
     {
         logger.LogInformation("Login called");
 
-        var user = await userManager.FindByNameAsync(model.Username);
+        var user = await userManager.FindByNameAsync(requestDto.Username);
 
-        if (user == null || !await userManager.CheckPasswordAsync(user, model.Password))
+        if (user == null || !await userManager.CheckPasswordAsync(user, requestDto.Password))
             return Unauthorized();
 
-        JwtSecurityToken token = GenerateJwt(model.Username);
+        var token = GenerateJwt(requestDto.Username);
 
         var refreshToken = GenerateRefreshToken();
 
@@ -98,7 +97,7 @@ public class AuthenticationController(
 
         logger.LogInformation("Login succeeded");
 
-        return Ok(new LoginResponse
+        return Ok(new LoginResponseDto
         {
             JwtToken = new JwtSecurityTokenHandler().WriteToken(token),
             Expiration = token.ValidTo,
@@ -110,29 +109,29 @@ public class AuthenticationController(
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Refresh([FromBody] RefreshModel model)
+    public async Task<IActionResult> Refresh([FromBody] RefreshRequestDto requestDto)
     {
         logger.LogInformation("Refresh called");
 
-        var principal = GetPrincipalFromExpiredToken(model.AccessToken);
+        var principal = GetPrincipalFromExpiredToken(requestDto.AccessToken);
 
         if (principal?.Identity?.Name is null)
             return Unauthorized();
 
         var user = await userManager.FindByNameAsync(principal.Identity.Name);
 
-        if (user is null || user.RefreshToken != model.RefreshToken || user.RefreshTokenExpiry < DateTime.UtcNow)
+        if (user is null || user.RefreshToken != requestDto.RefreshToken || user.RefreshTokenExpiry < DateTime.UtcNow)
             return Unauthorized();
 
         var token = GenerateJwt(principal.Identity.Name);
 
         logger.LogInformation("Refresh succeeded");
 
-        return Ok(new LoginResponse
+        return Ok(new LoginResponseDto
         {
             JwtToken = new JwtSecurityTokenHandler().WriteToken(token),
             Expiration = token.ValidTo,
-            RefreshToken = model.RefreshToken
+            RefreshToken = requestDto.RefreshToken
         });
     }
 

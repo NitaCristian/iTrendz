@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using iTrendz.Domain.Interfaces;
+using iTrendz.MauiUI.Services;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
 
@@ -20,8 +22,8 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
-
-        builder.Services.AddScoped(_ => new HttpClient());
+        
+        builder.Services.AddScoped(_ => new HttpClient() { BaseAddress = new Uri("https://localhost:7061/api")});
         builder.Services.AddAuthorizationCore();
         builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>(sp =>
         {

@@ -1,4 +1,5 @@
 ﻿@page "/search-creators"
+@using iTrendz.Domain.Interfaces
 
 @inject ICreatorService CreatorService
 
@@ -37,7 +38,7 @@
                             </MudGrid>
                         </MudCardHeader>
                         <MudCardContent>
-                            <MudText Typo="Typo.h5" Class="text-center mt-3" Style="text-align: center">@creator.Name</MudText>
+                            <MudText Typo="Typo.h5" Class="text-center mt-3" Style="text-align: center">@creator.UserName</MudText>
                             <MudText Typo="Typo.h6" Class="text-center" Style="text-align: center">@creator.Domain</MudText>
                             <div class="d-flex justify-center">
                                 <div class="d-flex flex-column align-center mt-3">
@@ -65,7 +66,7 @@
             <CellTemplate>
                 <div class="d-flex flex-row align-center">
                     <MudImage Src="@context.Item.ImageUrl" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2"/>
-                    <MudText>@context.Item.Name</MudText>
+                    <MudText>@context.Item.UserName</MudText>
                 </div>
             </CellTemplate>
         </TemplateColumn>
@@ -91,7 +92,7 @@
 
     private string _searchString;
 
-    private Func<Influencer, bool> QuickFilter => x => string.IsNullOrWhiteSpace(_searchString) || x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase);
+    private Func<Influencer, bool> QuickFilter => x => string.IsNullOrWhiteSpace(_searchString) || x.UserName.Contains(_searchString, StringComparison.OrdinalIgnoreCase);
 
     private string searchTerm = string.Empty;
     private bool ShowTop = true;
@@ -104,7 +105,7 @@
 
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            filtered = filtered.Where(c => c.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+            filtered = filtered.Where(c => c.UserName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
         }
 
         // TODO: Extend filtration logic here with tags and other properties

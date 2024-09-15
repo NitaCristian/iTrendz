@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Json;
 using System.Security.Claims;
+using iTrendz.Domain.DTOs;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Logging;
 
@@ -79,7 +80,7 @@ public class CustomAuthenticationStateProvider(HttpClient httpClient, ILogger<Cu
             if (!response.IsSuccessStatusCode)
                 return null;
 
-            var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
+            var result = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
 
             if (result is null)
                 return null;

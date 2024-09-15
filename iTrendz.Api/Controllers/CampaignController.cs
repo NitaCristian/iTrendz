@@ -1,56 +1,48 @@
-﻿using iTrendz.API.Entities;
-using iTrendz.API.Services;
+﻿using iTrendz.API.Repositories;
+using iTrendz.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iTrendz.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class CampaignController : ControllerBase
+[Route("api/[controller]")]
+public class CampaignController(CampaignRepository campaignRepository) : ControllerBase
 {
-    private CampaignService _campaignService;
+    [HttpGet("all")]
+    public ActionResult<IEnumerable<Campaign>> GetAll() => Ok(campaignRepository.GetAll());
 
-    public CampaignController(CampaignService campaignService)
-    {
-        _campaignService = campaignService;
-    }
-
-    [HttpGet]
-    public ActionResult<List<Campaign>> GetAll() =>
-        _campaignService.GetAll();
-
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public ActionResult<Campaign> Get(int id)
     {
-        var campaign = _campaignService.Get(id);
+        var campaign = campaignRepository.Get(id);
         if (campaign == null)
             return NotFound();
-        
+
         return campaign;
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id:int}")]
     public IActionResult Update(int id, Campaign campaign)
     {
         if (id != campaign.Id)
             return BadRequest();
 
-        var existingCampaign = _campaignService.Get(id);
+        var existingCampaign = campaignRepository.Get(id);
         if (existingCampaign is null)
             return NotFound();
-        
-        _campaignService.Update(campaign);
+
+        campaignRepository.Update(campaign);
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        var campaign = _campaignService.Get(id);
+        var campaign = campaignRepository.Get(id);
         if (campaign is null)
             return NotFound();
-        
-        _campaignService.Delete(id);
+
+        campaignRepository.Delete(id);
         return NoContent();
     }
 }

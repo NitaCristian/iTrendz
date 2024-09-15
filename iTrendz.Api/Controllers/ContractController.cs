@@ -1,61 +1,47 @@
-﻿using iTrendz.API.Entities;
-using iTrendz.API.Services;
+﻿using iTrendz.API.Repositories;
+using iTrendz.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iTrendz.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class ContractController : ControllerBase
+[Route("api/[controller]")]
+public class ContractController(ContractRepository contractRepository) : ControllerBase
 {
-    private ContractService _contractService;
+    [HttpGet("all")]
+    public ActionResult<List<Contract>> GetAll() => Ok(contractRepository.GetAll());
 
-    public ContractController(ContractService contractService)
-    {
-        _contractService = contractService;
-    }
-
-    [HttpGet]
-    public ActionResult<List<Contract>> GetAll() => _contractService.GetAll();
-
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public ActionResult<Contract> Get(int id)
     {
-        var contract = _contractService.Get(id);
+        var contract = contractRepository.Get(id);
         if (contract == null)
             return NotFound();
         return contract;
     }
 
-    // [HttpPost]
-    // public IActionResult Create(Contract contract)
-    // {
-    //     _contractService.Add(contract);
-    //     return CreatedAction(nameof(Get), new { id == contract.Id }, contract);
-    // }
-
-    [HttpPut("{id}")]
+    [HttpPut("{id:int}")]
     public IActionResult Update(int id, Contract contract)
     {
         if (id != contract.Id)
             return BadRequest();
 
-        var existing = _contractService.Get(id);
+        var existing = contractRepository.Get(id);
         if (existing is null)
             return NotFound();
 
-        _contractService.Update(contract);
+        contractRepository.Update(contract);
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        var contract = _contractService.Get(id);
+        var contract = contractRepository.Get(id);
         if (contract == null)
             return NotFound();
 
-        _contractService.Delete(id);
+        contractRepository.Delete(id);
         return NoContent();
     }
 }
