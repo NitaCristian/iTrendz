@@ -29,6 +29,8 @@ services.AddIdentityCore<Influencer>()
     .AddEntityFrameworkStores<TrendzDbContext>();
 
 services.AddScoped<CampaignRepository>();
+services.AddScoped<ContractRepository>();
+
 
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(options =>

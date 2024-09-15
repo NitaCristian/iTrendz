@@ -1,3 +1,4 @@
+using iTrendz.Domain.Fakers;
 using iTrendz.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -69,5 +70,32 @@ public class TrendzDbContext(DbContextOptions<TrendzDbContext> options)
         modelBuilder.Entity<Contract>()
             .Property(c => c.SignedDate)
             .HasColumnType("date");
+
+        var uniqueIdGenerator = new UniqueIdGenerator();
+        var brandFaker = new BrandFaker(uniqueIdGenerator);
+        var influencerFaker = new InfluencerFaker(uniqueIdGenerator);
+        var campaignFaker = new CampaignFaker();
+        var contractFaker = new ContractFaker();
+
+        var brands = brandFaker.Generate(10);
+        var influencers = influencerFaker.Generate(10);
+        var campaigns = campaignFaker.Generate(10);
+        var contracts = contractFaker.Generate(10);
+
+        foreach (var campaign in campaigns)
+        {
+            campaign.BrandId = brands[new Random().Next(brands.Count)].Id;
+        }
+
+        foreach (var contract in contracts)
+        {
+            contract.InfluencerId = influencers[new Random().Next(influencers.Count)].Id;
+            contract.CampaignId = campaigns[new Random().Next(campaigns.Count)].Id;
+        }
+
+        modelBuilder.Entity<Brand>().HasData(brands);
+        modelBuilder.Entity<Influencer>().HasData(influencers);
+        modelBuilder.Entity<Campaign>().HasData(campaigns);
+        modelBuilder.Entity<Contract>().HasData(contracts);
     }
 }
