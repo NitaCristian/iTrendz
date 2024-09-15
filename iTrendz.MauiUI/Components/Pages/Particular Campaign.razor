@@ -154,6 +154,32 @@
 			<MediaCard Label="Likes" Value="9.1k" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary" />
 			<MediaCard Label="Comments" Value="@FormatNumber(Campaign.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary" />
 			<MediaCard Label="Shares" Value="@FormatNumber(Campaign.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary" />
+			<MudItem xs="6">
+				<MudCard Class="card-equal-height">
+					<MudCardContent>
+						<!-- Centrarea textului și a diagramei la mijloc -->
+						<div class="d-flex justify-content-center align-items-center flex-column">
+							<!-- Textul centrat pe diagrama -->
+							<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">Grupa de vârstă</MudText>
+							<!-- Diagrama de tip pie chart centrată -->
+							<MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@data_age" InputLabels="@percentLabels" />
+						</div>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+			<MudItem xs="6">
+				<MudCard Class="card-equal-height">
+					<MudCardContent>
+						<!-- Centrarea textului și a diagramei la mijloc -->
+						<div class="d-flex justify-content-center align-items-center flex-column">
+							<!-- Textul centrat pe diagrama -->
+							<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">Date demografice</MudText>
+							<!-- Diagrama de tip pie chart centrată -->
+							<MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@data_location" InputLabels="@labels_l" />
+						</div>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
 			
 		</MudGrid>
 	</MudTabPanel>
@@ -180,9 +206,14 @@
 </style>
 
 @code {
+	private double[] data_location = { 15, 30, 45, 10 };
+	private double[] data_age = { 15, 30, 45, 10 }; 
+	private string[] labels = { "18-24", "25-34", "35-44", "45-54" };
+	private string[] labels_l = { "Brasov", "Bucuresti", "Cluj", "Iasi" };
 
 
-
+	// Calculăm procentele și generăm etichetele cu procente
+	private string[] percentLabels => labels.Select((label, index) => $"{label} ({data_age[index] / data_age.Sum() * 100:0.0}%)").ToArray();
 	public double[] data = { 28, 5 };
 
 
