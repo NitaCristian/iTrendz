@@ -107,6 +107,7 @@ if (app.Environment.IsDevelopment())
     
     using var scope = app.Services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<TrendzDbContext>();
+    context.Database.Migrate();
     
     context.Users.RemoveRange(context.Users);
     context.Brands.RemoveRange(context.Brands);
