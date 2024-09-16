@@ -177,7 +177,7 @@ namespace iTrendz.API.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Campaigns");
+                    b.ToTable("Campaigns", (string)null);
                 });
 
             modelBuilder.Entity("iTrendz.Domain.Models.Contract", b =>
@@ -201,7 +201,7 @@ namespace iTrendz.API.Migrations
 
                     b.HasIndex("InfluencerId");
 
-                    b.ToTable("Contracts");
+                    b.ToTable("Contracts", (string)null);
                 });
 
             modelBuilder.Entity("iTrendz.Domain.Models.User", b =>
