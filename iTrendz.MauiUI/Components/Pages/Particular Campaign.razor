@@ -6,8 +6,65 @@
 
 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
 	<MudTabPanel Text="Overview">
-		<MudText>Content that should appear in an overview page.</MudText>
+		<!-- Titlu secțiune -->
+		<MudText Typo="Typo.h4" Class="mb-3" Style="font-weight:500">Descriere</MudText>
+		<MudText Class="mb-4">
+			<ul class="bullet-list">
+				<li>Campania noastră online pentru [numele produsului] se concentrează pe evidențierea beneficiilor unice pe care acest produs le aduce utilizatorilor săi.</li>
+				<li>Cu un mesaj clar și atractiv, vom crea conținut captivant care să atragă atenția și să stimuleze interacțiunile pe rețelele de socializare, website-uri și platforme video.</li>
+				<li>Vom folosi testimoniale autentice, imagini de calitate și oferte exclusive pentru a genera interes și încredere.</li>
+				<li>P rin targeting precis, ne adresăm unui public bine definit, maximizând conversiile și construind loialitatea față de brand.</li>
+				<li>Campania va fi monitorizată și optimizată constant pentru a asigura rezultate excelente în timp real.</li>
+			</ul>
+		</MudText>
+
+		<!-- Slider și Timeline în container cu Flexbox -->
+		<div class="d-flex flex-column" style="gap: 40px; width: 100%; margin-top: 20px;">
+			<!-- Secțiunea Public vizat -->
+			<MudText Typo="Typo.h4" Class="mb-2" Style="font-weight:500">Public vizat</MudText>
+			<MudSlider TickMarks="true" TickMarkLabels="@labels" Step="20" Value="@value" Style="width: 100%; display: flex; justify-content: space-between;" Class="mb-12 " />
+
+			<!-- Secțiunea Durata campaniei -->
+			<MudText Typo="Typo.h4" Class="mb-2" Style="font-weight:500">Durata campaniei </MudText>
+			<MudTimeline>
+				<MudTimelineItem Color="Color.Info">
+					<MudText Typo="Typo.button">Campaign Started</MudText>
+					<MudText Typo="Typo.body2" Class="mud-text-secondary">11 January 2024</MudText>
+				</MudTimelineItem>
+				<MudTimelineItem Color="Color.Info">
+					<MudText Typo="Typo.button">Make advertise</MudText>
+					<MudText Typo="Typo.body2" Class="mud-text-secondary">11 March 2024</MudText>
+				</MudTimelineItem>
+				<MudTimelineItem Color="Color.Info">
+					<MudText Typo="Typo.button">Analyze advertise</MudText>
+					<MudText Typo="Typo.body2" Class="mud-text-secondary">18 March 2024</MudText>
+				</MudTimelineItem>
+				<MudTimelineItem Color="Color.Info">
+					<MudText Typo="Typo.button">Upgrade advertise</MudText>
+					<MudText Typo="Typo.body2" Class="mud-text-secondary">31 March 2024</MudText>
+				</MudTimelineItem>
+				<MudTimelineItem Color="Color.Info">
+					<MudText Typo="Typo.button">Attract audience (10k)</MudText>
+					<MudText Typo="Typo.body2" Class="mud-text-secondary">11 April 2024</MudText>
+				</MudTimelineItem>
+			</MudTimeline>
+
+			<MudProgressLinear Color="Color.Info" Striped="true" Size="Size.Large" Value="25" Class="my-7">
+				<MudText Typo="Typo.subtitle1" Color="Color.Dark">
+					<b>25%</b>
+				</MudText>
+			</MudProgressLinear>
+
+			<MudText Typo="Typo.h4" Class="mb-2" Style="font-weight:500"> Buget </MudText>
+			<MudStack Row="true">
+				<MudFab StartIcon="@Icons.Material.Filled.AttachMoney" Label="10k" />
+				<MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Add" Label="Add Money" />
+			</MudStack>
+			
+		</div>
 	</MudTabPanel>
+
+
 	<MudTabPanel Text="Influencers">
 		<MudDataGrid Items="@employees" Filterable="true" QuickFilter="_quickFilter" SortMode="@SortMode.None" Groupable="false">
 			<ToolBarContent>
@@ -203,9 +260,20 @@
 		gap:20px;
 		height: 100%;
 	}
+
+	.bullet-list {
+		list-style-type: disc; /* Setează buline pentru listă */
+		margin: 0;
+		padding-left: 20px; /* Adaugă spațiu pentru buline */
+	}
+
+		.bullet-list li {
+			margin-bottom: 10px; /* Adaugă spațiu între itemi */
+		}
 </style>
 
 @code {
+	int value = 100;
 	private double[] data_location = { 15, 30, 45, 10 };
 	private double[] data_age = { 15, 30, 45, 10 }; 
 	private string[] labels = { "18-24", "25-34", "35-44", "45-54" };
