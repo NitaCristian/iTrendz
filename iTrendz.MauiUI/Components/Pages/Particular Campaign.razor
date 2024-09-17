@@ -9,14 +9,18 @@
 		<!-- Titlu secțiune -->
 		<MudText Typo="Typo.h4" Class="mb-3" Style="font-weight:500">Descriere</MudText>
 		<MudText Class="mb-4">
+
 			<ul class="bullet-list">
-				<li>Campania noastră online pentru [numele produsului] se concentrează pe evidențierea beneficiilor unice pe care acest produs le aduce utilizatorilor săi.</li>
+				<li></li>
 				<li>Cu un mesaj clar și atractiv, vom crea conținut captivant care să atragă atenția și să stimuleze interacțiunile pe rețelele de socializare, website-uri și platforme video.</li>
 				<li>Vom folosi testimoniale autentice, imagini de calitate și oferte exclusive pentru a genera interes și încredere.</li>
 				<li>P rin targeting precis, ne adresăm unui public bine definit, maximizând conversiile și construind loialitatea față de brand.</li>
 				<li>Campania va fi monitorizată și optimizată constant pentru a asigura rezultate excelente în timp real.</li>
 			</ul>
 		</MudText>
+		<MudCard Class="chat-bubble">
+			<MudText Class="chat-text">Campania noastră online pentru [numele produsului] se concentrează pe evidențierea beneficiilor unice pe care acest produs le aduce utilizatorilor săi.</MudText>
+		</MudCard>
 
 		<!-- Slider și Timeline în container cu Flexbox -->
 		<div class="d-flex flex-column" style="gap: 40px; width: 100%; margin-top: 20px;">
@@ -274,6 +278,17 @@
 		.bullet-list li {
 			margin-bottom: 10px; /* Adaugă spațiu între itemi */
 		}
+
+	.chat-bubble {
+		background-color: #7b61ff; /* Culoare violet vibrantă */
+		border-radius: 20px; /* Colțuri rotunjite */
+		padding: 10px 15px; /* Spațiere internă */
+		max-width: 300px; /* Lățime maximă pentru a semăna cu o bulă de text */
+	}
+
+	.chat-text {
+		color: white; /* Text alb */
+		font-size: 14px; /* Dimensiune font */
 </style>
 
 @code {
