@@ -20,9 +20,6 @@
 
 		<!-- Slider și Timeline în container cu Flexbox -->
 		<div class="d-flex flex-column" style="gap: 40px; width: 100%; margin-top: 20px;">
-			<!-- Secțiunea Public vizat -->
-			<MudText Typo="Typo.h4" Class="mb-2" Style="font-weight:500">Public vizat</MudText>
-			<MudSlider TickMarks="true" TickMarkLabels="@labels" Step="20" Value="@value" Style="width: 100%; display: flex; justify-content: space-between;" Class="mb-12 " />
 
 			<!-- Secțiunea Durata campaniei -->
 			<MudText Typo="Typo.h4" Class="mb-2" Style="font-weight:500">Durata campaniei </MudText>
@@ -60,6 +57,13 @@
 				<MudFab StartIcon="@Icons.Material.Filled.AttachMoney" Label="10k" />
 				<MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Add" Label="Add Money" />
 			</MudStack>
+
+			<MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500"> Istoric  Buget </MudText>
+			<MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="100%" Height="350" ></MudChart>
+
+			<MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500"> Impartire  Buget </MudText>
+			<MudChart ChartType="ChartType.Pie" Width="200px" Height="200px" InputData="@data_buget" InputLabels="@percentLabels_buget" />
+
 			
 		</div>
 	</MudTabPanel>
@@ -273,7 +277,15 @@
 </style>
 
 @code {
+	public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
+	public List<ChartSeries> Series = new List<ChartSeries>()
+	{
+		new ChartSeries() { Name = "Buget initial", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
+		new ChartSeries() { Name = "Buget adaugat", Data = new double[] { 35, 41, 35, 51, 49, 62, 69, 91, 148 } },
+	};
 	int value = 100;
+	private double[] data_buget = {30,20,30 ,10 };
+	private string[] labels_buget = {"Posts","Stories/Shorts", "YT Videos","Blogging" };
 	private double[] data_location = { 15, 30, 45, 10 };
 	private double[] data_age = { 15, 30, 45, 10 }; 
 	private string[] labels = { "18-24", "25-34", "35-44", "45-54" };
@@ -282,6 +294,7 @@
 
 	// Calculăm procentele și generăm etichetele cu procente
 	private string[] percentLabels => labels.Select((label, index) => $"{label} ({data_age[index] / data_age.Sum() * 100:0.0}%)").ToArray();
+	private string[] percentLabels_buget => labels_buget.Select((label, index) => $"{label} ({data_buget[index] / data_buget.Sum() * 100:0.0}%)").ToArray();
 	public double[] data = { 28, 5 };
 
 
