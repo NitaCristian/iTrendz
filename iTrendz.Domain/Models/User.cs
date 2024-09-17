@@ -8,6 +8,8 @@ public class User : IdentityUser<int>
     public string? Domain { get; set; }
     public string? WebsiteUrl { get; set; }
     public string? ImageUrl { get; set; }
-    public string? RefreshToken { get; set; }
+	double Rating { get; set; }
+
+	public string? RefreshToken { get; set; }
     public DateTime RefreshTokenExpiry { get; set; }
 }

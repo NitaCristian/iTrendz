@@ -6,32 +6,32 @@
 <MudSnackbarProvider/>
 
 <MudLayout>
-    <MudAppBar Elevation="1">
-        <MudBreakpointProvider>
-            <MudHidden Breakpoint="Breakpoint.MdAndUp">
-                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer"/>
-            </MudHidden>
-            <MudText Typo="Typo.h6">iTrendz</MudText>
-            <MudSpacer/>
-        </MudBreakpointProvider>
-    </MudAppBar>
+	<MudAppBar Elevation="1">
+		<MudBreakpointProvider>
+			<MudHidden Breakpoint="Breakpoint.MdAndUp">
+				<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+			</MudHidden>
+			<MudText Typo="Typo.h6">iTrendz</MudText>
+			<MudSpacer />
+		</MudBreakpointProvider>
+	</MudAppBar>
 
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="1" ClipMode="DrawerClipMode.Always" Variant="@DrawerVariant.Responsive">
-        <NavMenu/>
-    </MudDrawer>
+	<MudDrawer @bind-Open="_drawerOpen" Elevation="1" ClipMode="DrawerClipMode.Always" Variant="@DrawerVariant.Responsive">
+		<NavMenu />
+	</MudDrawer>
 
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="my-5 pt-5">
-            @Body
-        </MudContainer>
-    </MudMainContent>
+	<MudMainContent>
+		<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="my-5 pt-5">
+			@Body
+		</MudContainer>
+	</MudMainContent>
 </MudLayout>
 
 @code {
-    bool _drawerOpen = true;
+	bool _drawerOpen = true;
 
-    private void ToggleDrawer()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
+	private void ToggleDrawer()
+	{
+		_drawerOpen = !_drawerOpen;
+	}
 }
