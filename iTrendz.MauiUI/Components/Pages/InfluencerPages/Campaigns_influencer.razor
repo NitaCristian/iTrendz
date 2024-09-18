@@ -4,29 +4,38 @@
 @inject NavigationManager Navigation
 @inject ICampaignService CampaignService
 
+<MudGrid Spacing="2">
+    <MudItem xs="12" sm="6" md="4">
+        <MudCard Elevation="1" Class="relative" Style="position: relative;" OnClick="NavigateToPage">
+            <div class="relative" Style="height: 165px;">
+                <MudCardMedia Image="https://picsum.photos/200/300" Height="165" Style="width: 100%; height: 100%;" />
+            </div>
 
-    <MudGrid Spacing="2">
-          <MudItem xs="12">
+            <MudCardContent Class="relative" Style="padding-bottom: 50px;">
+                <MudText Typo="Typo.h5" Style="text-align: center; margin-bottom: 20px;">Title</MudText>
+                <MudText Typo="Typo.body2">
+                    Campania noastră de publicitate îți oferă vizibilitate maximă, conectându-te direct cu publicul țintă prin strategii inovatoare și eficiente.
+                    Folosim canale digitale de top pentru a atrage atenția asupra produsului tău, crescând notorietatea brandului și conversiile. Mesajul tău va ajunge
+                    la milioane de utilizatori relevanți, generând impact imediat și măsurabil.
+                </MudText>
 
-                <MudCard Elevation="1"  >
-                    <div class="relative" Style="height: 165px;">
-                        <MudCardMedia Image= https://picsum.photos/200/300 Height="165" Style="width: 100%; height: 100%;" />
-                        <MudFab Color="Color.Primary" StartIcon=@Icons.Material.Filled.PushPin Size="Size.Small"
-                                Class="absolute" Style="right: 10px; top: 10px; z-index: 10;" />
-                    </div>
+                <!-- Butonul MudFab poziționat în colțul dreapta jos -->
+                <div class="fab-container">
+                    <MudFab Color="Color.Success" StartIcon=@Icons.Material.Filled.Add Size="Size.Small" Label="Apply" />
+                </div>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+</MudGrid>
 
-                    <MudCardContent Class="relative">
-                        <MudText Typo="Typo.h5" Style="text-align: center; margin-bottom: 20px;">@campaign.Title</MudText>
-                        <MudText Typo="Typo.body2">@campaign.Description</MudText>
+<style>
+    .fab-container {
+        position: absolute;
+        bottom: 10px;
+        right: 10px; /* Modificat pentru a fi în dreapta jos */
+    }
+</style>
 
-                        <div class="d-flex justify-space-between">
-                            <MudFab Color="Color.Secondary" StartIcon=@Icons.Material.Filled.Delete Size="Size.Small"  />
-                            <MudFab Color="Color.Tertiary" StartIcon=@Icons.Material.Filled.Edit Size="Size.Small"  />
-                        </div>
-                    </MudCardContent>
-                </MudCard>
-            </MudItem>
-   
-    </MudGrid>
-
-
+@code {
+  
+}
