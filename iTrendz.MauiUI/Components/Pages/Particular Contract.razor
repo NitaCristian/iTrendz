@@ -1,30 +1,34 @@
-﻿@page "/particular-contract"
+﻿ @page "/particular-contract"
+ 
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+   <MudTabPanel Text="Overview">
 <MudText Typo="Typo.h3">Nume contract</MudText>
-<MudTimeline>
-    <MudTimelineItem Color="Color.Info">
-        <MudText Typo="Typo.button">Packaging Process Started</MudText>
-        <MudText Typo="Typo.body2" Class="mud-text-secondary">Yesterday: 16:33</MudText>
-    </MudTimelineItem>
-    <MudTimelineItem TimelineAlign="TimelineAlign.End">
-        <MudText Typo="Typo.body2">Packaging complete</MudText>
-        <MudText Typo="Typo.body2" Class="mud-text-secondary">Yesterday: 17:10</MudText>
-    </MudTimelineItem>
-    <MudTimelineItem TimelineAlign="TimelineAlign.End">
-        <MudText Typo="Typo.body2">Waiting for pickup</MudText>
-        <MudText Typo="Typo.body2" Class="mud-text-secondary">Yesterday: 17:15</MudText>
-    </MudTimelineItem>
-    <MudTimelineItem Color="Color.Error">
-        <MudAlert Severity="Severity.Error">Package missed last pickup time.</MudAlert>
-    </MudTimelineItem>
-    <MudTimelineItem Color="Color.Success">
-        <MudText Typo="Typo.button">Package picked up by driver</MudText>
-        <MudText Typo="Typo.body2" Class="mud-text-secondary">Today: 17:00</MudText>
-    </MudTimelineItem>
-    <MudTimelineItem TimelineAlign="TimelineAlign.End">
-        <MudText Typo="Typo.button">Package In Transit</MudText>
-    </MudTimelineItem>
-</MudTimeline>
 
+		<MudTimeline>
+			<MudTimelineItem Color="Color.Info">
+				<MudText Typo="Typo.button">Campaign Started</MudText>
+				<MudText Typo="Typo.body2" Class="mud-text-secondary">11 January 2024</MudText>
+			</MudTimelineItem>
+			<MudTimelineItem Color="Color.Info">
+				<MudText Typo="Typo.button">Make advertise</MudText>
+				<MudText Typo="Typo.body2" Class="mud-text-secondary">11 March 2024</MudText>
+			</MudTimelineItem>
+			<MudTimelineItem Color="Color.Info">
+				<MudText Typo="Typo.button">Analyze advertise</MudText>
+				<MudText Typo="Typo.body2" Class="mud-text-secondary">18 March 2024</MudText>
+			</MudTimelineItem>
+			<MudTimelineItem Color="Color.Info">
+				<MudText Typo="Typo.button">Upgrade advertise</MudText>
+				<MudText Typo="Typo.body2" Class="mud-text-secondary">31 March 2024</MudText>
+			</MudTimelineItem>
+			<MudTimelineItem Color="Color.Info">
+				<MudText Typo="Typo.button">Attract audience (10k)</MudText>
+				<MudText Typo="Typo.body2" Class="mud-text-secondary">11 April 2024</MudText>
+			</MudTimelineItem>
+		</MudTimeline>
+
+</MudTabPanel>
+</MudTabs>
 @code {
 
 }
