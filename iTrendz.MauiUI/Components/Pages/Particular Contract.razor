@@ -1,4 +1,5 @@
-﻿ @page "/particular-contract"
+﻿ @inject ISnackbar Snackbar
+ @page "/particular-contract"
  
 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
    <MudTabPanel Text="Overview">
@@ -27,8 +28,389 @@
 			</MudTimelineItem>
 		</MudTimeline>
 
+		<MudText Typo="Typo.h5" Class="mt-2">Cerinte</MudText>
+
+		<MudExpansionPanels MultiExpansion="true" Class="mt-2">
+			<MudExpansionPanel Text="3 Shorturi Instagram">
+				Fiecare short trebuie să conțină imagini cu produsul, informații interesante și să fie cât mai dinamice.
+			</MudExpansionPanel>
+			<MudExpansionPanel Text="10 Postari Instagram">
+				Fiecare postare trebuie să aibă o descriere de 10 rânduri. Imaginea postării trebuie să aibă un peisaj natural sau urban în spate.
+			</MudExpansionPanel>
+			<MudExpansionPanel Text="10 Tick Tockuri">
+				Fiecare Tick Tock trebuie să aibă o piesă bine aleasă, cât și foarte multă dinamică, 2 dintre ele pot fi fără cuvinte.
+			</MudExpansionPanel>
+			<MudExpansionPanel Text="3 Postari pe Facebook">
+				Fiecare postare trebuie să aibă descriere. Trebuie să semene cu cele de pe Instagram.
+			</MudExpansionPanel>
+		</MudExpansionPanels>
+
+
 </MudTabPanel>
+	<MudTabPanel Text="Insights">
+		<MudGrid Spacing="8">
+
+			<MudItem xs="6">
+				@* <div class="d-flex justify-between align-center mt-5">
+				</div> *@
+				<MudCard Class="card-equal-height">
+					<MudCardContent>
+						<div class="d-flex justify-start align-start">
+							<!-- Textul din stânga -->
+							<div class="d-flex flex-column">
+								<!-- Textul de sus - Organic Reach -->
+								<MudStack Wrap="Wrap.Wrap" Spacing="6">
+
+									<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Reach</MudText>
+									<MudFlexBreak />
+
+									<!-- Textul de jos - 250k/500k -->
+									<MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">@FormatNumber(Campaign.Reach)/@FormatNumber(Campaign.Views)</MudText>
+
+								</MudStack>
+							</div>
+
+							<!-- Diagrama din dreapta -->
+							<div class="ml-auto">
+								<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@data">
+									<CustomGraphics>
+										<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
+											@data.Sum().ToString()%
+										</text>
+									</CustomGraphics>
+								</MudChart>
+							</div>
+						</div>
+					</MudCardContent>
+				</MudCard>
+
+			</MudItem>
+			<MudItem xs="6">
+				@* <div class="d-flex justify-between align-center mt-5">
+				</div> *@
+				<MudCard Class="card-equal-height">
+					<MudCardContent>
+						<div class="d-flex justify-start align-start">
+							<!-- Textul din stânga -->
+							<div class="d-flex flex-column">
+								<!-- Textul de sus - Organic Reach -->
+								<MudStack Wrap="Wrap.Wrap" Spacing="6">
+
+									<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Engagement</MudText>
+									<MudFlexBreak />
+
+									<!-- Textul de jos - 250k/500k -->
+									<MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">@FormatNumber(Campaign.Engagement)/@FormatNumber(Campaign.Views)</MudText>
+
+								</MudStack>
+							</div>
+
+							<!-- Diagrama din dreapta -->
+							<div class="ml-auto">
+								<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@data">
+									<CustomGraphics>
+										<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="6">
+											@data.Sum().ToString()%
+										</text>
+									</CustomGraphics>
+								</MudChart>
+							</div>
+						</div>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+			
+
+
+			<MediaCard Label="Views" Value="@FormatNumber(Campaign.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary" />
+			<MediaCard Label="Likes" Value="9.1k" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary" />
+			<MediaCard Label="Comments" Value="@FormatNumber(Campaign.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary" />
+			<MediaCard Label="Shares" Value="@FormatNumber(Campaign.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary" />
+			<MudItem xs="6">
+				<MudCard Class="card-equal-height">
+					<MudCardContent>
+						<!-- Centrarea textului și a diagramei la mijloc -->
+						<div class="d-flex justify-content-center align-items-center flex-column">
+							<!-- Textul centrat pe diagrama -->
+							<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">Grupa de vârstă</MudText>
+							<!-- Diagrama de tip pie chart centrată -->
+							<MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@data_age" InputLabels="@percentLabels" />
+						</div>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+			<MudItem xs="6">
+				<MudCard Class="card-equal-height">
+					<MudCardContent>
+						<!-- Centrarea textului și a diagramei la mijloc -->
+						<div class="d-flex justify-content-center align-items-center flex-column">
+							<!-- Textul centrat pe diagrama -->
+							<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">Date demografice</MudText>
+							<!-- Diagrama de tip pie chart centrată -->
+							<MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@data_location" InputLabels="@labels_l" />
+						</div>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+
+		</MudGrid>
+	</MudTabPanel>
+	<MudTabPanel Text="Posts">
+		
+
+		<MudGrid>
+			@for (var i = 0; i < 4; i++) // Generează 5 casete
+			{
+				<MudItem xs="12" sm="6" md="4" lg="3">
+					<MudStack Style="width: 100%">
+						<MudFileUpload T="IReadOnlyList<IBrowserFile>"
+									   @ref="@_fileUpload"
+									   OnFilesChanged="OnInputFileChanged"
+									   AppendMultipleFiles
+									   Hidden="@false"
+									   InputClass="absolute mud-width-full mud-height-full overflow-hidden z-10"
+									   InputStyle="opacity:0"
+									   tabindex="-1"
+									   @ondrop="@ClearDragClass"
+									   @ondragenter="@SetDragClass"
+									   @ondragleave="@ClearDragClass"
+									   @ondragend="@ClearDragClass">
+							<ActivatorContent>
+								<MudPaper Height="300px"
+										  Outlined="true"
+										  Class="@_dragClass">
+									<MudText Typo="Typo.h6">
+										Drag and drop files here or click
+									</MudText>
+									@foreach (var file in _fileNames)
+									{
+										<MudChip T="string"
+												 Color="Color.Dark"
+												 Text="@file"
+												 tabindex="-1" />
+									}
+								</MudPaper>
+							</ActivatorContent>
+						</MudFileUpload>
+						<MudToolBar Gutters="@false"
+									Class="relative d-flex justify-end gap-4">
+							<MudButton Color="Color.Primary"
+									   OnClick="@OpenFilePickerAsync"
+									   Variant="Variant.Filled">
+								Open file picker
+							</MudButton>
+							<MudButton Color="Color.Primary"
+									   Disabled="@(!_fileNames.Any())"
+									   OnClick="@Upload"
+									   Variant="Variant.Filled">
+								Upload
+							</MudButton>
+							<MudButton Color="Color.Error"
+									   Disabled="@(!_fileNames.Any())"
+									   OnClick="@ClearAsync"
+									   Variant="Variant.Filled">
+								Clear
+							</MudButton>
+						</MudToolBar>
+					</MudStack>
+				</MudItem>
+			}
+		</MudGrid>
+	
+	</MudTabPanel>
 </MudTabs>
+
+
+
+
+
+
+<style>
+	.card-equal-height {
+		gap: 20px;
+		height: 100%;
+	}
+
+	.bullet-list {
+		list-style-type: disc; /* Setează buline pentru listă */
+		margin: 0;
+		padding-left: 20px; /* Adaugă spațiu pentru buline */
+	}
+
+		.bullet-list li {
+			margin-bottom: 10px; /* Adaugă spațiu între itemi */
+		}
+
+	.chat-bubble {
+		background-color: #7b61ff; /* Culoare violet vibrantă */
+		border-radius: 20px; /* Colțuri rotunjite */
+		padding: 10px 15px; /* Spațiere internă */
+		max-width: 300px; /* Lățime maximă pentru a semăna cu o bulă de text */
+	}
+
+	.chat-text {
+		color: white; /* Text alb */
+		font-size: 14px; /* Dimensiune font */
+</style>
+
 @code {
+	public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
+	public List<ChartSeries> Series = new List<ChartSeries>()
+	{
+		new ChartSeries() { Name = "Buget initial", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
+		new ChartSeries() { Name = "Buget adaugat", Data = new double[] { 35, 41, 35, 51, 49, 62, 69, 91, 148 } },
+	};
+	int value = 100;
+	private double[] data_buget = { 30, 20, 30, 10 };
+	private string[] labels_buget = { "Posts", "Stories/Shorts", "YT Videos", "Blogging" };
+	private double[] data_location = { 15, 30, 45, 10 };
+	private double[] data_age = { 15, 30, 45, 10 };
+	private string[] labels = { "18-24", "25-34", "35-44", "45-54" };
+	private string[] labels_l = { "Brasov", "Bucuresti", "Cluj", "Iasi" };
+
+
+	// Calculăm procentele și generăm etichetele cu procente
+	private string[] percentLabels => labels.Select((label, index) => $"{label} ({data_age[index] / data_age.Sum() * 100:0.0}%)").ToArray();
+	private string[] percentLabels_buget => labels_buget.Select((label, index) => $"{label} ({data_buget[index] / data_buget.Sum() * 100:0.0}%)").ToArray();
+	public double[] data = { 28, 5 };
+
+
+	private string _searchString;
+
+	private Campaign Campaign;
+	private List<Video> Videos;
+
+	public record Employee(string Name, string AvatarURL, string Advertise_name, int MonthsEmployed, int Salary, string Status, int Rating);
+
+	public IEnumerable<Employee> employees;
+
+	protected override void OnInitialized()
+	{
+		// Apelam API pentru a obtine date despre campign
+		// Gampaign = await CampaignService.Get(id);
+
+		Videos = new()
+		{
+			new ()
+			{
+				Id = 1,
+				Title = "Masina in Padure",
+				VideoUrl = "/assets/videos/video.mp4",
+				PosterUrl = "/assets/image/poster.jpg"
+			},
+			new ()
+			{
+				Id = 1,
+				Title = "Masina in Padure",
+				VideoUrl = "/assets/videos/video.mp4",
+				PosterUrl = "/assets/image/poster.jpg"
+			},
+			new ()
+			{
+				Id = 1,
+				Title = "Masina in Padure",
+				VideoUrl = "/assets/videos/video.mp4",
+				PosterUrl = "/assets/image/poster.jpg"
+			},
+			new ()
+			{
+				Id = 1,
+				Title = "Masina in Padure",
+				VideoUrl = "/assets/videos/video.mp4",
+				PosterUrl = "/assets/image/poster.jpg"
+			},
+		};
+
+		Campaign = new()
+			{
+				Views = 13100,
+				Likes = 9100,
+				Comments = 10200,
+				Shares = 20700
+			};
+
+		employees = new List<Employee>
+		{
+			new Employee("Sam", "https://picsum.photos/200", "CPA", 276, 87_000, "Active", 4),
+			new Employee("Alicia","https://picsum.photos/200", "Product Manager", 132, 143_000, "On Leave", 5),
+			new Employee("Ira", "https://picsum.photos/200", "Developer", 48, 92_000, "Active", 3),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+		};
+	}
+
+	public static string FormatNumber(int number)
+	{
+		return number switch
+		{
+			>= 1000 and < 1000000 => (number / 1000D).ToString("0.#") + "k",
+			>= 1000000 => (number / 1000000D).ToString("0.#") + "M",
+			_ => number.ToString()
+		};
+	}
+
+	private Func<Employee, bool> _quickFilter => x =>
+	{
+		if (string.IsNullOrWhiteSpace(_searchString))
+			return true;
+
+		if (x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+			return true;
+
+		return false;
+	};
+#nullable enable
+	private const string DefaultDragClass = "relative rounded-lg border-2 border-dashed pa-4 mt-4 mud-width-full mud-height-full";
+	private string _dragClass = DefaultDragClass;
+	private readonly List<string> _fileNames = new();
+	private MudFileUpload<IReadOnlyList<IBrowserFile>>? _fileUpload;
+
+	private async Task ClearAsync()
+	{
+		await (_fileUpload?.ClearAsync() ?? Task.CompletedTask);
+		_fileNames.Clear();
+		ClearDragClass();
+	}
+
+	private Task OpenFilePickerAsync()
+		=> _fileUpload?.OpenFilePickerAsync() ?? Task.CompletedTask;
+
+	private void OnInputFileChanged(InputFileChangeEventArgs e)
+	{
+		ClearDragClass();
+		var files = e.GetMultipleFiles();
+		foreach (var file in files)
+		{
+			_fileNames.Add(file.Name);
+		}
+	}
+
+	private void Upload()
+	{
+		// Upload the files here
+		Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+		Snackbar.Add("TODO: Upload your files!");
+	}
+
+	private void SetDragClass()
+		=> _dragClass = $"{DefaultDragClass} mud-border-primary";
+
+	private void ClearDragClass()
+		=> _dragClass = DefaultDragClass;
 
 }
