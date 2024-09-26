@@ -1,12 +1,18 @@
 ﻿@page "/particular-campaign-influencer"
 
-<MudText Typo="Typo.h3">Campanie de vizualizat</MudText>
-<MudGrid>
-	 <MudItem xs="12" sm="6" md="4">
-		<MudImage Src=https://picsum.photos/200/300  Elevation="25" Class="rounded-lg ma-4" />
-		 </MudItem>
-</MudGrid>
 
+<MudGrid>
+    <MudItem xs="12">
+        <MudImage Src="https://picsum.photos/2000/300" Class="rounded-lg ma-4 full-width-image" />
+    </MudItem>
+</MudGrid>
+<MudText Typo="Typo.h3">Campanie de vizualizat</MudText>
+<style>
+    .full-width-image {
+        width: 100%;
+        height: auto;
+    }
+</style>
 
 @code {
 
