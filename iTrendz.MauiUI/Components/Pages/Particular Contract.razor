@@ -1,416 +1,474 @@
-﻿ @inject ISnackbar Snackbar
- @page "/particular-contract"
- 
+﻿@page "/particular-contract"
+@using FluentValidation
+@using Severity = MudBlazor.Severity
+@inject ISnackbar Snackbar
+
+<MudImage Src="https://picsum.photos/300/" Width="300" Height="300" Alt="Random Image" Elevation="25" Class="rounded-lg ma-4"/>
+<MudText Typo="Typo.h4">Tech gadget review</MudText>
+
+<MudImage Src="https://picsum.photos/50/" Width="50" Height="50" Alt="Random Image" Elevation="25" Class="rounded-cirlce ma-4"/>
+<MudText Typo="Typo.h6">NextGen</MudText>
+
+<MudText>Application Status: <MudChip T="string" Icon="@Icons.Material.Filled.Pending" Color="Color.Warning">Pending</MudChip></MudText>
+<MudChip T="string" Variant="Variant.Text">Deadline: October 15, 2024</MudChip>
+
+<MudText Typo="Typo.h6">Description</MudText>
+<MudText>Join our exciting campaign to promote the latest in cutting-edge technology! We’re looking for tech-savvy influencers to review and create content around our brand-new smart gadgets, including wireless headphones, smart home assistants, and portable charging devices. Selected influencers will receive the product free of charge to showcase its features, usability, and design. Whether it's a deep-dive review video or a creative unboxing, we want your authentic voice to reach tech enthusiasts everywhere!</MudText>
+
+<MudText Typo="Typo.h6">Type</MudText>
+<MudChip T="string" Variant="Variant.Text">Unboxing</MudChip>
+
+<MudText Typo="Typo.h6">Requirements</MudText>
+<MudChip T="string" Variant="Variant.Text">Followers: 18M+</MudChip>
+<MudChip T="string" Variant="Variant.Text">Average Views: 500k+</MudChip>
+<MudChip T="string" Variant="Variant.Text">Audience: Female</MudChip>
+
+<MudText Typo="Typo.h6">No. Creators Wanted</MudText>
+<MudChip T="string" Variant="Variant.Text">4/25</MudChip>
+
+<MudText Typo="Typo.h6">Platforms</MudText>
+<MudStack Row>
+    <MudIcon Icon="@Icons.Custom.Brands.Instagram" Title="Instagram"/>
+    <MudIcon Icon="@Icons.Custom.Brands.TikTok" Title="TikTok"/>
+    <MudIcon Icon="@Icons.Custom.Brands.YouTube" Title="YouTube"/>
+</MudStack>
+
+<MudText Typo="Typo.h6">Specifications</MudText>
 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
-   <MudTabPanel Text="Overview">
-<MudText Typo="Typo.h3">Nume contract</MudText>
-
-		<MudTimeline>
-			<MudTimelineItem Color="Color.Info">
-				<MudText Typo="Typo.button">Campaign Started</MudText>
-				<MudText Typo="Typo.body2" Class="mud-text-secondary">11 January 2024</MudText>
-			</MudTimelineItem>
-			<MudTimelineItem Color="Color.Info">
-				<MudText Typo="Typo.button">Make advertise</MudText>
-				<MudText Typo="Typo.body2" Class="mud-text-secondary">11 March 2024</MudText>
-			</MudTimelineItem>
-			<MudTimelineItem Color="Color.Info">
-				<MudText Typo="Typo.button">Analyze advertise</MudText>
-				<MudText Typo="Typo.body2" Class="mud-text-secondary">18 March 2024</MudText>
-			</MudTimelineItem>
-			<MudTimelineItem Color="Color.Info">
-				<MudText Typo="Typo.button">Upgrade advertise</MudText>
-				<MudText Typo="Typo.body2" Class="mud-text-secondary">31 March 2024</MudText>
-			</MudTimelineItem>
-			<MudTimelineItem Color="Color.Info">
-				<MudText Typo="Typo.button">Attract audience (10k)</MudText>
-				<MudText Typo="Typo.body2" Class="mud-text-secondary">11 April 2024</MudText>
-			</MudTimelineItem>
-		</MudTimeline>
-
-		<MudText Typo="Typo.h5" Class="mt-2">Cerinte</MudText>
-
-		<MudExpansionPanels MultiExpansion="true" Class="mt-2">
-			<MudExpansionPanel Text="3 Shorturi Instagram">
-				Fiecare short trebuie să conțină imagini cu produsul, informații interesante și să fie cât mai dinamice.
-			</MudExpansionPanel>
-			<MudExpansionPanel Text="10 Postari Instagram">
-				Fiecare postare trebuie să aibă o descriere de 10 rânduri. Imaginea postării trebuie să aibă un peisaj natural sau urban în spate.
-			</MudExpansionPanel>
-			<MudExpansionPanel Text="10 Tick Tockuri">
-				Fiecare Tick Tock trebuie să aibă o piesă bine aleasă, cât și foarte multă dinamică, 2 dintre ele pot fi fără cuvinte.
-			</MudExpansionPanel>
-			<MudExpansionPanel Text="3 Postari pe Facebook">
-				Fiecare postare trebuie să aibă descriere. Trebuie să semene cu cele de pe Instagram.
-			</MudExpansionPanel>
-		</MudExpansionPanels>
-
-
-</MudTabPanel>
-	<MudTabPanel Text="Insights">
-		<MudGrid Spacing="8">
-
-			<MudItem xs="6">
-				@* <div class="d-flex justify-between align-center mt-5">
-				</div> *@
-				<MudCard Class="card-equal-height">
-					<MudCardContent>
-						<div class="d-flex justify-start align-start">
-							<!-- Textul din stânga -->
-							<div class="d-flex flex-column">
-								<!-- Textul de sus - Organic Reach -->
-								<MudStack Wrap="Wrap.Wrap" Spacing="6">
-
-									<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Reach</MudText>
-									<MudFlexBreak />
-
-									<!-- Textul de jos - 250k/500k -->
-									<MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">@FormatNumber(Campaign.Reach)/@FormatNumber(Campaign.Views)</MudText>
-
-								</MudStack>
-							</div>
-
-							<!-- Diagrama din dreapta -->
-							<div class="ml-auto">
-								<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@data">
-									<CustomGraphics>
-										<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
-											@data.Sum().ToString()%
-										</text>
-									</CustomGraphics>
-								</MudChart>
-							</div>
-						</div>
-					</MudCardContent>
-				</MudCard>
-
-			</MudItem>
-			<MudItem xs="6">
-				@* <div class="d-flex justify-between align-center mt-5">
-				</div> *@
-				<MudCard Class="card-equal-height">
-					<MudCardContent>
-						<div class="d-flex justify-start align-start">
-							<!-- Textul din stânga -->
-							<div class="d-flex flex-column">
-								<!-- Textul de sus - Organic Reach -->
-								<MudStack Wrap="Wrap.Wrap" Spacing="6">
-
-									<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Engagement</MudText>
-									<MudFlexBreak />
-
-									<!-- Textul de jos - 250k/500k -->
-									<MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">@FormatNumber(Campaign.Engagement)/@FormatNumber(Campaign.Views)</MudText>
-
-								</MudStack>
-							</div>
-
-							<!-- Diagrama din dreapta -->
-							<div class="ml-auto">
-								<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@data">
-									<CustomGraphics>
-										<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="6">
-											@data.Sum().ToString()%
-										</text>
-									</CustomGraphics>
-								</MudChart>
-							</div>
-						</div>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
-			
-
-
-			<MediaCard Label="Views" Value="@FormatNumber(Campaign.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary" />
-			<MediaCard Label="Likes" Value="9.1k" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary" />
-			<MediaCard Label="Comments" Value="@FormatNumber(Campaign.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary" />
-			<MediaCard Label="Shares" Value="@FormatNumber(Campaign.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary" />
-			<MudItem xs="6">
-				<MudCard Class="card-equal-height">
-					<MudCardContent>
-						<!-- Centrarea textului și a diagramei la mijloc -->
-						<div class="d-flex justify-content-center align-items-center flex-column">
-							<!-- Textul centrat pe diagrama -->
-							<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">Grupa de vârstă</MudText>
-							<!-- Diagrama de tip pie chart centrată -->
-							<MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@data_age" InputLabels="@percentLabels" />
-						</div>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
-			<MudItem xs="6">
-				<MudCard Class="card-equal-height">
-					<MudCardContent>
-						<!-- Centrarea textului și a diagramei la mijloc -->
-						<div class="d-flex justify-content-center align-items-center flex-column">
-							<!-- Textul centrat pe diagrama -->
-							<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">Date demografice</MudText>
-							<!-- Diagrama de tip pie chart centrată -->
-							<MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@data_location" InputLabels="@labels_l" />
-						</div>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
-
-		</MudGrid>
-	</MudTabPanel>
-	<MudTabPanel Text="Posts">
-		
-
-		<MudGrid>
-			@for (var i = 0; i < 4; i++) // Generează 5 casete
-			{
-				<MudItem xs="12" sm="6" md="4" lg="3">
-					<MudStack Style="width: 100%">
-						<MudFileUpload T="IReadOnlyList<IBrowserFile>"
-									   @ref="@_fileUpload"
-									   OnFilesChanged="OnInputFileChanged"
-									   AppendMultipleFiles
-									   Hidden="@false"
-									   InputClass="absolute mud-width-full mud-height-full overflow-hidden z-10"
-									   InputStyle="opacity:0"
-									   tabindex="-1"
-									   @ondrop="@ClearDragClass"
-									   @ondragenter="@SetDragClass"
-									   @ondragleave="@ClearDragClass"
-									   @ondragend="@ClearDragClass">
-							<ActivatorContent>
-								<MudPaper Height="300px"
-										  Outlined="true"
-										  Class="@_dragClass">
-									<MudText Typo="Typo.h6">
-										Drag and drop files here or click
-									</MudText>
-									@foreach (var file in _fileNames)
-									{
-										<MudChip T="string"
-												 Color="Color.Dark"
-												 Text="@file"
-												 tabindex="-1" />
-									}
-								</MudPaper>
-							</ActivatorContent>
-						</MudFileUpload>
-						<MudToolBar Gutters="@false"
-									Class="relative d-flex justify-end gap-4">
-							<MudButton Color="Color.Primary"
-									   OnClick="@OpenFilePickerAsync"
-									   Variant="Variant.Filled">
-								Open file picker
-							</MudButton>
-							<MudButton Color="Color.Primary"
-									   Disabled="@(!_fileNames.Any())"
-									   OnClick="@Upload"
-									   Variant="Variant.Filled">
-								Upload
-							</MudButton>
-							<MudButton Color="Color.Error"
-									   Disabled="@(!_fileNames.Any())"
-									   OnClick="@ClearAsync"
-									   Variant="Variant.Filled">
-								Clear
-							</MudButton>
-						</MudToolBar>
-					</MudStack>
-				</MudItem>
-			}
-		</MudGrid>
-	
-	</MudTabPanel>
+    <MudTabPanel Text="Instagram">
+        <MudExpansionPanels MultiExpansion="true" Class="mt-2">
+            <MudExpansionPanel Text="Story">
+                Up to 15 seconds per story, vertical format (1080 x 1920 pixels), must highlight key features of the gadget, include engaging visuals and polls or questions for interaction.
+            </MudExpansionPanel>
+            <MudExpansionPanel Text="Posts">
+                Square (1080 x 1080 pixels) or landscape (1080 x 566 pixels), captions limited to 2,200 characters, must include relevant hashtags and a clear call-to-action (e.g., “Check out the full review on my blog!”).
+            </MudExpansionPanel>
+            <MudExpansionPanel Text="Reels">
+                Up to 60 seconds, vertical format, showcase the gadget in use, include trending audio, and provide quick tips or highlights.
+            </MudExpansionPanel>
+        </MudExpansionPanels>
+    </MudTabPanel>
+    <MudTabPanel Text="TikTok">
+        <MudExpansionPanels MultiExpansion="true" Class="mt-2">
+            <MudExpansionPanel Text="Short Videos">
+                15 to 60 seconds in length, vertical format (1080 x 1920 pixels), must include music or sound clips, focus on engaging demonstrations or unboxing experiences, and follow current TikTok trends.
+            </MudExpansionPanel>
+        </MudExpansionPanels>
+    </MudTabPanel>
+    <MudTabPanel Text="YouTube">
+        <MudExpansionPanels MultiExpansion="true" Class="mt-2">
+            <MudExpansionPanel Text="Long-form Videos">
+                Minimum resolution of 720p, video length of 8+ minutes, must provide in-depth reviews, comparisons, and demonstrations, and include a compelling title and description for SEO optimization.
+            </MudExpansionPanel>
+            <MudExpansionPanel Text="Shorts">
+                Up to 60 seconds, vertical format, should highlight the gadget's standout features quickly, engaging hook in the first few seconds, and can include popular music.
+            </MudExpansionPanel>
+            <MudExpansionPanel Text="Mid-Roll Ads">
+                Should be placed strategically within videos longer than 8 minutes, clearly indicated and relevant to the gadget being reviewed, ensure smooth transitions into and out of the ad segment.
+            </MudExpansionPanel>
+        </MudExpansionPanels>
+    </MudTabPanel>
 </MudTabs>
 
 
+<MudTimeline>
+    <MudTimelineItem Color="Color.Info">
+        <MudText Typo="Typo.button">Created</MudText>
+        <MudText Typo="Typo.body2" Class="mud-text-secondary">5 March 2024</MudText>
+    </MudTimelineItem>
+    <MudTimelineItem Color="Color.Info">
+        <MudText Typo="Typo.button">10 Creators Joined</MudText>
+        <MudText Typo="Typo.body2" Class="mud-text-secondary">11 March 2024</MudText>
+    </MudTimelineItem>
+    <MudTimelineItem Color="Color.Error">
+        <MudText Typo="Typo.button">2 Creators Left</MudText>
+        <MudText Typo="Typo.body2" Class="mud-text-secondary">12 March 2024</MudText>
+    </MudTimelineItem>
+    <MudTimelineItem Color="Color.Warning">
+        <MudText Typo="Typo.button">Final Content Submission</MudText>
+        <MudText Typo="Typo.body2" Class="mud-text-secondary">18 March 2024</MudText>
+    </MudTimelineItem>
+    <MudTimelineItem Color="Color.Warning">
+        <MudText Typo="Typo.button">Final Review Meeting</MudText>
+        <MudText Typo="Typo.body2" Class="mud-text-secondary">25 March 2024</MudText>
+    </MudTimelineItem>
+    <MudTimelineItem Color="Color.Success">
+        <MudText Typo="Typo.button">Campaign Launched</MudText>
+        <MudText Typo="Typo.body2" Class="mud-text-secondary">31 March 2024</MudText>
+    </MudTimelineItem>
+    <MudTimelineItem Color="Color.Success">
+        <MudText Typo="Typo.button">Campaign Completed</MudText>
+        <MudText Typo="Typo.body2" Class="mud-text-secondary">11 April 2024</MudText>
+    </MudTimelineItem>
+</MudTimeline>
+
+<MudCard>
+    <MudForm Model="@_model" @ref="@_form" Validation="@(ValidationRules.ValidateValue)" ValidationDelay="0">
+        <MudCardContent>
+            <MudStack>
+                <MudTextField @bind-Value="_model.Title" For="@(() => _model.Title)" Immediate="true" Label="Title"/>
+                <MudTextField @bind-Value="_model.Description" For="@(() => _model.Description)" Lines="8" Immediate="true" Label="Description"/>
+
+                <MudButton OnClick="OnExpandCollapseClick">@(_expanded ? "Close" : "AI Caption")</MudButton>
+                <MudDivider/>
+                <MudCollapse Expanded="_expanded">
+                    <MudStack>
+                        <MudSelect @bind-Value="_style" Label="Style">
+                            @foreach (var style in _styles)
+                            {
+                                <MudSelectItem Value="style">@style</MudSelectItem>
+                            }
+                        </MudSelect>
+
+                        <MudSwitch @bind-Value="Hashtags" Color="Color.Primary" Label="Add Hashtags" LabelPosition="LabelPosition.Start"/>
+                        <MudSwitch @bind-Value="Emojis" Color="Color.Primary" Label="Add Emojis" LabelPosition="LabelPosition.Start"/>
+                        
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Generate</MudButton>
+                    </MudStack>
+                </MudCollapse>
+
+                <MudGrid Justify="@Justify.FlexEnd" Spacing="1">
+                    <MudItem>
+                        <MudFileUpload @ref="@_fileUpload" T="IBrowserFile" For="@(() => _model.File)" @bind-Files="_model.File" OnFilesChanged="UploadFiles" SuppressOnChangeWhenInvalid="true">
+                            <ActivatorContent>
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.CloudUpload">Upload File</MudButton>
+                            </ActivatorContent>
+                        </MudFileUpload>
+                    </MudItem>
+                    <MudItem>
+                        <MudButton Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" OnClick="@ClearAsync">Clear</MudButton>
+                    </MudItem>
+                </MudGrid>
+
+                @if (_model.File is not null)
+                {
+                    <MudList T="string">
+                        <MudListItem Icon="@Icons.Material.Filled.AttachFile" @key="@_model.File">@_model.File.Name</MudListItem>
+                    </MudList>
+                }
+            </MudStack>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">Submit</MudButton>
+        </MudCardActions>
+    </MudForm>
+</MudCard>
 
 
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+    <MudTabPanel Text="Insights">
+        <MudGrid Spacing="8">
+
+            <MudItem xs="6">
+                @* <div class="d-flex justify-between align-center mt-5">
+				</div> *@
+                <MudCard Class="card-equal-height">
+                    <MudCardContent>
+                        <div class="d-flex justify-start align-start">
+                            <!-- Textul din stânga -->
+                            <div class="d-flex flex-column">
+                                <!-- Textul de sus - Organic Reach -->
+                                <MudStack Wrap="Wrap.Wrap" Spacing="6">
+
+                                    <MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Reach</MudText>
+                                    <MudFlexBreak/>
+
+                                    <!-- Textul de jos - 250k/500k -->
+                                    <MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">@FormatNumber(Campaign.Reach)/@FormatNumber(Campaign.Views)</MudText>
+
+                                </MudStack>
+                            </div>
+
+                            <!-- Diagrama din dreapta -->
+                            <div class="ml-auto">
+                                <MudChart ChartOptions="new ChartOptions() { ShowLegend = false }" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@data">
+                                    <CustomGraphics>
+                                        <text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
+                                            @data.Sum().ToString()%
+                                        </text>
+                                    </CustomGraphics>
+                                </MudChart>
+                            </div>
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+
+            </MudItem>
+            <MudItem xs="6">
+                @* <div class="d-flex justify-between align-center mt-5">
+				</div> *@
+                <MudCard Class="card-equal-height">
+                    <MudCardContent>
+                        <div class="d-flex justify-start align-start">
+                            <!-- Textul din stânga -->
+                            <div class="d-flex flex-column">
+                                <!-- Textul de sus - Organic Reach -->
+                                <MudStack Wrap="Wrap.Wrap" Spacing="6">
+
+                                    <MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Engagement</MudText>
+                                    <MudFlexBreak/>
+
+                                    <!-- Textul de jos - 250k/500k -->
+                                    <MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">@FormatNumber(Campaign.Engagement)/@FormatNumber(Campaign.Views)</MudText>
+
+                                </MudStack>
+                            </div>
+
+                            <!-- Diagrama din dreapta -->
+                            <div class="ml-auto">
+                                <MudChart ChartOptions="new ChartOptions() { ShowLegend = false }" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@data">
+                                    <CustomGraphics>
+                                        <text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="6">
+                                            @data.Sum().ToString()%
+                                        </text>
+                                    </CustomGraphics>
+                                </MudChart>
+                            </div>
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
 
 
-<style>
-	.card-equal-height {
-		gap: 20px;
-		height: 100%;
-	}
+            <MediaCard Label="Views" Value="@FormatNumber(Campaign.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary"/>
+            <MediaCard Label="Likes" Value="9.1k" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary"/>
+            <MediaCard Label="Comments" Value="@FormatNumber(Campaign.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary"/>
+            <MediaCard Label="Shares" Value="@FormatNumber(Campaign.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary"/>
+            <MudItem xs="6">
+                <MudCard Class="card-equal-height">
+                    <MudCardContent>
+                        <!-- Centrarea textului și a diagramei la mijloc -->
+                        <div class="d-flex justify-content-center align-items-center flex-column">
+                            <!-- Textul centrat pe diagrama -->
+                            <MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">Grupa de vârstă</MudText>
+                            <!-- Diagrama de tip pie chart centrată -->
+                            <MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@data_age" InputLabels="@percentLabels"/>
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="6">
+                <MudCard Class="card-equal-height">
+                    <MudCardContent>
+                        <!-- Centrarea textului și a diagramei la mijloc -->
+                        <div class="d-flex justify-content-center align-items-center flex-column">
+                            <!-- Textul centrat pe diagrama -->
+                            <MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">Date demografice</MudText>
+                            <!-- Diagrama de tip pie chart centrată -->
+                            <MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@data_location" InputLabels="@labels_l"/>
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
 
-	.bullet-list {
-		list-style-type: disc; /* Setează buline pentru listă */
-		margin: 0;
-		padding-left: 20px; /* Adaugă spațiu pentru buline */
-	}
-
-		.bullet-list li {
-			margin-bottom: 10px; /* Adaugă spațiu între itemi */
-		}
-
-	.chat-bubble {
-		background-color: #7b61ff; /* Culoare violet vibrantă */
-		border-radius: 20px; /* Colțuri rotunjite */
-		padding: 10px 15px; /* Spațiere internă */
-		max-width: 300px; /* Lățime maximă pentru a semăna cu o bulă de text */
-	}
-
-	.chat-text {
-		color: white; /* Text alb */
-		font-size: 14px; /* Dimensiune font */
-</style>
+        </MudGrid>
+    </MudTabPanel>
+</MudTabs>
 
 @code {
-	public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
-	public List<ChartSeries> Series = new List<ChartSeries>()
-	{
-		new ChartSeries() { Name = "Buget initial", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
-		new ChartSeries() { Name = "Buget adaugat", Data = new double[] { 35, 41, 35, 51, 49, 62, 69, 91, 148 } },
-	};
-	int value = 100;
-	private double[] data_buget = { 30, 20, 30, 10 };
-	private string[] labels_buget = { "Posts", "Stories/Shorts", "YT Videos", "Blogging" };
-	private double[] data_location = { 15, 30, 45, 10 };
-	private double[] data_age = { 15, 30, 45, 10 };
-	private string[] labels = { "18-24", "25-34", "35-44", "45-54" };
-	private string[] labels_l = { "Brasov", "Bucuresti", "Cluj", "Iasi" };
+    public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
+
+    public List<ChartSeries> Series = new List<ChartSeries>()
+    {
+        new ChartSeries() { Name = "Buget initial", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
+        new ChartSeries() { Name = "Buget adaugat", Data = new double[] { 35, 41, 35, 51, 49, 62, 69, 91, 148 } },
+    };
+
+    int value = 100;
+    private double[] data_buget = { 30, 20, 30, 10 };
+    private string[] labels_buget = { "Posts", "Stories/Shorts", "YT Videos", "Blogging" };
+    private double[] data_location = { 15, 30, 45, 10 };
+    private double[] data_age = { 15, 30, 45, 10 };
+    private string[] labels = { "18-24", "25-34", "35-44", "45-54" };
+    private string[] labels_l = { "Brasov", "Bucuresti", "Cluj", "Iasi" };
 
 
-	// Calculăm procentele și generăm etichetele cu procente
-	private string[] percentLabels => labels.Select((label, index) => $"{label} ({data_age[index] / data_age.Sum() * 100:0.0}%)").ToArray();
-	private string[] percentLabels_buget => labels_buget.Select((label, index) => $"{label} ({data_buget[index] / data_buget.Sum() * 100:0.0}%)").ToArray();
-	public double[] data = { 28, 5 };
+    // Calculăm procentele și generăm etichetele cu procente
+    private string[] percentLabels => labels.Select((label, index) => $"{label} ({data_age[index] / data_age.Sum() * 100:0.0}%)").ToArray();
+    private string[] percentLabels_buget => labels_buget.Select((label, index) => $"{label} ({data_buget[index] / data_buget.Sum() * 100:0.0}%)").ToArray();
+    public double[] data = { 28, 5 };
 
 
-	private string _searchString;
+    private string _searchString;
 
-	private Campaign Campaign;
-	private List<Video> Videos;
+    private Campaign Campaign;
+    private List<Video> Videos;
 
-	public record Employee(string Name, string AvatarURL, string Advertise_name, int MonthsEmployed, int Salary, string Status, int Rating);
+    public record Employee(string Name, string AvatarURL, string Advertise_name, int MonthsEmployed, int Salary, string Status, int Rating);
 
-	public IEnumerable<Employee> employees;
+    public IEnumerable<Employee> employees;
 
-	protected override void OnInitialized()
-	{
-		// Apelam API pentru a obtine date despre campign
-		// Gampaign = await CampaignService.Get(id);
+    protected override void OnInitialized()
+    {
+        // Apelam API pentru a obtine date despre campign
+        // Gampaign = await CampaignService.Get(id);
 
-		Videos = new()
-		{
-			new ()
-			{
-				Id = 1,
-				Title = "Masina in Padure",
-				VideoUrl = "/assets/videos/video.mp4",
-				PosterUrl = "/assets/image/poster.jpg"
-			},
-			new ()
-			{
-				Id = 1,
-				Title = "Masina in Padure",
-				VideoUrl = "/assets/videos/video.mp4",
-				PosterUrl = "/assets/image/poster.jpg"
-			},
-			new ()
-			{
-				Id = 1,
-				Title = "Masina in Padure",
-				VideoUrl = "/assets/videos/video.mp4",
-				PosterUrl = "/assets/image/poster.jpg"
-			},
-			new ()
-			{
-				Id = 1,
-				Title = "Masina in Padure",
-				VideoUrl = "/assets/videos/video.mp4",
-				PosterUrl = "/assets/image/poster.jpg"
-			},
-		};
+        Videos = new()
+        {
+            new()
+            {
+                Id = 1,
+                Title = "Masina in Padure",
+                VideoUrl = "/assets/videos/video.mp4",
+                PosterUrl = "/assets/image/poster.jpg"
+            },
+            new()
+            {
+                Id = 1,
+                Title = "Masina in Padure",
+                VideoUrl = "/assets/videos/video.mp4",
+                PosterUrl = "/assets/image/poster.jpg"
+            },
+            new()
+            {
+                Id = 1,
+                Title = "Masina in Padure",
+                VideoUrl = "/assets/videos/video.mp4",
+                PosterUrl = "/assets/image/poster.jpg"
+            },
+            new()
+            {
+                Id = 1,
+                Title = "Masina in Padure",
+                VideoUrl = "/assets/videos/video.mp4",
+                PosterUrl = "/assets/image/poster.jpg"
+            },
+        };
 
-		Campaign = new()
-			{
-				Views = 13100,
-				Likes = 9100,
-				Comments = 10200,
-				Shares = 20700
-			};
+        Campaign = new()
+        {
+            Views = 13100,
+            Likes = 9100,
+            Comments = 10200,
+            Shares = 20700
+        };
 
-		employees = new List<Employee>
-		{
-			new Employee("Sam", "https://picsum.photos/200", "CPA", 276, 87_000, "Active", 4),
-			new Employee("Alicia","https://picsum.photos/200", "Product Manager", 132, 143_000, "On Leave", 5),
-			new Employee("Ira", "https://picsum.photos/200", "Developer", 48, 92_000, "Active", 3),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-		};
-	}
+        employees = new List<Employee>
+        {
+            new Employee("Sam", "https://picsum.photos/200", "CPA", 276, 87_000, "Active", 4),
+            new Employee("Alicia", "https://picsum.photos/200", "Product Manager", 132, 143_000, "On Leave", 5),
+            new Employee("Ira", "https://picsum.photos/200", "Developer", 48, 92_000, "Active", 3),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+            new Employee("John", "https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
+        };
+    }
 
-	public static string FormatNumber(int number)
-	{
-		return number switch
-		{
-			>= 1000 and < 1000000 => (number / 1000D).ToString("0.#") + "k",
-			>= 1000000 => (number / 1000000D).ToString("0.#") + "M",
-			_ => number.ToString()
-		};
-	}
+    public static string FormatNumber(int number)
+    {
+        return number switch
+        {
+            >= 1000 and < 1000000 => (number / 1000D).ToString("0.#") + "k",
+            >= 1000000 => (number / 1000000D).ToString("0.#") + "M",
+            _ => number.ToString()
+        };
+    }
 
-	private Func<Employee, bool> _quickFilter => x =>
-	{
-		if (string.IsNullOrWhiteSpace(_searchString))
-			return true;
+    private Func<Employee, bool> _quickFilter => x =>
+    {
+        if (string.IsNullOrWhiteSpace(_searchString))
+            return true;
 
-		if (x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
-			return true;
+        if (x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
 
-		return false;
-	};
-#nullable enable
-	private const string DefaultDragClass = "relative rounded-lg border-2 border-dashed pa-4 mt-4 mud-width-full mud-height-full";
-	private string _dragClass = DefaultDragClass;
-	private readonly List<string> _fileNames = new();
-	private MudFileUpload<IReadOnlyList<IBrowserFile>>? _fileUpload;
+        return false;
+    };
 
-	private async Task ClearAsync()
-	{
-		await (_fileUpload?.ClearAsync() ?? Task.CompletedTask);
-		_fileNames.Clear();
-		ClearDragClass();
-	}
 
-	private Task OpenFilePickerAsync()
-		=> _fileUpload?.OpenFilePickerAsync() ?? Task.CompletedTask;
+    bool _expanded = false;
 
-	private void OnInputFileChanged(InputFileChangeEventArgs e)
-	{
-		ClearDragClass();
-		var files = e.GetMultipleFiles();
-		foreach (var file in files)
-		{
-			_fileNames.Add(file.Name);
-		}
-	}
+    private void OnExpandCollapseClick()
+    {
+        _expanded = !_expanded;
+    }
 
-	private void Upload()
-	{
-		// Upload the files here
-		Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
-		Snackbar.Add("TODO: Upload your files!");
-	}
+    string _style;
 
-	private void SetDragClass()
-		=> _dragClass = $"{DefaultDragClass} mud-border-primary";
+    private List<string> _styles = new()
+    {
+        "Conversational",
+        "Inspirational",
+        "Informative",
+        "Storytelling",
+        "Humorous",
+        "Call-to-Action",
+        "Minimalist",
+        "Emotional",
+        "Teaser",
+        "Promotional",
+        "Questioning",
+        "Nostalgic"
+    };
 
-	private void ClearDragClass()
-		=> _dragClass = DefaultDragClass;
+    public bool Hashtags { get; set; } = false;
+    public bool Emojis { get; set; } = false;
+
+
+    private MudForm _form;
+    private Post _model = new();
+    private PostFluentValidator ValidationRules = new();
+    private bool SuppressOnChangeWhenInvalid;
+    private MudFileUpload<IBrowserFile> _fileUpload;
+
+    private void UploadFiles(InputFileChangeEventArgs e)
+    {
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+        Snackbar.Add($"This file has the extension {_model.File?.Name.Split(".").Last()}", Severity.Info);
+        //TODO upload the files to the server
+    }
+
+    private async Task Submit()
+    {
+        await _form.Validate();
+
+        if (_form.IsValid)
+        {
+            Snackbar.Add("Submitted!");
+        }
+    }
+
+    private Task ClearAsync()
+        => _fileUpload?.ClearAsync() ?? Task.CompletedTask;
+
+    public class Post
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public IBrowserFile? File { get; set; }
+    }
+
+    public class PostFluentValidator : AbstractValidator<Post>
+    {
+        public PostFluentValidator()
+        {
+            RuleFor(x => x.Title)
+                .NotEmpty()
+                .Length(1, 100);
+            RuleFor(x => x.File)
+                .NotEmpty();
+            When(x => x.File != null, () => { RuleFor(x => x.File!.Size).LessThanOrEqualTo(10485760).WithMessage("The maximum file size is 10 MB"); });
+        }
+
+        public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
+        {
+            var result = await ValidateAsync(ValidationContext<Post>.CreateWithOptions((Post)model, x => x.IncludeProperties(propertyName)));
+            return result.IsValid ? Array.Empty<string>() : result.Errors.Select(e => e.ErrorMessage);
+        };
+    }
 
 }
