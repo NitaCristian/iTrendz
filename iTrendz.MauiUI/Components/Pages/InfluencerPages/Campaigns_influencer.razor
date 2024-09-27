@@ -1,41 +1,30 @@
 ﻿@page "/campaign-influencer"
 
-@using iTrendz.Domain.Interfaces
-@inject NavigationManager Navigation
-@inject ICampaignService CampaignService
+<MudStack Spacing="4">
+    @for (var i = 0; i < 5; i++)
+    {
+        <MudPaper Class="pa-2" Elevation="5">
+            <MudGrid>
+                <MudItem xs="4">
+                    <MudImage Src="https://picsum.photos/300/" Fluid="true" Alt="Random Image" Elevation="25" Class="rounded-lg ma-4"/>
+                </MudItem>
+                <MudItem xs="8">
+                    <MudText Typo="Typo.h5">Campaign for a new product!</MudText>
+                    <MudText Typo="Typo.h6">Black-view Watch R3 Pro Pink</MudText>
+                    <MudText Typo="Typo.subtitle1">by Xiaomi, Inc</MudText>
 
-<MudGrid Spacing="2">
-    <MudItem xs="12" sm="6" md="4">
-        <MudCard Elevation="1" Class="relative" Style="position: relative;" OnClick="NavigateToPage">
-            <div class="relative" Style="height: 165px;">
-                <MudCardMedia Image="https://picsum.photos/200/300" Height="165" Style="width: 100%; height: 100%;" />
-            </div>
+                    <MudText>Campaign Period: <MudChip T="string">05/25/2022</MudChip> - <MudChip T="string">06/03/2022</MudChip></MudText>
+                    <MudText>Creators Wanted: <MudChip T="string">0/10</MudChip></MudText>
+                    <MudText>Requirements: <MudChip T="string">Followers: 18M+</MudChip> <MudChip T="string">Average Views: 900k+</MudChip> <MudChip T="string">Audience: Female</MudChip></MudText>
+                    <MudText>Join our exciting campaign to promote the latest in cutting-edge technology! We’re looking for tech-savvy influencers to review and create content around our brand-new smart gadgets, including wireless headphones, smart home assistants, and portable charging devices.</MudText>
 
-            <MudCardContent Class="relative" Style="padding-bottom: 50px;">
-                <MudText Typo="Typo.h5" Style="text-align: center; margin-bottom: 20px;">Title</MudText>
-                <MudText Typo="Typo.body2">
-                    Campania noastră de publicitate îți oferă vizibilitate maximă, conectându-te direct cu publicul țintă prin strategii inovatoare și eficiente.
-                    Folosim canale digitale de top pentru a atrage atenția asupra produsului tău, crescând notorietatea brandului și conversiile. Mesajul tău va ajunge
-                    la milioane de utilizatori relevanți, generând impact imediat și măsurabil.
-                </MudText>
-
-                <!-- Butonul MudFab poziționat în colțul dreapta jos -->
-                <div class="fab-container">
-                    <MudFab Color="Color.Success" StartIcon=@Icons.Material.Filled.Add Size="Size.Small" Label="Apply" />
-                </div>
-            </MudCardContent>
-        </MudCard>
-    </MudItem>
-</MudGrid>
-
-<style>
-    .fab-container {
-        position: absolute;
-        bottom: 10px;
-        right: 10px; /* Modificat pentru a fi în dreapta jos */
+                    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Send" Color="Color.Primary">Apply</MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
     }
-</style>
+</MudStack>
 
 @code {
-  
+
 }
