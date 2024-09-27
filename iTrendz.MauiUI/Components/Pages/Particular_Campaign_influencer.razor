@@ -1,20 +1,25 @@
 ﻿@page "/particular-campaign-influencer"
 
 <MudGrid>
-    <MudItem xs="12">
-        <div class="image-container">
-            <MudImage Src="https://picsum.photos/2000/300" Class="rounded-lg ma-4 full-width-image" />
-
-            <!-- Imaginea circulară și numele firmei suprapuse -->
-            <div class="overlay-content d-flex flex-row align-center">
-                <MudImage Src="https://picsum.photos/2000/300" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2" />
-                <MudText Typo="Typo.h6" Class="company-name">Numele firmei</MudText>
-            </div>
+    <MudItem xl="3" lg="4" md="5" sm="6" xs="12">
+        <MudImage Src="https://picsum.photos/300/" Width="300" Height="300" Alt="Random Image" Elevation="25" Class="rounded-lg ma-4" />
+        <MudText Typo="Typo.h4">Tech gadget review</MudText>
+        <div class="d-flex flex-row align-center gap-3">
+            <MudImage Src="https://picsum.photos/50/" Width="50" Height="50" Alt="Random Image" Elevation="25" Class="rounded-circle ma-4" />
+            <MudText Typo="Typo.h6" Inline="true">NextGen</MudText>
         </div>
+        <MudStack>
+            <MudText>Application Status: <MudChip T="string" Icon="@Icons.Material.Filled.Pending" Color="Color.Warning">Pending</MudChip></MudText>
+            <MudText>Deadline: <MudChip T="string" Icon="@Icons.Material.Filled.DateRange" Color="Color.Info">October 15, 2024</MudChip></MudText>
+            <MudText>Type: <MudChip T="string" Icon="@Icons.Material.Filled.Campaign" Style=@($"color: white; background-color: {Colors.Purple.Lighten1};")>Unboxing</MudChip></MudText>
+            <MudText>No. Creators Wanted: <MudChip T="string" Icon="@Icons.Material.Filled.Person" Color="Color.Tertiary">4/25</MudChip></MudText>
+        </MudStack>
     </MudItem>
-</MudGrid>
 
-<MudText Typo="Typo.h3" Class="mt-2">Campanie de vizualizat</MudText>
+   
+<MudItem xl="9" lg="8" md="7" sm="6" xs="12">
+
+<MudText Typo="Typo.h6" Class="mt-2">Campanie de vizualizat</MudText>
 <MudText Typo="Typo.body1" Class="mt-4">
     O campanie de publicitate este o serie de acțiuni și strategii coordonate menite să promoveze un produs, serviciu sau brand către un public țintă.
     Scopul principal este creșterea vizibilității și atragerea de noi clienți prin utilizarea diverselor canale de marketing, precum TV, online, social media și print.
@@ -36,14 +41,17 @@
         Fiecare postare trebuie să aibă descriere. Trebuie să semene cu cele de pe Instagram.
     </MudExpansionPanel>
 </MudExpansionPanels>
-<MudGrid>
-    <MudItem xs="12">
-        <MudText Typo="Typo.h5" Class="mt-2">Buget</MudText>
-    </MudItem>
-    
-   
-    <MudItem xs="12">
-        <MudFab StartIcon="@Icons.Material.Filled.AttachMoney" Label="10k" />
+        <MudGrid>
+            <MudItem xs="12">
+                <MudText Typo="Typo.h5" Class="mt-2">Buget</MudText>
+            </MudItem>
+
+
+            <MudItem xs="12">
+                <MudFab StartIcon="@Icons.Material.Filled.AttachMoney" Label="10k" />
+            </MudItem>
+        </MudGrid>
+
     </MudItem>
 </MudGrid>
 
