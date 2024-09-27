@@ -1,0 +1,75 @@
+﻿@page "/particular-campaign-influencer"
+
+<MudGrid>
+    <MudItem xs="12">
+        <div class="image-container">
+            <MudImage Src="https://picsum.photos/2000/300" Class="rounded-lg ma-4 full-width-image" />
+
+            <!-- Imaginea circulară și numele firmei suprapuse -->
+            <div class="overlay-content d-flex flex-row align-center">
+                <MudImage Src="https://picsum.photos/2000/300" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2" />
+                <MudText Typo="Typo.h6" Class="company-name">Numele firmei</MudText>
+            </div>
+        </div>
+    </MudItem>
+</MudGrid>
+
+<MudText Typo="Typo.h3" Class="mt-2">Campanie de vizualizat</MudText>
+<MudText Typo="Typo.body1" Class="mt-4">
+    O campanie de publicitate este o serie de acțiuni și strategii coordonate menite să promoveze un produs, serviciu sau brand către un public țintă.
+    Scopul principal este creșterea vizibilității și atragerea de noi clienți prin utilizarea diverselor canale de marketing, precum TV, online, social media și print.
+</MudText>
+
+<MudText Typo="Typo.h5" Class="mt-2">Cerinte</MudText>
+
+<MudExpansionPanels MultiExpansion="true" Class="mt-2">
+    <MudExpansionPanel Text="3 Shorturi Instagram">
+        Fiecare short trebuie să conțină imagini cu produsul, informații interesante și să fie cât mai dinamice.
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="10 Postari Instagram">
+        Fiecare postare trebuie să aibă o descriere de 10 rânduri. Imaginea postării trebuie să aibă un peisaj natural sau urban în spate.
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="10 Tick Tockuri">
+        Fiecare Tick Tock trebuie să aibă o piesă bine aleasă, cât și foarte multă dinamică, 2 dintre ele pot fi fără cuvinte.
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="3 Postari pe Facebook">
+        Fiecare postare trebuie să aibă descriere. Trebuie să semene cu cele de pe Instagram.
+    </MudExpansionPanel>
+</MudExpansionPanels>
+<MudGrid>
+    <MudItem xs="12">
+        <MudText Typo="Typo.h5" Class="mt-2">Buget</MudText>
+    </MudItem>
+    
+   
+    <MudItem xs="12">
+        <MudFab StartIcon="@Icons.Material.Filled.AttachMoney" Label="10k" />
+    </MudItem>
+</MudGrid>
+
+
+<style>
+    .full-width-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .image-container {
+        position: relative;
+    }
+
+    .overlay-content {
+        position: absolute;
+        top: 20px; /* Poziționează textul și imaginea în partea de sus a imaginii */
+        left: 20px; /* Poziționează la 20px de la marginea stângă */
+        color: purple; /* Culoare mov pentru text */
+    }
+
+    .company-name {
+        color: purple; /* Culoare mov pentru numele firmei */
+    }
+</style>
+
+@code {
+
+}

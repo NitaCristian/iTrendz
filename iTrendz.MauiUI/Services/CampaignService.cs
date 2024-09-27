@@ -10,7 +10,7 @@ public class CampaignService(HttpClient httpClient) : ICampaignService
     {
         var response = await httpClient.GetAsync("campaign/all");
         if (!response.IsSuccessStatusCode) return new List<Campaign>();
-        return await response.Content.ReadFromJsonAsync<IEnumerable<Campaign>>();
+        return await response.Content.ReadFromJsonAsync<List<Campaign>>();
     }
 
     public async Task<bool> DeleteCampaignAsync(int campaignId)

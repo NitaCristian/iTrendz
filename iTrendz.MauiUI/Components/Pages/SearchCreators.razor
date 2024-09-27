@@ -3,120 +3,126 @@
 
 @inject ICreatorService CreatorService
 
-<MudTextField @bind-Value="searchTerm"
-              Label="Search for creators"
-              Adornment="Adornment.End"
-              AdornmentIcon=@Icons.Material.Filled.Search
-              Immediate="true"
-              OnAdornmentClick="() => FilterCreators()"/>
 
-@if (ShowTop)
+@if (AllCreators is null)
 {
-    <MudText Typo="Typo.h3">Top Creators</MudText>
-
-    <MudCarousel ShowArrows="true" ShowBullets="false" EnableSwipeGesture="true" AutoCycle="false" TData="object" Style="height: 500px;">
-        @foreach (var creator in AllCreators.Take(3))
-        {
-            <MudCarouselItem Transition="Transition.Slide">
-                <div class="d-flex justify-center align-center mt-5">
-                    <MudCard Elevation="3">
-                        <MudCardHeader Style="background-color: rgba(89,74,226,1)">
-                            <MudGrid Class="align-items-center">
-                                <MudItem xs="3">
-                                    <!-- Gol -->
-                                </MudItem>
-                                <MudItem xs="6" Class="d-flex justify-center">
-                                    <MudImage Src=@creator.ImageUrl Width="150" Height="150" Alt="Mony the dog" Elevation="25" Class="rounded-circle"/>
-                                </MudItem>
-                                <MudItem xs="3" Class="d-flex justify-end">
-                                    <MudStack>
-                                        <MudIconButton Icon="@Icons.Custom.Brands.Facebook" Size="Size.Small" Style="color: white"/>
-                                        <MudIconButton Icon="@Icons.Custom.Brands.Instagram" Size="Size.Small" Style="color: white"/>
-                                        <MudIconButton Icon="@Icons.Custom.Brands.TikTok" Size="Size.Small" Style="color: white"/>
-                                    </MudStack>
-                                </MudItem>
-                            </MudGrid>
-                        </MudCardHeader>
-                        <MudCardContent>
-                            <MudText Typo="Typo.h5" Class="text-center mt-3" Style="text-align: center">@creator.UserName</MudText>
-                            <MudText Typo="Typo.h6" Class="text-center" Style="text-align: center">@creator.Domain</MudText>
-                            <div class="d-flex justify-center">
-                                <div class="d-flex flex-column align-center mt-3">
-                                    <MudRating ReadOnly="true" SelectedValue=@Convert.ToInt32(creator.Rating)/>
-                                    <MudText Typo="Typo.subtitle2" Class="deep-purple-text mt-2">@LabelText(Convert.ToInt32(creator.Rating))</MudText>
-                                </div>
-                            </div>
-                            <MudStack Row="true" Justify="Justify.Center" Class="mt-3">
-                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mx-2">About Me</MudButton>
-                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mx-2">Hire Me</MudButton>
-                            </MudStack>
-                        </MudCardContent>
-                    </MudCard>
-                </div>
-            </MudCarouselItem>
-        }
-    </MudCarousel>
+    <MudText Align="Align.Center">Loading data...</MudText>
 }
+else if (!AllCreators.Any())
+{
+    <MudText Align="Align.Center">No influencers found!</MudText>
+}
+else
+{
+    <MudTextField @bind-Value="_searchTerm"
+                  Label="Search for creators"
+                  Adornment="Adornment.End"
+                  AdornmentIcon=@Icons.Material.Filled.Search
+                  Immediate="true"
+                  OnAdornmentClick="() => FilterCreators()"/>
+    if (_showTop)
+    {
+        <MudText Typo="Typo.h3">Top Creators</MudText>
 
-<MudText Typo="Typo.h3">All Creators</MudText>
+        <MudCarousel ShowArrows="true" ShowBullets="false" EnableSwipeGesture="true" AutoCycle="false" TData="object" Style="height: 500px;">
+            @foreach (var creator in AllCreators.Take(3))
+            {
+                <MudCarouselItem Transition="Transition.Slide">
+                    <div class="d-flex justify-center align-center mt-5">
+                        <MudCard Elevation="3">
+                            <MudCardHeader Style="background-color: rgba(89,74,226,1)">
+                                <MudGrid Class="align-items-center">
+                                    <MudItem xs="3">
+                                        <!-- Gol -->
+                                    </MudItem>
+                                    <MudItem xs="6" Class="d-flex justify-center">
+                                        <MudImage Src=@creator.ImageUrl Width="150" Height="150" Alt="Mony the dog" Elevation="25" Class="rounded-circle"/>
+                                    </MudItem>
+                                    <MudItem xs="3" Class="d-flex justify-end">
+                                        <MudStack>
+                                            <MudIconButton Icon="@Icons.Custom.Brands.Facebook" Size="Size.Small" Style="color: white"/>
+                                            <MudIconButton Icon="@Icons.Custom.Brands.Instagram" Size="Size.Small" Style="color: white"/>
+                                            <MudIconButton Icon="@Icons.Custom.Brands.TikTok" Size="Size.Small" Style="color: white"/>
+                                        </MudStack>
+                                    </MudItem>
+                                </MudGrid>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudText Typo="Typo.h5" Class="text-center mt-3" Style="text-align: center">@creator.UserName</MudText>
+                                <MudText Typo="Typo.h6" Class="text-center" Style="text-align: center">@creator.Domain</MudText>
+                                <div class="d-flex justify-center">
+                                    <div class="d-flex flex-column align-center mt-3">
+                                        <MudRating ReadOnly="true" SelectedValue=@Convert.ToInt32(creator.Rating)/>
+                                        <MudText Typo="Typo.subtitle2" Class="deep-purple-text mt-2">@LabelText(Convert.ToInt32(creator.Rating))</MudText>
+                                    </div>
+                                </div>
+                                <MudStack Row="true" Justify="Justify.Center" Class="mt-3">
+                                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mx-2">About Me</MudButton>
+                                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mx-2">Hire Me</MudButton>
+                                </MudStack>
+                            </MudCardContent>
+                        </MudCard>
+                    </div>
+                </MudCarouselItem>
+            }
+        </MudCarousel>
+    }
 
-<MudDataGrid Items="@FilteredCreators" SortMode="@SortMode.None" Groupable="false">
-    <Columns>
-        <TemplateColumn Title="Name">
-            <CellTemplate>
-                <div class="d-flex flex-row align-center">
-                    <MudImage Src="@context.Item.ImageUrl" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2"/>
-                    <MudText>@context.Item.UserName</MudText>
-                </div>
-            </CellTemplate>
-        </TemplateColumn>
+    <MudText Typo="Typo.h3">All Creators</MudText>
 
-        <PropertyColumn Property="x => x.Domain" Title="Domain"/>
-        <PropertyColumn Property="x => x.Price" Title="Price"/>
+    <MudDataGrid Items="@FilteredCreators" SortMode="@SortMode.None" Groupable="false">
+        <Columns>
+            <TemplateColumn Title="Name">
+                <CellTemplate>
+                    <div class="d-flex flex-row align-center">
+                        <MudImage Src="@context.Item.ImageUrl" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2"/>
+                        <MudText>@context.Item.UserName</MudText>
+                    </div>
+                </CellTemplate>
+            </TemplateColumn>
 
-        <TemplateColumn Title="Rating">
-            <CellTemplate>
-                <MudRating ReadOnly="true" Size="@Size.Small" SelectedValue="@context.Item.Rating"/>
-            </CellTemplate>
-        </TemplateColumn>
-    </Columns>
-    <PagerContent>
-        <MudDataGridPager T="Influencer"/>
-    </PagerContent>
-</MudDataGrid>
+            <PropertyColumn Property="x => x.Domain" Title="Domain"/>
+            <PropertyColumn Property="x => x.Price" Title="Price"/>
+
+            <TemplateColumn Title="Rating">
+                <CellTemplate>
+                    <MudRating ReadOnly="true" Size="@Size.Small" SelectedValue="@context.Item.Rating"/>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+        <PagerContent>
+            <MudDataGridPager T="Influencer"/>
+        </PagerContent>
+    </MudDataGrid>
+}
 
 @code {
     private IEnumerable<Influencer>? AllCreators;
     private IEnumerable<Influencer>? FilteredCreators;
 
+    protected override async Task OnInitializedAsync()
+    {
+        AllCreators = await CreatorService.GetAllCreatorsAsync();
+        FilteredCreators = AllCreators;
+    }
 
-    private string _searchString;
-
-    private Func<Influencer, bool> QuickFilter => x => string.IsNullOrWhiteSpace(_searchString) || x.UserName.Contains(_searchString, StringComparison.OrdinalIgnoreCase);
-
-    private string searchTerm = string.Empty;
-    private bool ShowTop = true;
+    private string _searchTerm = string.Empty;
+    private bool _showTop = true;
 
     private void FilterCreators()
     {
         var filtered = AllCreators;
 
-        ShowTop = string.IsNullOrWhiteSpace(searchTerm);
+        _showTop = string.IsNullOrWhiteSpace(_searchTerm);
 
-        if (!string.IsNullOrWhiteSpace(searchTerm))
+        if (!string.IsNullOrWhiteSpace(_searchTerm))
         {
-            filtered = filtered.Where(c => c.UserName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+            filtered = filtered?.Where(c => c.UserName!.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
         }
 
         // TODO: Extend filtration logic here with tags and other properties
 
-        FilteredCreators = filtered.ToList();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        AllCreators = await CreatorService.GetAllCreatorsAsync();
-        FilteredCreators = AllCreators;
+        FilteredCreators = filtered?.ToList();
     }
 
     private string LabelText(int creatorRating) => (creatorRating) switch
@@ -128,5 +134,4 @@
         5 => "Awesome!",
         _ => "Rate our product!"
     };
-
 }
