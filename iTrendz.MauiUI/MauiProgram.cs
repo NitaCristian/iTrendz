@@ -23,7 +23,7 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
         
-        builder.Services.AddScoped(_ => new HttpClient() { BaseAddress = new Uri("https://localhost:7061/api")});
+        builder.Services.AddScoped(_ => new HttpClient() { BaseAddress = new Uri("https://localhost:7061/api/")});
         builder.Services.AddAuthorizationCore();
         builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>(sp =>
         {
