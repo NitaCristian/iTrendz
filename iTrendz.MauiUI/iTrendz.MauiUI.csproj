@@ -72,4 +72,8 @@
       <ProjectReference Include="..\iTrendz.Domain\iTrendz.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Components\Shared\MediaCard.razor" />
+    </ItemGroup>
+
 </Project>
