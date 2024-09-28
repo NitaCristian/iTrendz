@@ -1,4 +1,4 @@
-﻿@page "/particular-contract"
+﻿@page "/contracts/{Id:int}"
 @using FluentValidation
 @using Severity = MudBlazor.Severity
 @inject ISnackbar Snackbar
@@ -281,6 +281,8 @@
 </MudGrid>
 
 @code {
+    [Parameter] public int Id { get; set; }
+                                
     public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
 
     public List<ChartSeries> Series = new List<ChartSeries>()

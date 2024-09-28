@@ -1,5 +1,4 @@
-﻿@page "/particular-campaign"
-@* @page "/campaigns/{id}" *@
+﻿@page "/campaigns/brand/{Id:int}"
 
 @inject HttpClient httpClient
 
@@ -292,6 +291,8 @@
 </style>
 
 @code {
+	[Parameter] public int Id { get; set; }
+
 	public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
 	public List<ChartSeries> Series = new List<ChartSeries>()
 	{

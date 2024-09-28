@@ -73,6 +73,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AdditionalFiles Include="Components\Pages\Campaigns\BrandCampainDetails.razor" />
+      <AdditionalFiles Include="Components\Pages\Campaigns\ManageCampaigns.razor" />
+      <AdditionalFiles Include="Components\Pages\Contracts\ContractDetails.razor" />
+      <AdditionalFiles Include="Components\Pages\Contracts\ViewContracts.razor" />
       <AdditionalFiles Include="Components\Shared\MediaCard.razor" />
     </ItemGroup>
 
