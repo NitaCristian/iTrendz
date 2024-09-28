@@ -1,12 +1,21 @@
 <MudNavMenu>
     <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="search-creators" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Search">Search Creators</MudNavLink>
-    <MudNavLink Href="campaigns" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">My Campaigns</MudNavLink>
-    <MudNavLink Href="register" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Register</MudNavLink>
-    <MudNavLink Href="login" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Login</MudNavLink>
-    <MudNavLink Href="particular-campaign" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Particular Campaign</MudNavLink>
-    <MudNavLink Href="my-contracts" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">My Contracts</MudNavLink>
-    <MudNavLink Href="campaign-influencer" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List"> Campaigns-Influencer</MudNavLink>
-    <MudNavLink Href="particular-campaign-influencer" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Particular Campaign Influencer</MudNavLink>
-    <MudNavLink Href="particular-contract" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Particular Contract</MudNavLink>
+
+    <MudNavGroup Title="Authentication" Icon="@Icons.Material.Filled.Security" Expanded="true">
+        <MudNavLink Href="register" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.PersonAdd" >Register</MudNavLink>
+        <MudNavLink Href="login" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.LockOpen" >Login</MudNavLink>
+    </MudNavGroup>
+    
+    <MudNavGroup Title="Influencers" Icon="@Icons.Material.Filled.Person"  Expanded="true">
+        <MudNavLink Href="my-contracts" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Article">View Contracts</MudNavLink>
+        <MudNavLink Href="particular-contract" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Description">Contract Details</MudNavLink>
+        <MudNavLink Href="campaign-influencer" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Campaign"> View Campaigns</MudNavLink>
+        <MudNavLink Href="particular-campaign-influencer" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Assignment">Campaign Details</MudNavLink>
+    </MudNavGroup>
+
+    <MudNavGroup Title="Brands" Icon="@Icons.Material.Filled.BusinessCenter"  Expanded="true">
+        <MudNavLink Href="campaigns" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Campaign">View Campaigns</MudNavLink>
+        <MudNavLink Href="particular-campaign" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Assignment">Campaign Details</MudNavLink>
+        <MudNavLink Href="search-creators" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Search">Search Creators</MudNavLink>
+    </MudNavGroup>
 </MudNavMenu>
