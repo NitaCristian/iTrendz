@@ -1,7 +1,223 @@
 ﻿@page "/influencers/{Id:int}"
 
-<h3>Influencer's Profile Page</h3>
+<MudGrid>
+    <MudItem xl="3" lg="4" md="5" sm="6" xs="12">
+        <MudGrid>
+            <MudItem>
+                <MudImage Src="https://picsum.photos/100" Alt="Profile Picture" Elevation="25" Class="rounded-lg"/>
+            </MudItem>
+            <MudItem>
+                <MudText>Loretta Payne</MudText>
+                <MudText>@@payne_lore</MudText>
+                <MudText><MudIcon Icon="@Icons.Material.Filled.LocationOn" Title="Location"/> Paris, France</MudText>
+            </MudItem>
+        </MudGrid>
+
+        <MudStack Row Spacing="2">
+            <MudChip T="string" Color="Color.Primary" Size="Size.Small">#fashion</MudChip>
+            <MudChip T="string" Color="Color.Primary" Size="Size.Small">#design</MudChip>
+            <MudChip T="string" Color="Color.Primary" Size="Size.Small">#art</MudChip>
+            <MudChip T="string" Color="Color.Primary" Size="Size.Small">#beauty</MudChip>
+        </MudStack>
+
+        <MudIconButton Icon="@Icons.Material.Filled.Bookmark" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Medium"/>
+        <MudButton Variant="Variant.Filled" Color="Color.Secondary">Send message</MudButton>
+        <MudIconButton Icon="@Icons.Material.Filled.MoreHoriz" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Medium"/>
+
+        <MudDivider/>
+
+        <MudText>Channel statistics</MudText>
+        <MudGrid Spacing="2">
+            <MudItem xs="6">
+                <MudText>
+                    <IconBox Icon="@Icons.Material.Filled.People"/> Subscribers
+                </MudText>
+            </MudItem>
+            <MudItem xs="6" class="text-right">
+                <MudText>250k</MudText>
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudText>
+                    <IconBox Icon="@Icons.Material.Filled.Visibility"/> Views
+                </MudText>
+            </MudItem>
+            <MudItem xs="6" class="text-right">
+                <MudText>1.5M</MudText>
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudText>
+                    <IconBox Icon="@Icons.Material.Filled.PlayArrow"/> Videos
+                </MudText>
+            </MudItem>
+            <MudItem xs="6" class="text-right">
+                <MudText>75</MudText>
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudText>
+                    <IconBox Icon="@Icons.Material.Filled.ThumbUp"/> Likes
+                </MudText>
+            </MudItem>
+            <MudItem xs="6" class="text-right">
+                <MudText>10k</MudText>
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudText>
+                    <IconBox Icon="@Icons.Material.Filled.FiberNew"/> Last Video
+                </MudText>
+            </MudItem>
+            <MudItem xs="6" class="text-right">
+                <MudText>Posted 2 days ago</MudText>
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudText>
+                    <IconBox Icon="@Icons.Material.Filled.ThumbUpAlt"/> Average Likes
+                </MudText>
+            </MudItem>
+            <MudItem xs="6" class="text-right">
+                <MudText>8k</MudText>
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudText>
+                    <IconBox Icon="@Icons.Material.Filled.VideoLibrary"/> Last Month Videos
+                </MudText>
+            </MudItem>
+            <MudItem xs="6" class="text-right">
+                <MudText>10</MudText>
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudText>
+                    <IconBox Icon="@Icons.Material.Filled.Comment"/> Average Comments
+                </MudText>
+            </MudItem>
+            <MudItem xs="6" class="text-right">
+                <MudText>500</MudText>
+            </MudItem>
+        </MudGrid>
+
+        <MudDivider/>
+
+        <MudText>Ad price</MudText>
+        <MudText>Instagram</MudText>
+        <MudStack Row Spacing="2">
+            <MudChip T="string" Color="Color.Primary" Size="Size.Small">Reels: $300</MudChip>
+            <MudChip T="string" Color="Color.Primary" Size="Size.Small">Story: $200</MudChip>
+            <MudChip T="string" Color="Color.Primary" Size="Size.Small">Posts: $500</MudChip>
+        </MudStack>
+        <MudText>TikTok</MudText>
+        <MudStack Row>
+            <MudChip T="string" Color="Color.Primary" Size="Size.Small">Sponsored Content: $300</MudChip>
+            <MudChip T="string" Color="Color.Primary" Size="Size.Small">Challenge: $100</MudChip>
+        </MudStack>
+    </MudItem>
+    <MudItem xl="9" lg="8" md="7" sm="6" xs="12">
+        <MudStack>
+            <MudCard>
+                <MudCardContent>
+                    <MudText>Content</MudText>
+                    <MudGrid>
+                        @foreach (var video in Videos)
+                        {
+                            <MudItem xs="4">
+                                <MudCard>
+                                    <MudCardContent>
+                                        <video width="100%" controls poster="@video.PosterUrl">
+                                            <source src="@video.VideoUrl" type="video/mp4">
+                                        </video>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+            <MudCard>
+                <MudCardContent>
+                    <MudText>Subscriber Growth</MudText>
+                    <MudTabs Elevation="0" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+                        <MudTabPanel Text="TikTok">
+                            <MudChart ChartType="ChartType.Line" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350" ChartOptions="_options"></MudChart>
+                        </MudTabPanel>
+                        <MudTabPanel Text="YouTube">
+                            <MudChart ChartType="ChartType.Line" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350" ChartOptions="_options"></MudChart>
+                        </MudTabPanel>
+                        <MudTabPanel Text="Instagram">
+                            <MudChart ChartType="ChartType.Line" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350" ChartOptions="_options"></MudChart>
+                        </MudTabPanel>
+                    </MudTabs>
+                </MudCardContent>
+            </MudCard>
+            <MudCard>
+                <MudCardContent>
+                    <MudText>Audience</MudText>
+                    <MudGrid>
+                        <MudItem xs="6">
+                            <MudPaper Class="pa-3">
+                                <MudText>Gender</MudText>
+                                <MudChart ChartType="ChartType.Donut" Width="300px" Height="300px" InputData="@_data" InputLabels="@_labels"></MudChart>
+                            </MudPaper>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudPaper Class="pa-3">
+                                <MudText>Quality</MudText>
+                                <MudChart ChartType="ChartType.Donut" Width="300px" Height="300px" InputData="@_data" InputLabels="@_labels"></MudChart>
+                            </MudPaper>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudPaper Class="pa-3">
+                                <MudText>Age</MudText>
+                                <MudChart ChartType="ChartType.Bar" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350px"></MudChart>
+                            </MudPaper>
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </MudStack>
+    </MudItem>
+</MudGrid>
 
 @code {
-[Parameter] public int Id { get; set; }
+    [Parameter] public int Id { get; set; }
+
+    private List<ChartSeries> _series =
+    [
+        new ChartSeries { Name = "Series 1", Data = [90, 79, 72, 69, 62, 62, 55, 65, 70] },
+    ];
+
+    private string[] _xAxisLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"];
+
+    private ChartOptions _options = new();
+
+    private double[] _data = [50, 25, 20, 5];
+
+    private string[] _labels =
+    [
+        "Fossil", "Nuclear", "Solar", "Wind", "Oil", "Coal", "Gas", "Biomass",
+        "Hydro", "Geothermal", "Nuclear Fusion", "Pumped Storage", "Solar", "Wind", "Oil",
+        "Coal", "Gas", "Biomass", "Hydro", "Geothermal"
+    ];
+
+    private List<Video> Videos;
+
+    protected override void OnInitialized()
+    {
+        _options.InterpolationOption = InterpolationOption.NaturalSpline;
+        _options.YAxisFormat = "c2";
+        _options.ShowLegend = false;
+
+        Videos =
+        [
+            new(id: 1, title: "Masina in Padure", videoUrl: "/assets/videos/video.mp4", posterUrl: "/assets/image/poster.jpg"),
+            new(id: 1, title: "Masina in Padure", videoUrl: "/assets/videos/video.mp4", posterUrl: "/assets/image/poster.jpg"),
+            new(id: 1, title: "Masina in Padure", videoUrl: "/assets/videos/video.mp4", posterUrl: "/assets/image/poster.jpg"),
+            new(id: 1, title: "Masina in Padure", videoUrl: "/assets/videos/video.mp4", posterUrl: "/assets/image/poster.jpg")
+        ];
+    }
+
 }
