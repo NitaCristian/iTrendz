@@ -7,8 +7,8 @@
                 <MudImage Src="https://picsum.photos/100" Alt="Profile Picture" Elevation="25" Class="rounded-lg"/>
             </MudItem>
             <MudItem>
-                <MudText>Loretta Payne</MudText>
-                <MudText>@@payne_lore</MudText>
+                <MudText>NextGen</MudText>
+                <MudText>@@nextgen</MudText>
                 <MudText><MudIcon Icon="@Icons.Material.Filled.LocationOn" Title="Location"/> Paris, France</MudText>
             </MudItem>
         </MudGrid>
@@ -100,62 +100,75 @@
                 <MudText>500</MudText>
             </MudItem>
         </MudGrid>
-
-        <MudDivider/>
-
-        <MudText>Ad price</MudText>
-        <MudText>Instagram</MudText>
-        <MudStack Row Spacing="2">
-            <MudChip T="string" Color="Color.Primary" Size="Size.Small">Reels: $300</MudChip>
-            <MudChip T="string" Color="Color.Primary" Size="Size.Small">Story: $200</MudChip>
-            <MudChip T="string" Color="Color.Primary" Size="Size.Small">Posts: $500</MudChip>
-        </MudStack>
-        <MudText>TikTok</MudText>
-        <MudStack Row>
-            <MudChip T="string" Color="Color.Primary" Size="Size.Small">Sponsored Content: $300</MudChip>
-            <MudChip T="string" Color="Color.Primary" Size="Size.Small">Challenge: $100</MudChip>
-        </MudStack>
     </MudItem>
     <MudItem xl="9" lg="8" md="7" sm="6" xs="12">
-        <MudCard>
-            <MudCardContent>
-                <MudText>Subscriber Growth</MudText>
-                <MudTabs Elevation="0" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
-                    <MudTabPanel Text="TikTok">
-                        <MudChart ChartType="ChartType.Line" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350" ChartOptions="_options"></MudChart>
-                    </MudTabPanel>
-                    <MudTabPanel Text="YouTube">
-                        <MudChart ChartType="ChartType.Line" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350" ChartOptions="_options"></MudChart>
-                    </MudTabPanel>
-                    <MudTabPanel Text="Instagram">
-                        <MudChart ChartType="ChartType.Line" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350" ChartOptions="_options"></MudChart>
-                    </MudTabPanel>
-                </MudTabs>
-            </MudCardContent>
-        </MudCard>
+        <MudStack>
+            <MudCard>
+                <MudCardContent>
+                    <MudText>Past Campaigns</MudText>
+                    <MudGrid Spacing="2">
+                        @foreach (var campaign in PastCampaigns)
+                        {
+                            <MudItem xs="4">
+                                <MudCard Class="mud-width-full mud-height-auto" Style="width: 250px;">
+                                    <MudCardMedia Image="@(campaign.ImageURL)" Alt="Campaign Image" Height="150"/>
+                                    <MudCardContent>
+                                        <MudText Typo="Typo.h6">@campaign.Title</MudText>
+                                        <MudText Typo="Typo.body2">@campaign.StartTime</MudText>
+                                        <MudText Typo="Typo.body2">Completed</MudText>
+                                    </MudCardContent>
+                                    <MudCardActions>
+                                        <MudButton Variant="Variant.Filled" Color="Color.Primary">View Details</MudButton>
+                                    </MudCardActions>
+                                </MudCard>
+                            </MudItem>
+                        }
+                    </MudGrid>
 
-        <MudText>Audience</MudText>
-        <MudGrid>
-            <MudItem xs="6">
-                <MudPaper Class="pa-3">
-                    <MudText>Gender</MudText>
-                    <MudChart ChartType="ChartType.Donut" Width="300px" Height="300px" InputData="@_data" InputLabels="@_labels"></MudChart>
-                </MudPaper>
-            </MudItem>
-            <MudItem xs="6">
-                <MudPaper Class="pa-3">
-                    <MudText>Quality</MudText>
-                    <MudChart ChartType="ChartType.Donut" Width="300px" Height="300px" InputData="@_data" InputLabels="@_labels"></MudChart>
-                </MudPaper>
-            </MudItem>
-            <MudItem xs="6">
-                <MudPaper Class="pa-3">
-                    <MudText>Age</MudText>
-                    <MudChart ChartType="ChartType.Bar" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350px"></MudChart>
-                </MudPaper>
-            </MudItem>
-        </MudGrid>
-
+                </MudCardContent>
+            </MudCard>
+            <MudCard>
+                <MudCardContent>
+                    <MudText>Subscriber Growth</MudText>
+                    <MudTabs Elevation="0" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+                        <MudTabPanel Text="TikTok">
+                            <MudChart ChartType="ChartType.Line" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350" ChartOptions="_options"></MudChart>
+                        </MudTabPanel>
+                        <MudTabPanel Text="YouTube">
+                            <MudChart ChartType="ChartType.Line" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350" ChartOptions="_options"></MudChart>
+                        </MudTabPanel>
+                        <MudTabPanel Text="Instagram">
+                            <MudChart ChartType="ChartType.Line" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350" ChartOptions="_options"></MudChart>
+                        </MudTabPanel>
+                    </MudTabs>
+                </MudCardContent>
+            </MudCard>
+            <MudCard>
+                <MudCardContent>
+                    <MudText>Audience</MudText>
+                    <MudGrid>
+                        <MudItem xs="6">
+                            <MudPaper Class="pa-3">
+                                <MudText>Gender</MudText>
+                                <MudChart ChartType="ChartType.Donut" Width="300px" Height="300px" InputData="@_data" InputLabels="@_labels"></MudChart>
+                            </MudPaper>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudPaper Class="pa-3">
+                                <MudText>Quality</MudText>
+                                <MudChart ChartType="ChartType.Donut" Width="300px" Height="300px" InputData="@_data" InputLabels="@_labels"></MudChart>
+                            </MudPaper>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudPaper Class="pa-3">
+                                <MudText>Age</MudText>
+                                <MudChart ChartType="ChartType.Bar" ChartSeries="@_series" XAxisLabels="@_xAxisLabels" Width="100%" Height="350px"></MudChart>
+                            </MudPaper>
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </MudStack>
     </MudItem>
 </MudGrid>
 
@@ -179,6 +192,33 @@
         "Fossil", "Nuclear", "Solar", "Wind", "Oil", "Coal", "Gas", "Biomass",
         "Hydro", "Geothermal", "Nuclear Fusion", "Pumped Storage", "Solar", "Wind", "Oil",
         "Coal", "Gas", "Biomass", "Hydro", "Geothermal"
+    ];
+
+    public List<Campaign> PastCampaigns =
+    [
+        new Campaign
+        {
+            Title = "Summer Fashion Launch",
+            ImageURL = "https://example.com/summerfashion.jpg",
+            StartTime = new(2023, 07, 15),
+            Description = "A successful campaign to promote summer fashion trends.",
+        },
+
+        new Campaign
+        {
+            Title = "Tech Gadget Unboxing",
+            ImageURL = "https://example.com/techgadget.jpg",
+            StartTime = new(2023, 08, 01),
+            Description = "Influencers unboxed the latest tech gadgets.",
+        },
+
+        new Campaign
+        {
+            Title = "Healthy Living Awareness",
+            ImageURL = "https://example.com/healthyliving.jpg",
+            StartTime = new(2023, 09, 20),
+            Description = "Promoting healthy lifestyle choices.",
+        }
     ];
 
     protected override void OnInitialized()
