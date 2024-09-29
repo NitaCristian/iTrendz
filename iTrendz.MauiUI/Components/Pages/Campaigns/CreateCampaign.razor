@@ -1,7 +1,164 @@
 ﻿@page "/campaigns/create"
 
-<h3>Create Campaign Page</h3>
+@using System.Text.RegularExpressions
+
+<MudText>Edit Profile</MudText>
+
+<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+    <MudText>Campaign Image</MudText>
+    <MudImage Alt="Campaign Image" Width="50" Class="rounded-lg" Elevation="2" Src="https://picsum.photos/50"/>
+    <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
+        <ActivatorContent>
+            <MudFab Color="Color.Secondary"
+                    StartIcon="@Icons.Material.Filled.Image"
+                    Label="Load picture"/>
+        </ActivatorContent>
+    </MudFileUpload>
+
+
+    <MudText>Title</MudText>
+    <MudTextField Label="Title" Required="true" RequiredError="Title is required!" T="string"/>
+
+    <MudText>Description</MudText>
+    <MudTextField AutoGrow Label="Description" Lines="3" Required="true" RequiredError="Description is required!" T="string"/>
+
+    <MudText>Campaign Period</MudText>
+    <MudDateRangePicker AutoClose="false" @bind-DateRange="@_dateRange" Clearable="true" Margin="Margin.Dense" PickerVariant="PickerVariant.Dialog" PlaceholderEnd="End Date" PlaceholderStart="Start Date" @ref="_picker">
+        <PickerActions>
+            <MudButton Class="mr-auto align-self-start" OnClick="@(() => _picker.ClearAsync())">Clear</MudButton>
+            <MudButton OnClick="@(() => _picker.CloseAsync(false))">Cancel</MudButton>
+            <MudButton Color="Color.Primary" OnClick="@(() => _picker.CloseAsync())">Ok</MudButton>
+        </PickerActions>
+    </MudDateRangePicker>
+    
+    <MudText>Type</MudText>
+    <MudSelect @bind-Value="_value" Clearable="true" Label="Campaign type">
+        @foreach (var type in campaignTypes)
+        {
+            <MudSelectItem Value="type">@type</MudSelectItem>
+        }
+    </MudSelect>
+    
+    <MudText>Budget</MudText>
+    <MudNumericField @bind-Value="DecimalValue" Label="Outlined" Variant="Variant.Outlined" Step=".2M" />  
+    
+    <MudText>Creators wanted</MudText>
+    <MudNumericField @bind-Value="IntValue" Label="Standard" Variant="Variant.Text" Min="0" Max="10" />
+    
+    <MudText>Platforms</MudText>
+    <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" CheckMark="true" Variant="Variant.Text" Color="Color.Info">
+        <MudChip Value="@("Instagram")" />
+        <MudChip Value="@("TikTok")" />
+        <MudChip Value="@("YouTube")" />
+    </MudChipSet>
+    
+    <MudText>Requirements</MudText>
+    <MudNumericField @bind-Value="IntValue" Label="Followers" Variant="Variant.Text" Min="0" Max="10" />
+    <MudNumericField @bind-Value="IntValue" Label="Average Views" Variant="Variant.Text" Min="0" Max="10" />
+    <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" CheckMark="true" Variant="Variant.Text" Color="Color.Info">
+        <MudChip Value="@("Male")" />
+        <MudChip Value="@("Female")" />
+    </MudChipSet>
+    
+    <MudText>Specifications</MudText>
+    TODO
+
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Submit</MudButton>
+</MudForm>
+
 
 @code {
+    private IReadOnlyCollection<string> _selected;
+    public int IntValue { get; set; }
+    public decimal DecimalValue { get; set; }
+    string _value;
+
+    List<string> campaignTypes = new List<string>
+    {
+        "Unboxing",
+        "Review",
+        "Promotion",
+        "Collaboration",
+        "Giveaway",
+        "Sponsored Post",
+        "Product Launch",
+        "Brand Awareness",
+        "Affiliate Marketing",
+        "Contest",
+        "Event Coverage",
+        "Influencer Takeover",
+        "Tutorial",
+        "Q&A",
+        "Behind-the-Scenes",
+        "Vlog",
+        "Guest Blog",
+        "Product Placement",
+        "Exclusive Content",
+        "Ambassador Program"
+    };
     
+    private MudDateRangePicker _picker;
+    private DateRange _dateRange { get; set; }
+
+    void AddTag()
+    {
+        if (!string.IsNullOrEmpty(_string))
+            _values.Add(_string);
+        _string = "";
+        ToggleOpen();
+    }
+
+    string _string;
+    public bool _open;
+
+    public void ToggleOpen()
+    {
+        if (_open)
+            _open = false;
+        else
+            _open = true;
+    }
+
+    [Parameter] public int Id { get; set; }
+    MudForm form;
+    bool success;
+    MudTextField<string> pwField1;
+    string[] errors = { };
+    private int _i = 1;
+    private List<string> _values = new();
+    public void Add() => _values.Add("Value " + (_i++));
+    public void Closed(MudChip<string> chip) => _values.Remove(chip.Text);
+
+    private IEnumerable<string> PasswordStrength(string pw)
+    {
+        if (string.IsNullOrWhiteSpace(pw))
+        {
+            yield return "Password is required!";
+            yield break;
+        }
+
+        if (pw.Length < 8)
+            yield return "Password must be at least of length 8";
+        if (!Regex.IsMatch(pw, @"[A-Z]"))
+            yield return "Password must contain at least one capital letter";
+        if (!Regex.IsMatch(pw, @"[a-z]"))
+            yield return "Password must contain at least one lowercase letter";
+        if (!Regex.IsMatch(pw, @"[0-9]"))
+            yield return "Password must contain at least one digit";
+    }
+
+    private string PasswordMatch(string arg)
+    {
+        if (pwField1.Value != arg)
+            return "Passwords don't match";
+        return null;
+    }
+
+    IList<IBrowserFile> _files = new List<IBrowserFile>();
+
+    private void UploadFiles(IBrowserFile file)
+    {
+        _files.Add(file);
+        //TODO upload the files to the server
+    }
 }
