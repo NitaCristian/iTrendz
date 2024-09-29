@@ -1,7 +1,90 @@
 ﻿@page "/brands/{Id:int}/edit"
 
-<h3>Brand's Edit Profile Page</h3>
+@using System.ComponentModel.DataAnnotations
+@using System.Text.RegularExpressions
+
+<MudText>Edit Profile</MudText>
+
+<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+    <MudImage Alt="Profile Picture" Width="50" Class="rounded-lg" Elevation="2" Src="https://picsum.photos/50"/>
+    <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
+        <ActivatorContent>
+            <MudFab Color="Color.Secondary"
+                    StartIcon="@Icons.Material.Filled.Image"
+                    Label="Load picture"/>
+        </ActivatorContent>
+    </MudFileUpload>
+    <MudTextField Label="Username" Required="true" RequiredError="User name is required!" T="string"/>
+    <MudTextField Label="Handle" Required="true" RequiredError="Handle is required!" T="string"/>
+    <MudTextField Label="Email" Required="true" RequiredError="Email is required!" T="string" Validation="@(new EmailAddressAttribute { ErrorMessage = "The email address is invalid" })"/>
+    <MudTextField Label="Location" Placeholder="Enter Location" T="string"/>
+    
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Submit</MudButton>
+</MudForm>
+
 
 @code {
+
+    void AddTag()
+    {
+        if (!string.IsNullOrEmpty(_string))
+            _values.Add(_string);
+        _string = "";
+        ToggleOpen();
+    }
+
+    string _string;
+    public bool _open;
+
+    public void ToggleOpen()
+    {
+        if (_open)
+            _open = false;
+        else
+            _open = true;
+    }
+
     [Parameter] public int Id { get; set; }
+    MudForm form;
+    bool success;
+    MudTextField<string> pwField1;
+    string[] errors = { };
+    private int _i = 1;
+    private List<string> _values = new();
+    public void Add() => _values.Add("Value " + (_i++));
+    public void Closed(MudChip<string> chip) => _values.Remove(chip.Text);
+
+    private IEnumerable<string> PasswordStrength(string pw)
+    {
+        if (string.IsNullOrWhiteSpace(pw))
+        {
+            yield return "Password is required!";
+            yield break;
+        }
+
+        if (pw.Length < 8)
+            yield return "Password must be at least of length 8";
+        if (!Regex.IsMatch(pw, @"[A-Z]"))
+            yield return "Password must contain at least one capital letter";
+        if (!Regex.IsMatch(pw, @"[a-z]"))
+            yield return "Password must contain at least one lowercase letter";
+        if (!Regex.IsMatch(pw, @"[0-9]"))
+            yield return "Password must contain at least one digit";
+    }
+
+    private string PasswordMatch(string arg)
+    {
+        if (pwField1.Value != arg)
+            return "Passwords don't match";
+        return null;
+    }
+
+    IList<IBrowserFile> _files = new List<IBrowserFile>();
+
+    private void UploadFiles(IBrowserFile file)
+    {
+        _files.Add(file);
+//TODO upload the files to the server
+    }
+
 }
