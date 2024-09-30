@@ -1,0 +1,26 @@
+﻿<div>
+    @if (Platforms is null)
+    {
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="150px" Height="24px" Class="mb-2" Animation="Animation.Wave"/>
+        <MudStack Row>
+            @for (var i = 0; i < 3; i++)
+            {
+                <MudSkeleton Animation="Animation.Wave" Class="rounded-circle" Height="30px" SkeletonType="SkeletonType.Circle" Width="30px"/>
+            }
+        </MudStack>
+    }
+    else
+    {
+        <MudText Typo="Typo.h6" GutterBottom="true">Platforms</MudText>
+        <MudStack Row>
+            @foreach (var platform in Platforms)
+            {
+                <MudIcon Size="Size.Medium" Icon="@platform.Icon" Title="@platform.Name"/>
+            }
+        </MudStack>
+    }
+</div>
+
+@code {
+    [Parameter] public List<Platform>? Platforms { get; set; }
+}

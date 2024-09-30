@@ -1,0 +1,31 @@
+﻿<MudStack>
+    @if (Details is null)
+    {
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="200px" Height="24px" Animation="Animation.Wave"/>
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="200px" Height="24px" Animation="Animation.Wave"/>
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="200px" Height="24px" Animation="Animation.Wave"/>
+    }
+    else
+    {
+        <MudText>
+            Period:
+            <MudChip T="string" Icon="@Icons.Material.Filled.DateRange" Color="Color.Info">
+                @Details.StartDate.ToString("dd/MM/yyyy") - @Details.EndDate.ToString("dd/MM/yyyy")
+            </MudChip>
+        </MudText>
+        <MudText>
+            Type:
+            <MudChip T="string" Icon="@Icons.Material.Filled.Campaign" Style="@($"color: white; background-color: {Colors.Purple.Lighten1};")">@Details.CampaignType</MudChip>
+        </MudText>
+        <MudText>
+            Creators Wanted:
+            <MudChip T="string" Icon="@Icons.Material.Filled.Person" Color="Color.Tertiary">@Details.CurrentCreators/@Details.TotalCreators</MudChip>
+        </MudText>
+    }
+</MudStack>
+
+@code {
+
+    [Parameter] public CampaignDetails? Details { get; set; }
+
+}

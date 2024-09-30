@@ -1,0 +1,26 @@
+﻿<div>
+    @if (Title is null || ImageUrl is null || Brand is null)
+    {
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="300px" Height="300px" Class="mb-2"/>
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="250px" Class="mb-2"/>
+        <div class="d-flex flex-row align-center gap-3">
+            <MudSkeleton SkeletonType="SkeletonType.Circle" Width="50px" Height="50px" Class="rounded-circle"/>
+            <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="100px"/>
+        </div>
+    }
+    else
+    {
+        <MudImage Src="@ImageUrl" Width="300" Height="300" Alt="Campaign Image" Elevation="25" Class="rounded-lg ma-4"/>
+        <MudText Typo="Typo.h4">@Title</MudText>
+        <div class="d-flex flex-row align-center gap-3">
+            <MudImage Src="@Brand.ImageUrl" Width="50" Height="50" Alt="Brand Image" Elevation="25" Class="rounded-circle ma-4"/>
+            <MudText Typo="Typo.h6" Inline="true">@Brand.UserName</MudText>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string? ImageUrl { get; set; }
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public Brand? Brand { get; set; }
+}

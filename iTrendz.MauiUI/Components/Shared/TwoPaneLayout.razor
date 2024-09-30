@@ -1,0 +1,16 @@
+﻿<MudGrid>
+    <MudItem xs="@LeftPaneSize">
+        @LeftContent
+    </MudItem>
+    <MudItem xs="@RightPaneSize">
+        @RightContent
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Parameter] public RenderFragment? LeftContent { get; set; }
+    [Parameter] public RenderFragment? RightContent { get; set; }
+
+    private int LeftPaneSize { get; set; } = 6;
+    private int RightPaneSize { get; set; } = 6;
+}
