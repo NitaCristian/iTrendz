@@ -1,0 +1,49 @@
+﻿@page "/create-campaign"
+<MudTextField @bind-Value="TextValue" Label="Nume Campanie" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+<MudTextField @bind-Value="Amount" Label="Buget alocat" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Warning" />
+<MudTextField @ref="multilineReference" T="string" Label="Description" Lines="3" Variant="Variant.Outlined"  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Api" OnAdornmentClick="@(() => multilineReference.SelectRangeAsync(5, 10))" />
+<MudTextField T="DateTime?" Format="yyyy-MM-dd" Label="Data_limita" InputType="InputType.Date" />
+<MudStack>
+    <MudCheckBox @bind-Value="_insta" Label="Instagram" />
+
+    <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" Variant="Variant.Text" Color="Color.Info">
+        <MudChip Value="@("Reel")" />
+        <MudChip Value="@("Story")" />
+        <MudChip Value="@("Post")" />
+        <MudChip Value="@("Vide Post")" />
+    
+    </MudChipSet>
+
+   
+    <MudCheckBox @bind-Value="_tik_tok" Label="TikTok" />
+    <MudCheckBox @bind-Value="_facebook" Label="Facebook" />
+    <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" Variant="Variant.Text" Color="Color.Info">
+        <MudChip Value="@("Reel")" />
+        <MudChip Value="@("Story")" />
+        <MudChip Value="@("Post")" />
+        <MudChip Value="@("Vide Post")" />
+
+    </MudChipSet>
+    <MudCheckBox @bind-Value="_youtobe" Label="Youtobe" />
+    <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" Variant="Variant.Text" Color="Color.Info">
+        <MudChip Value="@("Reel")" />
+        <MudChip Value="@("Story")" />
+        <MudChip Value="@("Post")" />
+        <MudChip Value="@("Vide Post")" />
+
+    </MudChipSet>
+   
+</MudStack>
+
+@code {
+	public string TextValue { get; set; }
+    public double? Amount { get; set; }
+	private MudTextField<string> multilineReference;
+    bool _insta = false;
+    bool _tik_tok = false;
+    bool _facebook = false;
+    bool _youtobe = false;
+   
+    private IReadOnlyCollection<string> _selected;
+  
+}

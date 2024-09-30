@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iTrendz.MauiUI", "iTrendz.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iTrendz.API", "iTrendz.API\iTrendz.API.csproj", "{4919A56B-CDBE-4CF9-A394-48DE474E8819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iTrendz.Domain", "iTrendz.Domain\iTrendz.Domain.csproj", "{F43C26BE-B605-435D-A71B-5B5001C96940}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iTrendz.Domain", "iTrendz.Domain\iTrendz.Domain.csproj", "{F43C26BE-B605-435D-A71B-5B5001C96940}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
