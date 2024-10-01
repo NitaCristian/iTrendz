@@ -1,126 +1,56 @@
 ﻿@page "/campaigns/brand/{Id:int}"
 
 <TwoPaneLayout>
-	<LeftContent>
-		<CampaignHeader ImageUrl="@_imageUrl" Title="@_title" Brand="_brand"/>
-		<CampaignInfo Details="_campaignDetails"/>
-	</LeftContent>
-	<RightContent>
-		<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
-			<MudTabPanel Text="Overview">
-				<MudStack>
-					<CampaignDescription Description="@_description"/>
-					<CampaignInfluencerRequirements Requirements="_influencerRequirements"/>
-					<CampaignPlatforms Platforms="_platforms"/>
-					<CampaignPlatformDeliverables Deliverables="_deliverables"/>
-				</MudStack>
-			</MudTabPanel>
-			<MudTabPanel Text="Influencers">
-				<MudDataGrid Items="@employees" Filterable="true" QuickFilter="_quickFilter" SortMode="@SortMode.None" Groupable="false">
-					<ToolBarContent>
-						<MudText Typo="Typo.h6">Periodic Elements</MudText>
-						<MudSpacer />
-						<MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
-						              AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-					</ToolBarContent>
-					<Columns>
-						<TemplateColumn Title="Name">
-							<CellTemplate>
-								<div class="d-flex flex-row align-center">
-									<MudImage Src="@context.Item.AvatarURL" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2" />
-									<MudText>@context.Item.Name</MudText>
-								</div>
-							</CellTemplate>
-						</TemplateColumn>
-
-						<PropertyColumn Property="x => x.MonthsEmployed" Title="Followers" />
-						<PropertyColumn Property="x => x.Salary" Format="Price" />
-						<PropertyColumn Property="x => x.Status" Title="Status" />
-						<PropertyColumn Property="x => x.Salary" Format="Location" />
-
-						<TemplateColumn Title="Rating">
-							<CellTemplate>
-								<MudRating Size="@Size.Small" SelectedValue="@context.Item.Rating" />
-							</CellTemplate>
-						</TemplateColumn>
-
-						<TemplateColumn>
-							<CellTemplate>
-								<MudIconButton Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" />
-							</CellTemplate>
-						</TemplateColumn>
-					</Columns>
-					<PagerContent>
-						<MudDataGridPager T="Employee" />
-					</PagerContent>
-				</MudDataGrid>
-
-			</MudTabPanel>
-			<MudTabPanel Text="Insights">
-				<CampaignInsights/>
-			</MudTabPanel>
-			<MudTabPanel Text="Posts">
-				<CampaignVideos Videos="_videos"/>
-			</MudTabPanel>
-		</MudTabs>
-	</RightContent>
+    <LeftContent>
+        <CampaignHeader ImageUrl="@_imageUrl" Title="@_title" Brand="_brand"/>
+        <CampaignInfo Details="_campaignDetails"/>
+    </LeftContent>
+    <RightContent>
+        <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+            <MudTabPanel Text="Overview">
+                <MudStack>
+                    <CampaignDescription Description="@_description"/>
+                    <CampaignInfluencerRequirements Requirements="_influencerRequirements"/>
+                    <CampaignPlatforms Platforms="_platforms"/>
+                    <CampaignPlatformDeliverables Deliverables="_deliverables"/>
+                </MudStack>
+            </MudTabPanel>
+            <MudTabPanel Text="Influencers">
+                <InfluencersDataGrid Influencers="_influencers"/> 
+            </MudTabPanel>
+            <MudTabPanel Text="Insights">
+                <CampaignInsights/>
+            </MudTabPanel>
+            <MudTabPanel Text="Posts">
+                <CampaignVideos Videos="_videos"/>
+            </MudTabPanel>
+        </MudTabs>
+    </RightContent>
 </TwoPaneLayout>
 
 @code {
-	[Parameter] public int Id { get; set; }
+    [Parameter] public int Id { get; set; }
 
-	private string _searchString;
+    private IEnumerable<Influencer>? _influencers;
 
-	public record Employee(string Name, string AvatarURL, string Advertise_name, int MonthsEmployed, int Salary, string Status, int Rating);
-	public IEnumerable<Employee> employees;
+    protected override void OnInitialized()
+    {
+        _influencers = new List<Influencer>
+        {
+            new()
+            {
+                UserName = "Sam",
+                ImageUrl = "https://picsum.photos/200",
+                Status = "Active",
+                Price = 250,
+                Followers = 87_000
+            }
+        };
+    }
 
-	protected override void OnInitialized()
-	{
-		employees = new List<Employee>
-		{
-			new Employee("Sam", "https://picsum.photos/200", "CPA", 276, 87_000, "Active", 4),
-			new Employee("Alicia","https://picsum.photos/200", "Product Manager", 132, 143_000, "On Leave", 5),
-			new Employee("Ira", "https://picsum.photos/200", "Developer", 48, 92_000, "Active", 3),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-			new Employee("John","https://picsum.photos/200", "IT Director", 204, 229_000, "Retired", 4),
-		};
-	}
+    private List<Video>? _videos;
 
-
-	private Func<Employee, bool> _quickFilter => x =>
-	{
-		if (string.IsNullOrWhiteSpace(_searchString))
-			return true;
-
-		if (x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
-			return true;
-
-		return false;
-	};
-
-	
-
-
-
-
-	private List<Video>? _videos;
-
-	private string? _title;
+    private string? _title;
     private string? _imageUrl;
     private Brand? _brand;
     private string? _description;
@@ -136,36 +66,36 @@
 
         _videos =
         [
-	        new Video
-	        {
-		        Id = 1,
-		        Title = "Masina in Padure",
-		        VideoUrl = "/assets/videos/video.mp4",
-		        PosterUrl = "/assets/image/poster.jpg"
-	        },
-	        new Video()
-	        {
-		        Id = 2,
-		        Title = "Masina in Padure",
-		        VideoUrl = "/assets/videos/video.mp4",
-		        PosterUrl = "/assets/image/poster.jpg"
-	        },
-	        new Video()
-	        {
-		        Id = 3,
-		        Title = "Masina in Padure",
-		        VideoUrl = "/assets/videos/video.mp4",
-		        PosterUrl = "/assets/image/poster.jpg"
-	        },
-	        new Video()
-	        {
-		        Id = 4,
-		        Title = "Masina in Padure",
-		        VideoUrl = "/assets/videos/video.mp4",
-		        PosterUrl = "/assets/image/poster.jpg"
-	        }
+            new Video
+            {
+                Id = 1,
+                Title = "Car in Forest",
+                VideoUrl = "/assets/videos/video.mp4",
+                PosterUrl = "/assets/image/poster.jpg"
+            },
+            new Video()
+            {
+                Id = 2,
+                Title = "Car in Forest",
+                VideoUrl = "/assets/videos/video.mp4",
+                PosterUrl = "/assets/image/poster.jpg"
+            },
+            new Video()
+            {
+                Id = 3,
+                Title = "Car in Forest",
+                VideoUrl = "/assets/videos/video.mp4",
+                PosterUrl = "/assets/image/poster.jpg"
+            },
+            new Video()
+            {
+                Id = 4,
+                Title = "Car in Forest",
+                VideoUrl = "/assets/videos/video.mp4",
+                PosterUrl = "/assets/image/poster.jpg"
+            }
         ];
-        
+
         _title = "Tech gadget review";
         _imageUrl = "https://picsum.photos/300/";
         _brand = new Brand
@@ -261,4 +191,3 @@
 
 
 }
-

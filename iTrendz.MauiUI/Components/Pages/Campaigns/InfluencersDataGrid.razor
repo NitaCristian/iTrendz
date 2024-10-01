@@ -1,0 +1,55 @@
+﻿<MudDataGrid Items="@Influencers" Filterable="true" QuickFilter="QuickFilter" SortMode="@SortMode.None" Groupable="false">
+    <ToolBarContent>
+        <MudSpacer/>
+        <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0">
+        </MudTextField>
+    </ToolBarContent>
+    <Columns>
+        <TemplateColumn Title="Name">
+            <CellTemplate>
+                <div class="d-flex flex-row align-center">
+                    <MudImage Src="@context.Item.ImageUrl" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2"/>
+                    <MudText>@context.Item.UserName</MudText>
+                </div>
+            </CellTemplate>
+        </TemplateColumn>
+
+        <PropertyColumn Property="x => x.Followers" Title="Followers"/>
+        <PropertyColumn Property="x => x.Price" Format="Price"/>
+        <PropertyColumn Property="x => x.Status" Title="Status"/>
+        <PropertyColumn Property="x => x.Location" Format="Location"/>
+
+        <TemplateColumn Title="Rating">
+            <CellTemplate>
+                <MudRating Size="@Size.Small" SelectedValue="@context.Item.Rating"/>
+            </CellTemplate>
+        </TemplateColumn>
+
+        <TemplateColumn>
+            <CellTemplate>
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium"/>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="Influencer"/>
+    </PagerContent>
+</MudDataGrid>
+
+@code {
+    [Parameter] public IEnumerable<Influencer>? Influencers { get; set; }
+    private string _searchString = string.Empty;
+
+    private Func<Influencer, bool> QuickFilter => x =>
+    {
+        if (string.IsNullOrWhiteSpace(_searchString))
+            return true;
+
+        if (x.UserName != null && x.UserName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        return false;
+    };
+
+}
