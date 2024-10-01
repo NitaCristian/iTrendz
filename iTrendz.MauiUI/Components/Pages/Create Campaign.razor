@@ -1,9 +1,23 @@
 ﻿@page "/create-campaign"
-<MudTextField @bind-Value="TextValue" Label="Nume Campanie" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
-<MudTextField @bind-Value="Amount" Label="Buget alocat" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Warning" />
-<MudTextField @ref="multilineReference" T="string" Label="Description" Lines="3" Variant="Variant.Outlined"  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Api" OnAdornmentClick="@(() => multilineReference.SelectRangeAsync(5, 10))" />
-<MudTextField T="DateTime?" Format="yyyy-MM-dd" Label="Data_limita" InputType="InputType.Date" />
-<MudStack>
+
+<MudStack Spacing="2">
+    <!-- Aici am adaugat un MudStack pentru spatiere -->
+    <MudTextField @bind-Value="TextValue" Label="Nume Campanie" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+
+    <MudTextField @bind-Value="Amount" Label="Buget alocat" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Warning" />
+
+    <MudTextField @ref="multilineReference" T="string" Label="Description" Lines="3" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Api" OnAdornmentClick="@(() => multilineReference.SelectRangeAsync(5, 10))" />
+
+    <MudTextField T="DateTime?" Format="yyyy-MM-dd" Label="Data_limita" InputType="InputType.Date" />
+
+    <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
+        <ActivatorContent>
+            <MudFab Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Image" Label="Load picture" />
+        </ActivatorContent>
+    </MudFileUpload>
+
+    <MudText Typo="Typo.h6">Selectati platformele social media </MudText>
+
     <MudCheckBox @bind-Value="_insta" Label="Instagram" />
 
     <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" Variant="Variant.Text" Color="Color.Info">
@@ -11,39 +25,55 @@
         <MudChip Value="@("Story")" />
         <MudChip Value="@("Post")" />
         <MudChip Value="@("Vide Post")" />
-    
     </MudChipSet>
 
-   
     <MudCheckBox @bind-Value="_tik_tok" Label="TikTok" />
     <MudCheckBox @bind-Value="_facebook" Label="Facebook" />
-    <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" Variant="Variant.Text" Color="Color.Info">
-        <MudChip Value="@("Reel")" />
-        <MudChip Value="@("Story")" />
-        <MudChip Value="@("Post")" />
-        <MudChip Value="@("Vide Post")" />
 
+    <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" Variant="Variant.Text" Color="Color.Info">
+        <MudChip Value="@("Reel_facebook")" />
+        <MudChip Value="@("Story_facebook")" />
+        <MudChip Value="@("Post_facebook")" />
+        <MudChip Value="@("Vide Post facebook")" />
     </MudChipSet>
+
     <MudCheckBox @bind-Value="_youtobe" Label="Youtobe" />
-    <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" Variant="Variant.Text" Color="Color.Info">
-        <MudChip Value="@("Reel")" />
-        <MudChip Value="@("Story")" />
-        <MudChip Value="@("Post")" />
-        <MudChip Value="@("Vide Post")" />
 
+    <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" Variant="Variant.Text" Color="Color.Info">
+        <MudChip Value="@("Shorts")" />
+        <MudChip Value="@("Post youtobe")" />
+        <MudChip Value="@("Vide Post youtobe")" />
     </MudChipSet>
-   
+
+    @if (_files != null)
+    {
+        <MudText Typo="@Typo.h6">@_files.Count() File@(_files.Count() == 1 ? "" : "s"):</MudText>
+        <MudList T="string">
+            @foreach (var file in _files)
+            {
+                <MudListItem Icon="@Icons.Material.Filled.AttachFile" @key="@file">
+                    @file.Name <code>@file.Size bytes</code>
+                </MudListItem>
+            }
+        </MudList>
+    }
 </MudStack>
 
 @code {
-	public string TextValue { get; set; }
+    public string TextValue { get; set; }
     public double? Amount { get; set; }
-	private MudTextField<string> multilineReference;
+    private MudTextField<string> multilineReference;
     bool _insta = false;
     bool _tik_tok = false;
     bool _facebook = false;
     bool _youtobe = false;
-   
+
     private IReadOnlyCollection<string> _selected;
-  
+    IList<IBrowserFile> _files = new List<IBrowserFile>();
+
+    private void UploadFiles(IBrowserFile file)
+    {
+        _files.Add(file);
+        //TODO upload the files to the server
+    }
 }
