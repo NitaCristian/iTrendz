@@ -10,15 +10,7 @@
         <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Add" Label="Add Money"/>
     </MudStack>
 
-    
-    
-    <MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500">Budget History</MudText>
-    <MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="100%" Height="350"></MudChart>
-
-    <MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500"> Impartire Buget </MudText>
-    <MudChart ChartType="ChartType.Pie" Width="200px" Height="200px" InputData="@data_buget" InputLabels="@percentLabels_buget"/>
-
-
+    <CampaignBudgetStatistics Statistics="_budgetStatistics"/> 
 </div>
 
 <MudGrid Spacing="8">
@@ -124,6 +116,8 @@
 </MudGrid>
 
 @code {
+
+    private BudgetStatistics? _budgetStatistics;    
 
     private List<TimelineEvent>? _timelineEvents =
     [

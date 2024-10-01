@@ -1,12 +1,12 @@
 ﻿<div>
     @if (Statistics is null)
     {
-        
+        // TODO: Add Skeleton for the two statistics. Must add rectangles for titles and for chrats
     }
     else
     {
         <MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500">Budget History</MudText>
-        <MudChart ChartType="ChartType.Line" ChartSeries="@Statistics.BudgetHistoryData" XAxisLabels="@Statistics.BudgetHistoryLabels" Width="100%" Height="350"></MudChart>
+        <MudChart ChartType="ChartType.Line" ChartSeries="@_budgetSeries" XAxisLabels="@Statistics.BudgetHistoryLabels" Width="100%" Height="350"></MudChart>
 
         <MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500">Budget Allocation</MudText>
         <MudChart ChartType="ChartType.Pie" Width="200px" Height="200px" InputData="@Statistics.BudgetAllocationData" InputLabels="@Statistics.BudgetAllocationLabels"/>
@@ -15,5 +15,24 @@
 
 
 @code {
-    [Parameter] BudgetStatistics? Statistics { get; set; }
+    [Parameter] public BudgetStatistics? Statistics { get; set; }
+    private List<ChartSeries>? _budgetSeries;
+
+    protected override void OnParametersSet()
+    {
+        if (Statistics is not null)
+        {
+            _budgetSeries =
+            [
+                new ChartSeries
+                {
+                    Data = Statistics.BudgetHistoryData
+                }
+            ];
+        }
+        else
+        {
+            _budgetSeries = [];
+        }
+    }
 }
