@@ -1,373 +1,81 @@
 ﻿@page "/campaigns/brand/{Id:int}"
 
-@inject HttpClient httpClient
-
-<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
-	<MudTabPanel Text="Overview">
-		<!-- Titlu secțiune -->
-		<MudText Typo="Typo.h4" Class="mb-3" Style="font-weight:500">Descriere</MudText>
-		<MudText Class="mb-4">
-
-			<ul class="bullet-list">
-				<li></li>
-				<li>Cu un mesaj clar și atractiv, vom crea conținut captivant care să atragă atenția și să stimuleze interacțiunile pe rețelele de socializare, website-uri și platforme video.</li>
-				<li>Vom folosi testimoniale autentice, imagini de calitate și oferte exclusive pentru a genera interes și încredere.</li>
-				<li>P rin targeting precis, ne adresăm unui public bine definit, maximizând conversiile și construind loialitatea față de brand.</li>
-				<li>Campania va fi monitorizată și optimizată constant pentru a asigura rezultate excelente în timp real.</li>
-			</ul>
-		</MudText>
-		<MudCard Class="chat-bubble">
-			<MudText Class="chat-text">Campania noastră online pentru [numele produsului] se concentrează pe evidențierea beneficiilor unice pe care acest produs le aduce utilizatorilor săi.</MudText>
-		</MudCard>
-
-		<!-- Slider și Timeline în container cu Flexbox -->
-		<div class="d-flex flex-column" style="gap: 40px; width: 100%; margin-top: 20px;">
-
-			<!-- Secțiunea Durata campaniei -->
-			<MudText Typo="Typo.h4" Class="mb-2" Style="font-weight:500">Durata campaniei </MudText>
-			<MudTimeline>
-				<MudTimelineItem Color="Color.Info">
-					<MudText Typo="Typo.button">Campaign Started</MudText>
-					<MudText Typo="Typo.body2" Class="mud-text-secondary">11 January 2024</MudText>
-				</MudTimelineItem>
-				<MudTimelineItem Color="Color.Info">
-					<MudText Typo="Typo.button">Make advertise</MudText>
-					<MudText Typo="Typo.body2" Class="mud-text-secondary">11 March 2024</MudText>
-				</MudTimelineItem>
-				<MudTimelineItem Color="Color.Info">
-					<MudText Typo="Typo.button">Analyze advertise</MudText>
-					<MudText Typo="Typo.body2" Class="mud-text-secondary">18 March 2024</MudText>
-				</MudTimelineItem>
-				<MudTimelineItem Color="Color.Info">
-					<MudText Typo="Typo.button">Upgrade advertise</MudText>
-					<MudText Typo="Typo.body2" Class="mud-text-secondary">31 March 2024</MudText>
-				</MudTimelineItem>
-				<MudTimelineItem Color="Color.Info">
-					<MudText Typo="Typo.button">Attract audience (10k)</MudText>
-					<MudText Typo="Typo.body2" Class="mud-text-secondary">11 April 2024</MudText>
-				</MudTimelineItem>
-			</MudTimeline>
-
-			<MudProgressLinear Color="Color.Info" Striped="true" Size="Size.Large" Value="25" Class="my-7">
-				<MudText Typo="Typo.subtitle1" Color="Color.Dark">
-					<b>25%</b>
-				</MudText>
-			</MudProgressLinear>
-
-			<MudText Typo="Typo.h4" Class="mb-2" Style="font-weight:500"> Buget </MudText>
-			<MudStack Row="true">
-				<MudFab StartIcon="@Icons.Material.Filled.AttachMoney" Label="10k" />
-				<MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Add" Label="Add Money" />
-			</MudStack>
-
-			<MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500"> Istoric  Buget </MudText>
-			<MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="100%" Height="350" ></MudChart>
-
-			<MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500"> Impartire  Buget </MudText>
-			<MudChart ChartType="ChartType.Pie" Width="200px" Height="200px" InputData="@data_buget" InputLabels="@percentLabels_buget" />
-
-			
-		</div>
-	</MudTabPanel>
-
-
-	<MudTabPanel Text="Influencers">
-		<MudDataGrid Items="@employees" Filterable="true" QuickFilter="_quickFilter" SortMode="@SortMode.None" Groupable="false">
-			<ToolBarContent>
-				<MudText Typo="Typo.h6">Periodic Elements</MudText>
-				<MudSpacer />
-				<MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
-							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-			</ToolBarContent>
-			<Columns>
-				<TemplateColumn Title="Name">
-					<CellTemplate>
-						<div class="d-flex flex-row align-center">
-							<MudImage Src="@context.Item.AvatarURL" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2" />
-							<MudText>@context.Item.Name</MudText>
-						</div>
-					</CellTemplate>
-				</TemplateColumn>
-
-				<PropertyColumn Property="x => x.MonthsEmployed" Title="Followers" />
-				<PropertyColumn Property="x => x.Salary" Format="Price" />
-				<PropertyColumn Property="x => x.Status" Title="Status" />
-				<PropertyColumn Property="x => x.Salary" Format="Location" />
-
-				<TemplateColumn Title="Rating">
-					<CellTemplate>
-						<MudRating Size="@Size.Small" SelectedValue="@context.Item.Rating" />
-					</CellTemplate>
-				</TemplateColumn>
-
-				<TemplateColumn>
-					<CellTemplate>
-						<MudIconButton Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" />
-					</CellTemplate>
-				</TemplateColumn>
-			</Columns>
-			<PagerContent>
-				<MudDataGridPager T="Employee" />
-			</PagerContent>
-		</MudDataGrid>
-
-	</MudTabPanel>
-	<MudTabPanel Text="Insights">
-		<MudGrid Spacing="8">
-			
-			<MudItem xs="4">
-				@* <div class="d-flex justify-between align-center mt-5">
-				</div> *@
-					<MudCard Class="card-equal-height">
-						<MudCardContent>
-							<div class="d-flex justify-start align-start">
-								<!-- Textul din stânga -->
-								<div class="d-flex flex-column">
-									<!-- Textul de sus - Organic Reach -->
-									<MudStack Wrap="Wrap.Wrap" Spacing="6">
-
-										<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Reach</MudText>
-										<MudFlexBreak />
-
-										<!-- Textul de jos - 250k/500k -->
-									<MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">@FormatNumber(Campaign.Reach)/@FormatNumber(Campaign.Views)</MudText>
-
-									</MudStack>
+<TwoPaneLayout>
+	<LeftContent>
+		<CampaignHeader ImageUrl="@_imageUrl" Title="@_title" Brand="_brand"/>
+		<CampaignInfo Details="_campaignDetails"/>
+	</LeftContent>
+	<RightContent>
+		<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+			<MudTabPanel Text="Overview">
+				<MudStack>
+					<CampaignDescription Description="@_description"/>
+					<CampaignInfluencerRequirements Requirements="_influencerRequirements"/>
+					<CampaignPlatforms Platforms="_platforms"/>
+					<CampaignPlatformDeliverables Deliverables="_deliverables"/>
+				</MudStack>
+			</MudTabPanel>
+			<MudTabPanel Text="Influencers">
+				<MudDataGrid Items="@employees" Filterable="true" QuickFilter="_quickFilter" SortMode="@SortMode.None" Groupable="false">
+					<ToolBarContent>
+						<MudText Typo="Typo.h6">Periodic Elements</MudText>
+						<MudSpacer />
+						<MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+						              AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+					</ToolBarContent>
+					<Columns>
+						<TemplateColumn Title="Name">
+							<CellTemplate>
+								<div class="d-flex flex-row align-center">
+									<MudImage Src="@context.Item.AvatarURL" Width="50" Height="50" Alt="Employee Image" Class="rounded-circle me-2" />
+									<MudText>@context.Item.Name</MudText>
 								</div>
+							</CellTemplate>
+						</TemplateColumn>
 
-								<!-- Diagrama din dreapta -->
-								<div class="ml-auto">
-									<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@data">
-										<CustomGraphics>
-											<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
-												@data.Sum().ToString()%
-											</text>
-										</CustomGraphics>
-									</MudChart>
-								</div>
-							</div>
-						</MudCardContent>
-					</MudCard>
+						<PropertyColumn Property="x => x.MonthsEmployed" Title="Followers" />
+						<PropertyColumn Property="x => x.Salary" Format="Price" />
+						<PropertyColumn Property="x => x.Status" Title="Status" />
+						<PropertyColumn Property="x => x.Salary" Format="Location" />
 
-			</MudItem>
-			<MudItem xs="4">
-				@* <div class="d-flex justify-between align-center mt-5">
-				</div> *@
-					<MudCard Class="card-equal-height">
-						<MudCardContent>
-							<div class="d-flex justify-start align-start">
-								<!-- Textul din stânga -->
-								<div class="d-flex flex-column">
-									<!-- Textul de sus - Organic Reach -->
-									<MudStack Wrap="Wrap.Wrap" Spacing="6">
+						<TemplateColumn Title="Rating">
+							<CellTemplate>
+								<MudRating Size="@Size.Small" SelectedValue="@context.Item.Rating" />
+							</CellTemplate>
+						</TemplateColumn>
 
-										<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">Organic Engagement</MudText>
-										<MudFlexBreak />
+						<TemplateColumn>
+							<CellTemplate>
+								<MudIconButton Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" />
+							</CellTemplate>
+						</TemplateColumn>
+					</Columns>
+					<PagerContent>
+						<MudDataGridPager T="Employee" />
+					</PagerContent>
+				</MudDataGrid>
 
-										<!-- Textul de jos - 250k/500k -->
-									<MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">@FormatNumber(Campaign.Engagement)/@FormatNumber(Campaign.Views)</MudText>
-
-									</MudStack>
-								</div>
-
-								<!-- Diagrama din dreapta -->
-								<div class="ml-auto">
-									<MudChart ChartOptions="new ChartOptions() {ShowLegend=false}" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@data">
-										<CustomGraphics>
-											<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="6">
-												@data.Sum().ToString()%
-											</text>
-										</CustomGraphics>
-									</MudChart>
-								</div>
-							</div>
-						</MudCardContent>
-					</MudCard>
-			</MudItem>
-			<MudItem xs="4">
-					<MudCard Class="card-equal-height pa-4" Style="box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-					<MudStack Row="false" Spacing="3" AlignItems="AlignItems.Center" JustifyContent="SpaceBetween">
-						<!-- First Section: Total Posts -->
-						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="2">
-							<!-- Icon for Total Posts -->
-							<MudIcon Icon="@Icons.Material.Filled.Image" Color="Color.Primary" Size="Size.Large" />
-							<!-- Text for Total Posts -->
-							<MudStack Spacing="0">
-								<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 20px; font-weight: 600;">27</MudText>
-								<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">Total Posts</MudText>
-							</MudStack>
-						</MudStack>
-
-						<!-- Second Section: Total Creators -->
-						<MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="2">
-							<!-- Icon for Total Creators -->
-							<MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Primary" Size="Size.Large" />
-							<!-- Text for Total Creators -->
-							<MudStack Spacing="0">
-								<MudText Typo="Typo.h4" Class="text-center" Style="font-size: 20px; font-weight: 600;">27</MudText>
-								<MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">Total Creators</MudText>
-							</MudStack>
-						</MudStack>
-					</MudStack>
-				</MudCard>
-			</MudItem>
-		
-			
-			<MediaCard Label="Views" Value="@FormatNumber(Campaign.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary" />
-			<MediaCard Label="Likes" Value="9.1k" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary" />
-			<MediaCard Label="Comments" Value="@FormatNumber(Campaign.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary" />
-			<MediaCard Label="Shares" Value="@FormatNumber(Campaign.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary" />
-			<MudItem xs="6">
-				<MudCard Class="card-equal-height">
-					<MudCardContent>
-						<!-- Centrarea textului și a diagramei la mijloc -->
-						<div class="d-flex justify-content-center align-items-center flex-column">
-							<!-- Textul centrat pe diagrama -->
-							<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">Grupa de vârstă</MudText>
-							<!-- Diagrama de tip pie chart centrată -->
-							<MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@data_age" InputLabels="@percentLabels" />
-						</div>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
-			<MudItem xs="6">
-				<MudCard Class="card-equal-height">
-					<MudCardContent>
-						<!-- Centrarea textului și a diagramei la mijloc -->
-						<div class="d-flex justify-content-center align-items-center flex-column">
-							<!-- Textul centrat pe diagrama -->
-							<MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">Date demografice</MudText>
-							<!-- Diagrama de tip pie chart centrată -->
-							<MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@data_location" InputLabels="@labels_l" />
-						</div>
-					</MudCardContent>
-				</MudCard>
-			</MudItem>
-			
-		</MudGrid>
-	</MudTabPanel>
-	<MudTabPanel Text="Posts">
-		<MudGrid>
-			@foreach(Video video in Videos)
-			{
-				<MudItem xs="4">
-					<MudCard>
-						<video width="100%" controls poster="@video.PosterUrl">
-							<source src="@video.VideoUrl" type="video/mp4">
-						</video>
-					</MudCard>
-				</MudItem>
-			}
-		</MudGrid>
-	</MudTabPanel>
-</MudTabs>
-<style>
-	.card-equal-height {
-		gap:20px;
-		height: 100%;
-	}
-
-	.bullet-list {
-		list-style-type: disc; /* Setează buline pentru listă */
-		margin: 0;
-		padding-left: 20px; /* Adaugă spațiu pentru buline */
-	}
-
-		.bullet-list li {
-			margin-bottom: 10px; /* Adaugă spațiu între itemi */
-		}
-
-	.chat-bubble {
-		background-color: #7b61ff; /* Culoare violet vibrantă */
-		border-radius: 20px; /* Colțuri rotunjite */
-		padding: 10px 15px; /* Spațiere internă */
-		max-width: 300px; /* Lățime maximă pentru a semăna cu o bulă de text */
-	}
-
-	.chat-text {
-		color: white; /* Text alb */
-		font-size: 14px; 
-	}/* Dimensiune font */
-</style>
+			</MudTabPanel>
+			<MudTabPanel Text="Insights">
+				<CampaignInsights/>
+			</MudTabPanel>
+			<MudTabPanel Text="Posts">
+				<CampaignVideos Videos="_videos"/>
+			</MudTabPanel>
+		</MudTabs>
+	</RightContent>
+</TwoPaneLayout>
 
 @code {
 	[Parameter] public int Id { get; set; }
 
-	public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
-	public List<ChartSeries> Series = new List<ChartSeries>()
-	{
-		new ChartSeries() { Name = "Buget initial", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
-		new ChartSeries() { Name = "Buget adaugat", Data = new double[] { 35, 41, 35, 51, 49, 62, 69, 91, 148 } },
-	};
-	int value = 100;
-	private double[] data_buget = {30,20,30 ,10 };
-	private string[] labels_buget = {"Posts","Stories/Shorts", "YT Videos","Blogging" };
-	private double[] data_location = { 15, 30, 45, 10 };
-	private double[] data_age = { 15, 30, 45, 10 }; 
-	private string[] labels = { "18-24", "25-34", "35-44", "45-54" };
-	private string[] labels_l = { "Brasov", "Bucuresti", "Cluj", "Iasi" };
-
-
-	// Calculăm procentele și generăm etichetele cu procente
-	private string[] percentLabels => labels.Select((label, index) => $"{label} ({data_age[index] / data_age.Sum() * 100:0.0}%)").ToArray();
-	private string[] percentLabels_buget => labels_buget.Select((label, index) => $"{label} ({data_buget[index] / data_buget.Sum() * 100:0.0}%)").ToArray();
-	public double[] data = { 28, 5 };
-
-
 	private string _searchString;
 
-	private Campaign Campaign;
-	private List<Video> Videos;
-
 	public record Employee(string Name, string AvatarURL, string Advertise_name, int MonthsEmployed, int Salary, string Status, int Rating);
-
 	public IEnumerable<Employee> employees;
 
 	protected override void OnInitialized()
 	{
-		// Apelam API pentru a obtine date despre campign
-		// Gampaign = await CampaignService.Get(id);
-
-		Videos = new()
-		{
-			new ()
-			{
-				Id = 1,
-				Title = "Masina in Padure",
-				VideoUrl = "/assets/videos/video.mp4",
-				PosterUrl = "/assets/image/poster.jpg"
-			},
-			new ()
-			{
-				Id = 1,
-				Title = "Masina in Padure",
-				VideoUrl = "/assets/videos/video.mp4",
-				PosterUrl = "/assets/image/poster.jpg"
-			},
-			new ()
-			{
-				Id = 1,
-				Title = "Masina in Padure",
-				VideoUrl = "/assets/videos/video.mp4",
-				PosterUrl = "/assets/image/poster.jpg"
-			},
-			new ()
-			{
-				Id = 1,
-				Title = "Masina in Padure",
-				VideoUrl = "/assets/videos/video.mp4",
-				PosterUrl = "/assets/image/poster.jpg"
-			},
-		};
-
-		Campaign = new()
-			{
-				Views = 13100,
-				Likes = 9100,
-				Comments = 10200,
-				Shares = 20700
-			};
-
 		employees = new List<Employee>
 		{
 			new Employee("Sam", "https://picsum.photos/200", "CPA", 276, 87_000, "Active", 4),
@@ -393,15 +101,6 @@
 		};
 	}
 
-	public static string FormatNumber(int number)
-	{
-		return number switch
-		{
-			>= 1000 and < 1000000 => (number / 1000D).ToString("0.#") + "k",
-			>= 1000000 => (number / 1000000D).ToString("0.#") + "M",
-			_ => number.ToString()
-		};
-	}
 
 	private Func<Employee, bool> _quickFilter => x =>
 	{
@@ -414,4 +113,152 @@
 		return false;
 	};
 
+	
+
+
+
+
+	private List<Video>? _videos;
+
+	private string? _title;
+    private string? _imageUrl;
+    private Brand? _brand;
+    private string? _description;
+
+    private InfluencerRequirements? _influencerRequirements;
+    private List<Platform>? _platforms;
+    private List<PlatformDeliverable>? _deliverables;
+    private CampaignDetails? _campaignDetails;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(10000);
+
+        _videos =
+        [
+	        new Video
+	        {
+		        Id = 1,
+		        Title = "Masina in Padure",
+		        VideoUrl = "/assets/videos/video.mp4",
+		        PosterUrl = "/assets/image/poster.jpg"
+	        },
+	        new Video()
+	        {
+		        Id = 2,
+		        Title = "Masina in Padure",
+		        VideoUrl = "/assets/videos/video.mp4",
+		        PosterUrl = "/assets/image/poster.jpg"
+	        },
+	        new Video()
+	        {
+		        Id = 3,
+		        Title = "Masina in Padure",
+		        VideoUrl = "/assets/videos/video.mp4",
+		        PosterUrl = "/assets/image/poster.jpg"
+	        },
+	        new Video()
+	        {
+		        Id = 4,
+		        Title = "Masina in Padure",
+		        VideoUrl = "/assets/videos/video.mp4",
+		        PosterUrl = "/assets/image/poster.jpg"
+	        }
+        ];
+        
+        _title = "Tech gadget review";
+        _imageUrl = "https://picsum.photos/300/";
+        _brand = new Brand
+        {
+            UserName = "NextGen",
+            ImageUrl = "https://picsum.photos/50/"
+        };
+        _description = "Join our exciting campaign to promote the latest in cutting-edge technology! We’re looking for tech-savvy influencers to review and create content around our brand-new smart gadgets, including wireless headphones, smart home assistants, and portable charging devices. Selected influencers will receive the product free of charge to showcase its features, usability, and design. Whether it's a deep-dive review video or a creative unboxing, we want your authentic voice to reach tech enthusiasts everywhere!";
+        _influencerRequirements = new InfluencerRequirements
+        {
+            MinimumFollowers = 25_000_000,
+            AverageViews = 250_000,
+            Audience = "Female"
+        };
+
+        _campaignDetails = new CampaignDetails
+        {
+            StartDate = new DateTime(2024, 10, 1),
+            EndDate = new DateTime(2024, 10, 15),
+            CampaignType = "Unboxing",
+            TotalCreators = 25,
+            CurrentCreators = 4
+        };
+
+        _platforms =
+        [
+            new Platform { Icon = Icons.Custom.Brands.Instagram, Name = "Instagram" },
+            new Platform { Icon = Icons.Custom.Brands.TikTok, Name = "TikTok" },
+            new Platform { Icon = Icons.Custom.Brands.YouTube, Name = "YouTube" }
+        ];
+        _deliverables =
+        [
+            new PlatformDeliverable
+            {
+                Platform = new Platform { Icon = Icons.Custom.Brands.Instagram, Name = "Instagram" },
+                ContentRequirements =
+                [
+                    new ContentRequirement
+                    {
+                        ContentType = "Story",
+                        Description = "Up to 15 seconds per story, vertical format (1080 x 1920 pixels), must highlight key features of the gadget, include engaging visuals and polls or questions for interaction."
+                    },
+
+                    new ContentRequirement
+                    {
+                        ContentType = "Posts",
+                        Description = "Square (1080 x 1080 pixels) or landscape (1080 x 566 pixels), captions limited to 2,200 characters, must include relevant hashtags and a clear call-to-action (e.g., 'Check out the full review on my blog!')."
+                    },
+
+                    new ContentRequirement
+                    {
+                        ContentType = "Reels",
+                        Description = "Up to 60 seconds, vertical format, showcase the gadget in use, include trending audio, and provide quick tips or highlights."
+                    }
+                ]
+            },
+            new PlatformDeliverable
+            {
+                Platform = new Platform { Icon = Icons.Custom.Brands.TikTok, Name = "TikTok" },
+                ContentRequirements =
+                [
+                    new ContentRequirement
+                    {
+                        ContentType = "Short Videos",
+                        Description = "15 to 60 seconds in length, vertical format (1080 x 1920 pixels), must include music or sound clips, focus on engaging demonstrations or unboxing experiences, and follow current TikTok trends."
+                    }
+                ]
+            },
+            new PlatformDeliverable
+            {
+                Platform = new Platform { Icon = Icons.Custom.Brands.YouTube, Name = "YouTube" },
+                ContentRequirements =
+                [
+                    new ContentRequirement
+                    {
+                        ContentType = "Long-form Videos",
+                        Description = "Minimum resolution of 720p, video length of 8+ minutes, must provide in-depth reviews, comparisons, and demonstrations, and include a compelling title and description for SEO optimization."
+                    },
+                    new ContentRequirement
+                    {
+                        ContentType = "Shorts",
+                        Description = "Up to 60 seconds, vertical format, should highlight the gadget's standout features quickly, engaging hook in the first few seconds, and can include popular music."
+                    },
+                    new ContentRequirement
+                    {
+                        ContentType = "Mid-Roll Ads",
+                        Description = "Should be placed strategically within videos longer than 8 minutes, clearly indicated and relevant to the gadget being reviewed, ensure smooth transitions into and out of the ad segment."
+                    }
+                ]
+            }
+        ];
+    }
+
+
 }
+

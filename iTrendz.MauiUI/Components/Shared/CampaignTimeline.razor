@@ -1,0 +1,20 @@
+﻿<MudTimeline>
+    @if (Events is null)
+    {
+    }
+    else
+    {
+        <MudText Typo="Typo.h6" GutterBottom="true">Campaign Timeline</MudText>
+        foreach (var eventItem in Events)
+        {
+            <MudTimelineItem Color="@(Color)eventItem.ColorCode">
+                <MudText Typo="Typo.button">@eventItem.Title</MudText>
+                <MudText Typo="Typo.body2" Class="mud-text-secondary">@eventItem.Timestamp</MudText>
+            </MudTimelineItem>
+        }
+    }
+</MudTimeline>
+
+@code {
+    [Parameter] public List<TimelineEvent>? Events { get; set; }
+}

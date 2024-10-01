@@ -1,0 +1,19 @@
+﻿<div>
+    @if (Statistics is null)
+    {
+        
+    }
+    else
+    {
+        <MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500">Budget History</MudText>
+        <MudChart ChartType="ChartType.Line" ChartSeries="@Statistics.BudgetHistoryData" XAxisLabels="@Statistics.BudgetHistoryLabels" Width="100%" Height="350"></MudChart>
+
+        <MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500">Budget Allocation</MudText>
+        <MudChart ChartType="ChartType.Pie" Width="200px" Height="200px" InputData="@Statistics.BudgetAllocationData" InputLabels="@Statistics.BudgetAllocationLabels"/>
+    }
+</div>
+
+
+@code {
+    [Parameter] BudgetStatistics? Statistics { get; set; }
+}

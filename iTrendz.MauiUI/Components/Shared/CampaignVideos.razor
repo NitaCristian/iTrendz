@@ -1,0 +1,30 @@
+﻿<MudGrid>
+    @if (Videos is null)
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            <MudItem xs="4">
+                <MudCard>
+                    <MudSkeleton SkeletonType="SkeletonType.Rectangle" Animation="Animation.Wave" Width="150px" Height="300px" />
+                </MudCard>
+            </MudItem>
+        }
+    }
+    else
+    {
+        foreach (var video in Videos)
+        {
+            <MudItem xs="4">
+                <MudCard>
+                    <video width="100%" controls poster="@video.PosterUrl">
+                        <source src="@video.VideoUrl" type="video/mp4">
+                    </video>
+                </MudCard>
+            </MudItem>
+        }
+    }
+</MudGrid>
+
+@code {
+    [Parameter] public List<Video>? Videos { get; set; }
+}
