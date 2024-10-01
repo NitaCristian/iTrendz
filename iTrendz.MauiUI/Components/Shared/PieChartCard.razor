@@ -1,0 +1,14 @@
+﻿<MudCard Class="card-equal-height">
+    <MudCardContent>
+        <div class="d-flex justify-content-center align-items-center flex-column">
+            <MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px; text-align: center;">@Title</MudText>
+            <MudChart ChartType="ChartType.Pie" Width="150px" Height="150px" InputData="@ChartData" InputLabels="@ChartLabels"/>
+        </div>
+    </MudCardContent>
+</MudCard>
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public double[] ChartData { get; set; }
+    [Parameter] public string[] ChartLabels { get; set; }
+}

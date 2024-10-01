@@ -1,0 +1,18 @@
+﻿<MudCard Class="card-equal-height pa-4" Style="box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    <MudStack Row="false" Spacing="3" AlignItems="AlignItems.Center" JustifyContent="SpaceBetween">
+        <MudStack Row="true" AlignItems="AlignItems.Center" JustifyContent="Center" Spacing="2">
+            <MudIcon Icon="@Icon" Color="@IconColor" Size="Size.Large" />
+            <MudStack Spacing="0">
+                <MudText Typo="Typo.h4" Class="text-center" Style="font-size: 20px; font-weight: 600;">@Value</MudText>
+                <MudText Typo="Typo.body2" Class="text-center" Style="font-size: 10px; color: #6e6e6e;">@Label</MudText>
+            </MudStack>
+        </MudStack>
+    </MudStack>
+</MudCard>
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string Value { get; set; }
+    [Parameter] public string Icon { get; set; }
+    [Parameter] public Color IconColor { get; set; }
+}

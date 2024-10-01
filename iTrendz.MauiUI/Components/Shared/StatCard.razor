@@ -1,0 +1,51 @@
+﻿@using System.Globalization
+<MudCard Class="card-equal-height">
+    <MudCardContent>
+        <div class="d-flex justify-start align-start">
+            <div class="d-flex flex-column">
+                <MudStack Wrap="Wrap.Wrap" Spacing="6">
+                    <MudText Typo="Typo.h4" Class="mb-2" Style="font-size: 15px;">@Title</MudText>
+                    <MudFlexBreak/>
+                    <MudText Typo="Typo.h5" Style="display: inline-block;font-weight: 550; margin-right: 4px;">
+                        @FormatNumber(Value)/@FormatNumber(MaxValue)
+                    </MudText>
+                </MudStack>
+            </div>
+
+            <div class="ml-auto">
+                <MudChart ChartOptions="_chartOptions" ChartType="ChartType.Donut" Width="100px" Height="100px" InputData="@ChartData">
+                    <CustomGraphics>
+                        <text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">
+                            @ChartData.Sum().ToString(CultureInfo.InvariantCulture)%
+                        </text>
+                    </CustomGraphics>
+                </MudChart>
+            </div>
+        </div>
+    </MudCardContent>
+</MudCard>
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public int Value { get; set; }
+    [Parameter] public int MaxValue { get; set; }
+    private double[] ChartData => [Value, MaxValue];
+
+    private readonly ChartOptions _chartOptions = new();
+
+    protected override void OnInitialized()
+    {
+        _chartOptions.ShowLegend = false;
+    }
+
+    private static string FormatNumber(int number)
+    {
+        return number switch
+        {
+            >= 1000 and < 1000000 => (number / 1000D).ToString("0.#") + "k",
+            >= 1000000 => (number / 1000000D).ToString("0.#") + "M",
+            _ => number.ToString()
+        };
+    }
+
+}
