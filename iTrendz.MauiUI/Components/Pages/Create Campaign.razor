@@ -2,23 +2,23 @@
 
 @using System.Text.RegularExpressions
 
-<MudText>Edit Profile</MudText>
+
 
 <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
-    <MudText Class="mb-4">Campaign Image</MudText>
+    
     <MudImage Alt="Campaign Image" Width="50" Class="rounded-lg mb-4" Elevation="2" Src="https://picsum.photos/50" />
     <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
         <ActivatorContent>
             <MudFab Color="Color.Secondary"
                     StartIcon="@Icons.Material.Filled.Image"
-                    Label="Load picture" />
+                    Label="Load picture" Size="Size.Small"/>
         </ActivatorContent>
     </MudFileUpload>
 
-    <MudText Class="mb-4 mt-4">Title</MudText>
+   
     <MudTextField Class="mb-4" Label="Title" Required="true" RequiredError="Title is required!" T="string" />
 
-    <MudText Class="mb-4 mt-4">Description</MudText>
+    
     <MudTextField Class="mb-4" AutoGrow Label="Description" Lines="3" Required="true" RequiredError="Description is required!" T="string" />
 
     <MudText Class="mb-4 mt-4">Campaign Period</MudText>
@@ -30,7 +30,7 @@
         </PickerActions>
     </MudDateRangePicker>
 
-    <MudText Class="mb-4 mt-4">Type</MudText>
+    
     <MudSelect Class="mb-4" @bind-Value="_value" Clearable="true" Label="Campaign type">
         @foreach (var type in campaignTypes)
         {
@@ -38,11 +38,11 @@
         }
     </MudSelect>
 
-    <MudText Class="mb-4 mt-4">Budget</MudText>
-    <MudNumericField Class="mb-4" @bind-Value="DecimalValue" Label="Outlined" Variant="Variant.Outlined" Step=".2M" />
+    
+    <MudNumericField Class="mb-4" @bind-Value="DecimalValue" Label="Budget" Variant="Variant.Text" Step=".2M"  />
 
-    <MudText Class="mb-4 mt-4">Creators wanted</MudText>
-    <MudNumericField Class="mb-4" @bind-Value="IntValue" Label="Standard" Variant="Variant.Text" Min="0" Max="10" />
+    
+    <MudNumericField Class="mb-4" @bind-Value="IntValue" Label="Creators wanted" Variant="Variant.Text" Min="0" Max="10" />
 
     <MudText Class="mb-4 mt-4">Platforms</MudText>
     <MudPaper Class="pa-4 mb-4">
@@ -130,15 +130,22 @@
     </MudPaper>
 
     <MudText Class="mb-4 mt-4">Requirements</MudText>
-    <MudNumericField Class="mb-4" @bind-Value="IntValue" Label="Followers" Variant="Variant.Text" Min="0" Max="10" />
-    <MudNumericField Class="mb-4" @bind-Value="IntValue" Label="Average Views" Variant="Variant.Text" Min="0" Max="10" />
+    <MudStack Row= "true">
+        <MudNumericField Class="mb-4" @bind-Value="IntValue" Label="Followers" Variant="Variant.Text" Min="0" Max="10" />
+        <MudNumericField Class="mb-4" @bind-Value="IntValue" Label="Average Views" Variant="Variant.Text" Min="0" Max="10" />
+
+    </MudStack>
+    
+    <MudText Class="mb-4 mt-4"> Gender </MudText>
     <MudChipSet @bind-SelectedValues="_selected" SelectionMode="SelectionMode.MultiSelection" CheckMark="true" Variant="Variant.Text" Color="Color.Info">
-        <MudChip Value="@("Male")" />
-        <MudChip Value="@("Female")" />
+       
+            <MudChip Value="@("Male")" />
+            <MudChip Value="@("Female")" />
+        
+       
     </MudChipSet>
 
-    <MudText Class="mb-4 mt-4">Specifications</MudText>
-    TODO
+  
 
     <MudButton Class="mt-4" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Submit</MudButton>
 </MudForm>
