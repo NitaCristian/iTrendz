@@ -1,0 +1,127 @@
+﻿@using FluentValidation
+@using Severity = MudBlazor.Severity
+@inject ISnackbar Snackbar
+
+<MudCard>
+    <MudForm Model="@_model" @ref="@_form" Validation="@(_validationRules.ValidateValue)" ValidationDelay="0">
+        <MudCardContent>
+            <MudStack>
+                <MudTextField @bind-Value="_model.Title" For="@(() => _model.Title)" Immediate="true" Label="Title"/>
+                <MudTextField @bind-Value="_model.Description" For="@(() => _model.Description)" Lines="8" Immediate="true" Label="Description"/>
+
+                <MudButton OnClick="() => _expanded = !_expanded">@(_expanded ? "Close" : "AI Caption")</MudButton>
+                <MudDivider/>
+                <MudCollapse Expanded="_expanded">
+                    <MudStack>
+                        <MudSelect @bind-Value="_selectedStyle" Label="Style">
+                            @foreach (var style in _styles)
+                            {
+                                <MudSelectItem Value="style">@style</MudSelectItem>
+                            }
+                        </MudSelect>
+                        <MudSwitch @bind-Value="_hashtags" Color="Color.Primary" Label="Add Hashtags" LabelPosition="LabelPosition.Start"/>
+                        <MudSwitch @bind-Value="_emojis" Color="Color.Primary" Label="Add Emojis" LabelPosition="LabelPosition.Start"/>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Generate</MudButton>
+                    </MudStack>
+                </MudCollapse>
+
+                <MudGrid Justify="@Justify.FlexEnd" Spacing="1">
+                    <MudItem>
+                        <MudFileUpload @ref="@_fileUpload" T="IBrowserFile" For="@(() => _model.File!)" @bind-Files="_model.File" OnFilesChanged="UploadFiles" SuppressOnChangeWhenInvalid="true">
+                            <ActivatorContent>
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.CloudUpload">Upload File</MudButton>
+                            </ActivatorContent>
+                        </MudFileUpload>
+                    </MudItem>
+                    <MudItem>
+                        <MudButton Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" OnClick="@ClearAsync">Clear</MudButton>
+                    </MudItem>
+                </MudGrid>
+
+                @if (_model.File is not null)
+                {
+                    <MudList T="string">
+                        <MudListItem Icon="@Icons.Material.Filled.AttachFile" @key="@_model.File">@_model.File.Name</MudListItem>
+                    </MudList>
+                }
+            </MudStack>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">Submit</MudButton>
+        </MudCardActions>
+    </MudForm>
+</MudCard>
+
+@code {
+    private bool _expanded;
+    private bool _hashtags;
+    private bool _emojis;
+
+    private string _selectedStyle = string.Empty;
+
+    private List<string> _styles =
+    [
+        "Conversational",
+        "Inspirational",
+        "Informative",
+        "Storytelling",
+        "Humorous",
+        "Call-to-Action",
+        "Minimalist",
+        "Emotional",
+        "Teaser",
+        "Promotional",
+        "Questioning",
+        "Nostalgic"
+    ];
+
+    private MudForm _form = new();
+    private Post _model = new();
+    private PostFluentValidator _validationRules = new();
+    private MudFileUpload<IBrowserFile> _fileUpload = new();
+
+    private void UploadFiles(InputFileChangeEventArgs e)
+    {
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+        Snackbar.Add($"This file has the extension {_model.File?.Name.Split(".").Last()}", Severity.Info);
+    }
+
+    private async Task Submit()
+    {
+        await _form.Validate();
+        if (_form.IsValid)
+        {
+            Snackbar.Add("Submitted!");
+        }
+    }
+
+    private Task ClearAsync()
+        => _fileUpload.ClearAsync();
+
+    public class Post
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public IBrowserFile? File { get; set; }
+    }
+
+    public class PostFluentValidator : AbstractValidator<Post>
+    {
+        public PostFluentValidator()
+        {
+            RuleFor(x => x.Title)
+                .NotEmpty()
+                .Length(1, 100);
+            RuleFor(x => x.File)
+                .NotEmpty();
+            When(x => x.File != null, () => { RuleFor(x => x.File!.Size).LessThanOrEqualTo(10485760).WithMessage("The maximum file size is 10 MB"); });
+        }
+
+        public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
+        {
+            var result = await ValidateAsync(ValidationContext<Post>.CreateWithOptions((Post)model, x => x.IncludeProperties(propertyName)));
+            return result.IsValid ? Array.Empty<string>() : result.Errors.Select(e => e.ErrorMessage);
+        };
+    }
+
+}
