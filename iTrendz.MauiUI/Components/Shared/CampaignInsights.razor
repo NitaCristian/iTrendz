@@ -1,17 +1,7 @@
-﻿<div class="d-flex flex-column" style="gap: 40px; width: 100%; margin-top: 20px;">
-    <CampaignTimeline Events="_timelineEvents" />
-   
-
-    
-    @* Maybe somewhere else? *@
-    <MudText Typo="Typo.h4" Class="mb-2" Style="font-weight:500"> Buget </MudText>
-    <MudStack Row="true">
-        <MudFab StartIcon="@Icons.Material.Filled.AttachMoney" Label="10k"/>
-        <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Add" Label="Add Money"/>
-    </MudStack>
-
-    <CampaignBudgetStatistics Statistics="_budgetStatistics"/> 
-</div>
+﻿<MudStack>
+    <CampaignTimeline Events="_timelineEvents"/>
+    <CampaignBudgetStatistics Statistics="_budgetStatistics"/>
+</MudStack>
 
 <MudGrid Spacing="8">
     <MudItem xs="4">
@@ -87,7 +77,6 @@
         </MudCard>
     </MudItem>
 
-
     <MediaCard Label="Views" Value="@FormatNumber(Campaign.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary"/>
     <MediaCard Label="Likes" Value="9.1k" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary"/>
     <MediaCard Label="Comments" Value="@FormatNumber(Campaign.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary"/>
@@ -117,7 +106,15 @@
 
 @code {
 
-    private BudgetStatistics? _budgetStatistics;    
+    private BudgetStatistics? _budgetStatistics = new()
+    {
+        InitialBudget = 10000,
+        RemainingBudget = 4500,
+        BudgetHistoryData = [10000, 8500, 6000, 4500],
+        BudgetHistoryLabels = ["January", "February", "March", "April"],
+        BudgetAllocationData = [50, 30, 20],
+        BudgetAllocationLabels = ["Marketing", "Development", "Operations"]
+    };
 
     private List<TimelineEvent>? _timelineEvents =
     [
@@ -164,24 +161,21 @@
             ColorCode = (int)Color.Success
         }
     ];
+
+
     
 
-    public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
-    public List<ChartSeries> Series = new List<ChartSeries>()
-    {
-        new ChartSeries() { Name = "Buget initial", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
-        new ChartSeries() { Name = "Buget adaugat", Data = new double[] { 35, 41, 35, 51, 49, 62, 69, 91, 148 } },
-    };
     int value = 100;
-    private double[] data_buget = {30,20,30 ,10 };
-    private string[] labels_buget = {"Posts","Stories/Shorts", "YT Videos","Blogging" };
+    private double[] data_buget = { 30, 20, 30, 10 };
+    private string[] labels_buget = { "Posts", "Stories/Shorts", "YT Videos", "Blogging" };
     private double[] data_location = { 15, 30, 45, 10 };
-    private double[] data_age = { 15, 30, 45, 10 }; 
+    private double[] data_age = { 15, 30, 45, 10 };
     private string[] labels = { "18-24", "25-34", "35-44", "45-54" };
     private string[] labels_l = { "Brasov", "Bucuresti", "Cluj", "Iasi" };
     private string[] percentLabels => labels.Select((label, index) => $"{label} ({data_age[index] / data_age.Sum() * 100:0.0}%)").ToArray();
     private string[] percentLabels_buget => labels_buget.Select((label, index) => $"{label} ({data_buget[index] / data_buget.Sum() * 100:0.0}%)").ToArray();
     public double[] data = { 28, 5 };
+
     public static string FormatNumber(int number)
     {
         return number switch
@@ -191,8 +185,9 @@
             _ => number.ToString()
         };
     }
-    private Campaign Campaign;    
-    
+
+    private Campaign Campaign;
+
 
     protected override void OnInitialized()
     {

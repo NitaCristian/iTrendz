@@ -2,6 +2,8 @@
 
 public class BudgetStatistics
 {
+    public double InitialBudget { get; set; }
+    public double RemainingBudget { get; set; }
     public double[] BudgetHistoryData { get; set; }
     public string[] BudgetHistoryLabels { get; set; }
 
