@@ -1,6 +1,10 @@
 ﻿<MudStack>
     <CampaignTimeline Events="_timelineEvents"/>
-    <CampaignBudgetStatistics Statistics="_budgetStatistics"/>
+    
+    @if (ForInfluencer == false)
+    {
+        <CampaignBudgetStatistics Statistics="_budgetStatistics"/>
+    }
 
     <MudGrid Spacing="8">
         <MudItem xs="4">
@@ -35,6 +39,7 @@
 </MudStack>
 
 @code {
+    [Parameter] public bool ForInfluencer { get; set; }
     private int _totalPosts = 30;
     private int _totalCreators = 10;
     private double[] _demographicData = [15, 30, 45, 10];

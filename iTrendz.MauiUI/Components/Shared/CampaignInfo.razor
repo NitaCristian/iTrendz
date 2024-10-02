@@ -1,5 +1,5 @@
 ﻿<MudStack>
-    @if (Details is null)
+    @if (CampaignDetails is null)
     {
         <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="200px" Height="24px" Animation="Animation.Wave"/>
         <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="200px" Height="24px" Animation="Animation.Wave"/>
@@ -10,22 +10,28 @@
         <MudText>
             Period:
             <MudChip T="string" Icon="@Icons.Material.Filled.DateRange" Color="Color.Info">
-                @Details.StartDate.ToString("dd/MM/yyyy") - @Details.EndDate.ToString("dd/MM/yyyy")
+                @CampaignDetails.StartDate.ToString("dd/MM/yyyy") - @CampaignDetails.EndDate.ToString("dd/MM/yyyy")
             </MudChip>
         </MudText>
         <MudText>
             Type:
-            <MudChip T="string" Icon="@Icons.Material.Filled.Campaign" Style="@($"color: white; background-color: {Colors.Purple.Lighten1};")">@Details.CampaignType</MudChip>
+            <MudChip T="string" Icon="@Icons.Material.Filled.Campaign" Style="@($"color: white; background-color: {Colors.Purple.Lighten1};")">@CampaignDetails.CampaignType</MudChip>
         </MudText>
         <MudText>
             Creators Wanted:
-            <MudChip T="string" Icon="@Icons.Material.Filled.Person" Color="Color.Tertiary">@Details.CurrentCreators/@Details.TotalCreators</MudChip>
+            <MudChip T="string" Icon="@Icons.Material.Filled.Person" Color="Color.Tertiary">@CampaignDetails.CurrentCreators/@CampaignDetails.TotalCreators</MudChip>
         </MudText>
+        if (ContractDetails is not null)
+        {
+            <MudText>
+                Application Status:
+                <MudChip T="string" Icon="@Icons.Material.Filled.Pending" Color="Color.Warning">@ContractDetails.Status</MudChip>
+            </MudText>
+        }
     }
 </MudStack>
 
 @code {
-
-    [Parameter] public CampaignDetails? Details { get; set; }
-
+    [Parameter] public CampaignDetails? CampaignDetails { get; set; }
+    [Parameter] public ContractDetails? ContractDetails { get; set; }
 }
