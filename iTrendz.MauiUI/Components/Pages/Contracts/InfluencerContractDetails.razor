@@ -3,9 +3,7 @@
 <TwoPaneLayout>
     <LeftContent>
         <CampaignHeader ImageUrl="@_imageUrl" Title="@_title" Brand="_brand"/>
-        <CampaignInfo Details="_campaignDetails"/>
-        @* Todo: Add this somehow *@
-        <MudText>Application Status: <MudChip T="string" Icon="@Icons.Material.Filled.Pending" Color="Color.Warning">Pending</MudChip></MudText>
+        <CampaignInfo CampaignDetails="_campaignDetails" ContractDetails="_contractDetails"/>
     </LeftContent>
     <RightContent>
         <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
@@ -18,8 +16,7 @@
                 </MudStack>
             </MudTabPanel>
             <MudTabPanel Text="Statistics">
-                <CampaignInsights/>
-                @* Todo: Without budget statistics *@
+                <CampaignInsights ForInfluencer="true"/>
             </MudTabPanel>
             <MudTabPanel Text="Content">
                 <MudGrid>
@@ -48,6 +45,7 @@
     private List<Platform>? _platforms;
     private List<PlatformDeliverable>? _deliverables;
     private CampaignDetails? _campaignDetails;
+    private ContractDetails? _contractDetails;
 
     protected override async Task OnInitializedAsync()
     {
@@ -66,6 +64,11 @@
             MinimumFollowers = 25_000_000,
             AverageViews = 250_000,
             Audience = "Female"
+        };
+
+        _contractDetails = new ContractDetails
+        {
+            Status = "Pending"
         };
 
         _campaignDetails = new CampaignDetails
