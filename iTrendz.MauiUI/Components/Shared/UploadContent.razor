@@ -53,6 +53,8 @@
 </MudCard>
 
 @code {
+    [Parameter] public Contract? Contract { get; set; }
+
     private bool _expanded;
     private bool _hashtags;
     private bool _emojis;

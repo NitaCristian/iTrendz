@@ -20,11 +20,10 @@
             </MudTabPanel>
             <MudTabPanel Text="Content">
                 <MudGrid>
-                    @* Todo: Generate based on data from contract *@
-                    @for (var i = 0; i < 4; i++)
+                    @foreach (var contract in _contracts)
                     {
                         <MudItem md="6" sm="12">
-                            <UploadContent/>
+                            <UploadContent Contract="contract"/>
                         </MudItem>
                     }
                 </MudGrid>
@@ -46,6 +45,13 @@
     private List<PlatformDeliverable>? _deliverables;
     private CampaignDetails? _campaignDetails;
     private ContractDetails? _contractDetails;
+
+    private List<Contract> _contracts =
+    [
+        new Contract(),
+        new Contract(),
+        new Contract()
+    ];
 
     protected override async Task OnInitializedAsync()
     {
