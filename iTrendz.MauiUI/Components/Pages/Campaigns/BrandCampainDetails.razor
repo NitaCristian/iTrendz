@@ -2,24 +2,24 @@
 
 <TwoPaneLayout>
     <LeftContent>
-        <CampaignHeader ImageUrl="@_imageUrl" Title="@_title" Brand="_brand"/>
+        <CampaignHeader ImageUrl="@_campaign?.ImageURL" Title="@_campaign?.Title" Brand="_campaign?.Brand"/>
         <CampaignInfo CampaignDetails="_campaignDetails"/>
     </LeftContent>
     <RightContent>
         <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
             <MudTabPanel Text="Overview">
                 <MudStack>
-                    <CampaignDescription Description="@_description"/>
+                    <CampaignDescription Description="@_campaign?.Description"/>
                     <CampaignInfluencerRequirements Requirements="_influencerRequirements"/>
                     <CampaignPlatforms Platforms="_platforms"/>
                     <CampaignPlatformDeliverables Deliverables="_deliverables"/>
                 </MudStack>
             </MudTabPanel>
             <MudTabPanel Text="Influencers">
-                <InfluencersDataGrid Influencers="_influencers"/> 
+                <InfluencersDataGrid Influencers="_influencers"/>
             </MudTabPanel>
             <MudTabPanel Text="Insights">
-                <CampaignInsights/>
+                <CampaignInsights TimelineEvents="_campaign?.TimelineEvents"/>
             </MudTabPanel>
             <MudTabPanel Text="Posts">
                 <CampaignVideos Videos="_videos"/>
@@ -50,19 +50,40 @@
 
     private List<Video>? _videos;
 
-    private string? _title;
-    private string? _imageUrl;
-    private Brand? _brand;
-    private string? _description;
-
     private InfluencerRequirements? _influencerRequirements;
     private List<Platform>? _platforms;
     private List<PlatformDeliverable>? _deliverables;
     private CampaignDetails? _campaignDetails;
+    private Campaign? _campaign;
 
     protected override async Task OnInitializedAsync()
     {
         await Task.Delay(10000);
+
+        _campaign = new Campaign
+        {
+            Title = "Tech gadget review",
+            Description = "Join our exciting campaign to promote the latest in cutting-edge technology! We’re looking for tech-savvy influencers to review and create content around our brand-new smart gadgets, including wireless headphones, smart home assistants, and portable charging devices. Selected influencers will receive the product free of charge to showcase its features, usability, and design. Whether it's a deep-dive review video or a creative unboxing, we want your authentic voice to reach tech enthusiasts everywhere!",
+            ImageURL = "https://picsum.photos/300/",
+            Brand = new Brand
+            {
+                UserName = "NextGen",
+                ImageUrl = "https://picsum.photos/50/"
+            },
+            TimelineEvents =
+            [
+                new TimelineEvent("Campaign Created", "The campaign was successfully set up and is now ready for further configuration.", timestamp: new DateTime(2024, 3, 5), type: EventType.Info),
+                new TimelineEvent("Initial Creators Invited", "An invitation was sent to a select group of creators based on the brand's preferences.", timestamp: new DateTime(2024, 3, 7), type: EventType.Info),
+                new TimelineEvent("5 Creators Accepted the Invitation", "Five creators agreed to participate in the campaign and began their onboarding process.", timestamp: new DateTime(2024, 3, 10), type: EventType.Positive),
+                new TimelineEvent("Budget Adjustment Required", "The campaign budget exceeded the initial projection due to higher engagement expectations. A revision was needed.", timestamp: new DateTime(2024, 3, 14), type: EventType.Negative),
+                new TimelineEvent("Content Submission Deadline Reminder", "A reminder was sent to all participating creators about the upcoming content submission deadline on March 18.", timestamp: new DateTime(2024, 3, 15), type: EventType.Info),
+                new TimelineEvent("Final Content Submitted for Review", "All creators submitted their final content for review before approval.", timestamp: new DateTime(2024, 3, 18), type: EventType.Warning),
+                new TimelineEvent("Content Approval Meeting Held", "The brand reviewed the content with internal stakeholders and provided feedback for revisions.", timestamp: new DateTime(2024, 3, 22), type: EventType.Warning),
+                new TimelineEvent("Campaign Launch", "The campaign officially launched across multiple social media platforms, with all approved content posted by creators.", timestamp: new DateTime(2024, 3, 31), type: EventType.Positive),
+                new TimelineEvent("Campaign Performance Report Generated", "An initial performance report was generated, indicating positive trends in engagement and reach.", timestamp: new DateTime(2024, 4, 5), type: EventType.Info),
+                new TimelineEvent("Campaign Successfully Completed", "The campaign ended, meeting most of its goals in terms of reach and engagement. Final reports were sent to the brand.", timestamp: new DateTime(2024, 4, 11), type: EventType.Positive)
+            ]
+        };
 
         _videos =
         [
@@ -96,14 +117,6 @@
             }
         ];
 
-        _title = "Tech gadget review";
-        _imageUrl = "https://picsum.photos/300/";
-        _brand = new Brand
-        {
-            UserName = "NextGen",
-            ImageUrl = "https://picsum.photos/50/"
-        };
-        _description = "Join our exciting campaign to promote the latest in cutting-edge technology! We’re looking for tech-savvy influencers to review and create content around our brand-new smart gadgets, including wireless headphones, smart home assistants, and portable charging devices. Selected influencers will receive the product free of charge to showcase its features, usability, and design. Whether it's a deep-dive review video or a creative unboxing, we want your authentic voice to reach tech enthusiasts everywhere!";
         _influencerRequirements = new InfluencerRequirements
         {
             MinimumFollowers = 25_000_000,

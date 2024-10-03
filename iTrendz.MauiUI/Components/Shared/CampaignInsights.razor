@@ -1,6 +1,6 @@
 ﻿<MudStack>
-    <CampaignTimeline Events="_timelineEvents"/>
-    
+    <CampaignTimeline Events="TimelineEvents"/>
+
     @if (ForInfluencer == false)
     {
         <CampaignBudgetStatistics Statistics="_budgetStatistics"/>
@@ -40,6 +40,8 @@
 
 @code {
     [Parameter] public bool ForInfluencer { get; set; }
+    [Parameter] public List<TimelineEvent>? TimelineEvents { get; set; }
+    
     private int _totalPosts = 30;
     private int _totalCreators = 10;
     private double[] _demographicData = [15, 30, 45, 10];
@@ -68,51 +70,7 @@
         BudgetAllocationLabels = ["Marketing", "Development", "Operations"]
     };
 
-    private List<TimelineEvent>? _timelineEvents =
-    [
-        new TimelineEvent
-        {
-            Title = "Created",
-            Timestamp = new DateTime(2024, 3, 5),
-            ColorCode = (int)Color.Info
-        },
-        new TimelineEvent
-        {
-            Title = "10 Creators Joined",
-            Timestamp = new DateTime(2024, 3, 11),
-            ColorCode = (int)Color.Info
-        },
-        new TimelineEvent
-        {
-            Title = "2 Creators Left",
-            Timestamp = new DateTime(2024, 3, 12),
-            ColorCode = (int)Color.Error
-        },
-        new TimelineEvent
-        {
-            Title = "Final Content Submission",
-            Timestamp = new DateTime(2024, 3, 18),
-            ColorCode = (int)Color.Warning
-        },
-        new TimelineEvent
-        {
-            Title = "Final Review Meeting",
-            Timestamp = new DateTime(2024, 3, 25),
-            ColorCode = (int)Color.Warning
-        },
-        new TimelineEvent
-        {
-            Title = "Campaign Launched",
-            Timestamp = new DateTime(2024, 3, 31),
-            ColorCode = (int)Color.Success
-        },
-        new TimelineEvent
-        {
-            Title = "Campaign Completed",
-            Timestamp = new DateTime(2024, 4, 11),
-            ColorCode = (int)Color.Success
-        }
-    ];
+    
 
     private static string FormatNumber(int number)
     {
@@ -123,9 +81,4 @@
             _ => number.ToString()
         };
     }
-
-    protected override void OnInitialized()
-    {
-    }
-
 }
