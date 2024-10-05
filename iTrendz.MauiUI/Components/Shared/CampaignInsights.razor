@@ -3,37 +3,37 @@
 
     @if (ForInfluencer == false)
     {
-        <CampaignBudgetStatistics Statistics="_budgetStatistics"/>
+        <CampaignBudgetStatistics Statistics="_campaign.BudgetStatistics"/>
     }
 
     <MudGrid Spacing="8">
         <MudItem xs="4">
-            <StatCard Title="Organic Reach" Value="@_campaign.Reach" MaxValue="@_campaign.Views"/>
+            <StatCard Title="Organic Reach" Value="@_campaign.CampaignMetrics.Reach" MaxValue="@_campaign.CampaignMetrics.Views"/>
         </MudItem>
         <MudItem xs="4">
-            <StatCard Title="Organic Engagement" Value="@_campaign.Engagement" MaxValue="@_campaign.Views"/>
+            <StatCard Title="Organic Engagement" Value="@_campaign.CampaignMetrics.Engagement" MaxValue="@_campaign.CampaignMetrics.Views"/>
         </MudItem>
         <MudItem xs="4">
-            <IconCard Label="Total Posts" Value="@_totalPosts.ToString()" Icon="@Icons.Material.Filled.Image" IconColor="Color.Primary"/>
-            <IconCard Label="Total Creators" Value="@_totalCreators.ToString()" Icon="@Icons.Material.Filled.People" IconColor="Color.Primary"/>
+            <IconCard Label="Total Posts" Value="@_campaign.CampaignDetails.TotalPosts.ToString()" Icon="@Icons.Material.Filled.Image" IconColor="Color.Primary"/>
+            <IconCard Label="Total Creators" Value="@_campaign.CampaignDetails.TotalCreators.ToString()" Icon="@Icons.Material.Filled.People" IconColor="Color.Primary"/>
         </MudItem>
         <MudItem xs="3">
-            <MediaCard Label="Views" Value="@FormatNumber(_campaign.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary"/>
+            <MediaCard Label="Views" Value="@FormatNumber(_campaign.CampaignMetrics.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary"/>
         </MudItem>
         <MudItem xs="3">
-            <MediaCard Label="Likes" Value="@FormatNumber(_campaign.Likes)" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary"/>
+            <MediaCard Label="Likes" Value="@FormatNumber(_campaign.CampaignMetrics.Likes)" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary"/>
         </MudItem>
         <MudItem xs="3">
-            <MediaCard Label="Comments" Value="@FormatNumber(_campaign.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary"/>
+            <MediaCard Label="Comments" Value="@FormatNumber(_campaign.CampaignMetrics.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary"/>
         </MudItem>
         <MudItem xs="3">
-            <MediaCard Label="Shares" Value="@FormatNumber(_campaign.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary"/>
+            <MediaCard Label="Shares" Value="@FormatNumber(_campaign.CampaignMetrics.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary"/>
         </MudItem>
         <MudItem xs="6">
-            <PieChartCard Title="Age Group" ChartData="@_ageGroupData" ChartLabels="@AgeGroupLabels"/>
+            <PieChartCard Title="Age Group" ChartData="@_campaign.CampaignDetails.AgeGroupData" ChartLabels="@AgeGroupLabels"/>
         </MudItem>
         <MudItem xs="6">
-            <PieChartCard Title="Demographic Data" ChartData="@_demographicData" ChartLabels="@_demographicLabels"/>
+            <PieChartCard Title="Demographic Data" ChartData="@_campaign.CampaignDetails.DemographicData" ChartLabels="@_campaign.CampaignDetails.DemographicLabels"/>
         </MudItem>
     </MudGrid>
 </MudStack>
@@ -41,36 +41,39 @@
 @code {
     [Parameter] public bool ForInfluencer { get; set; }
     [Parameter] public List<TimelineEvent>? TimelineEvents { get; set; }
-    
-    private int _totalPosts = 30;
-    private int _totalCreators = 10;
-    private double[] _demographicData = [15, 30, 45, 10];
-    private string[] _demographicLabels = ["America", "Romania", "United Kingdom", "Canada"];
-    private double[] _ageGroupData = [15, 30, 45, 10];
-    private string[] _ageGroupCategories = ["18-24", "25-34", "35-44", "45-54"];
-    private string[] AgeGroupLabels => _ageGroupCategories.Select((label, index) => $"{label} ({_ageGroupData[index] / _ageGroupData.Sum() * 100:0.0}%)").ToArray();
+
+    private string[] AgeGroupLabels => _campaign.CampaignDetails.AgeGroupCategories.Select((label, index) => $"{label} ({_campaign.CampaignDetails.AgeGroupData[index] / _campaign.CampaignDetails.AgeGroupData.Sum() * 100:0.0}%)").ToArray();
 
     private Campaign _campaign = new()
     {
-        Views = 13100,
-        Likes = 9100,
-        Comments = 6200,
-        Shares = 20700,
-        Reach = 12_600,
-        Engagement = 3000,
+        CampaignDetails = new()
+        {
+            TotalPosts = 30,
+            TotalCreators = 10,
+            DemographicData = [15, 30, 45, 10],
+            DemographicLabels = ["America", "Romania", "United Kingdom", "Canada"],
+            AgeGroupData = [15, 30, 45, 10],
+            AgeGroupCategories = ["18-24", "25-34", "35-44", "45-54"],
+        },
+        CampaignMetrics = new()
+        {
+            Views = 13100,
+            Likes = 9100,
+            Comments = 6200,
+            Shares = 20700,
+            Reach = 12_600,
+            Engagement = 3000,
+        },
+        BudgetStatistics = new()
+        {
+            InitialBudget = 10000,
+            RemainingBudget = 4500,
+            BudgetHistoryData = [10000, 8500, 6000, 4500],
+            BudgetHistoryLabels = ["January", "February", "March", "April"],
+            BudgetAllocationData = [50, 30, 20],
+            BudgetAllocationLabels = ["Marketing", "Development", "Operations"]
+        }
     };
-
-    private BudgetStatistics? _budgetStatistics = new()
-    {
-        InitialBudget = 10000,
-        RemainingBudget = 4500,
-        BudgetHistoryData = [10000, 8500, 6000, 4500],
-        BudgetHistoryLabels = ["January", "February", "March", "April"],
-        BudgetAllocationData = [50, 30, 20],
-        BudgetAllocationLabels = ["Marketing", "Development", "Operations"]
-    };
-
-    
 
     private static string FormatNumber(int number)
     {
@@ -81,4 +84,5 @@
             _ => number.ToString()
         };
     }
+
 }

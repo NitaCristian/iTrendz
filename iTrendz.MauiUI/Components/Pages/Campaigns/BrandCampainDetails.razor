@@ -3,16 +3,16 @@
 <TwoPaneLayout>
     <LeftContent>
         <CampaignHeader ImageUrl="@_campaign?.ImageURL" Title="@_campaign?.Title" Brand="_campaign?.Brand"/>
-        <CampaignInfo CampaignDetails="_campaignDetails"/>
+        <CampaignInfo CampaignDetails="_campaign.CampaignDetails"/>
     </LeftContent>
     <RightContent>
         <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
             <MudTabPanel Text="Overview">
                 <MudStack>
                     <CampaignDescription Description="@_campaign?.Description"/>
-                    <CampaignInfluencerRequirements Requirements="_influencerRequirements"/>
+                    <CampaignInfluencerRequirements Requirements="_campaign.InfluencerRequirements"/>
                     <CampaignPlatforms Platforms="_platforms"/>
-                    <CampaignPlatformDeliverables Deliverables="_deliverables"/>
+                    <CampaignPlatformDeliverables Deliverables="_campaign.Deliverables"/>
                 </MudStack>
             </MudTabPanel>
             <MudTabPanel Text="Influencers">
@@ -49,11 +49,8 @@
     }
 
     private List<Video>? _videos;
-
-    private InfluencerRequirements? _influencerRequirements;
     private List<Platform>? _platforms;
-    private List<PlatformDeliverable>? _deliverables;
-    private CampaignDetails? _campaignDetails;
+
     private Campaign? _campaign;
 
     protected override async Task OnInitializedAsync()
@@ -82,6 +79,81 @@
                 new TimelineEvent("Campaign Launch", "The campaign officially launched across multiple social media platforms, with all approved content posted by creators.", timestamp: new DateTime(2024, 3, 31), type: EventType.Positive),
                 new TimelineEvent("Campaign Performance Report Generated", "An initial performance report was generated, indicating positive trends in engagement and reach.", timestamp: new DateTime(2024, 4, 5), type: EventType.Info),
                 new TimelineEvent("Campaign Successfully Completed", "The campaign ended, meeting most of its goals in terms of reach and engagement. Final reports were sent to the brand.", timestamp: new DateTime(2024, 4, 11), type: EventType.Positive)
+            ],
+            CampaignDetails = new CampaignDetails
+            {
+                StartDate = new DateTime(2024, 10, 1),
+                EndDate = new DateTime(2024, 10, 15),
+                CampaignType = "Unboxing",
+                TotalCreators = 25,
+                CurrentCreators = 4
+            },
+            InfluencerRequirements = new InfluencerRequirements
+            {
+                MinimumFollowers = 25_000_000,
+                AverageViews = 250_000,
+                Audience = "Female"
+            },
+            Deliverables =
+            [
+                new PlatformDeliverable
+                {
+                    Platform = new Platform { Icon = Icons.Custom.Brands.Instagram, Name = "Instagram" },
+                    ContentRequirements =
+                    [
+                        new ContentRequirement
+                        {
+                            ContentType = "Story",
+                            Description = "Up to 15 seconds per story, vertical format (1080 x 1920 pixels), must highlight key features of the gadget, include engaging visuals and polls or questions for interaction."
+                        },
+
+                        new ContentRequirement
+                        {
+                            ContentType = "Posts",
+                            Description = "Square (1080 x 1080 pixels) or landscape (1080 x 566 pixels), captions limited to 2,200 characters, must include relevant hashtags and a clear call-to-action (e.g., 'Check out the full review on my blog!')."
+                        },
+
+                        new ContentRequirement
+                        {
+                            ContentType = "Reels",
+                            Description = "Up to 60 seconds, vertical format, showcase the gadget in use, include trending audio, and provide quick tips or highlights."
+                        }
+                    ]
+                },
+                new PlatformDeliverable
+                {
+                    Platform = new Platform { Icon = Icons.Custom.Brands.TikTok, Name = "TikTok" },
+                    ContentRequirements =
+                    [
+                        new ContentRequirement
+                        {
+                            ContentType = "Short Videos",
+                            Description = "15 to 60 seconds in length, vertical format (1080 x 1920 pixels), must include music or sound clips, focus on engaging demonstrations or unboxing experiences, and follow current TikTok trends."
+                        }
+                    ]
+                },
+                new PlatformDeliverable
+                {
+                    Platform = new Platform { Icon = Icons.Custom.Brands.YouTube, Name = "YouTube" },
+                    ContentRequirements =
+                    [
+                        new ContentRequirement
+                        {
+                            ContentType = "Long-form Videos",
+                            Description = "Minimum resolution of 720p, video length of 8+ minutes, must provide in-depth reviews, comparisons, and demonstrations, and include a compelling title and description for SEO optimization."
+                        },
+                        new ContentRequirement
+                        {
+                            ContentType = "Shorts",
+                            Description = "Up to 60 seconds, vertical format, should highlight the gadget's standout features quickly, engaging hook in the first few seconds, and can include popular music."
+                        },
+                        new ContentRequirement
+                        {
+                            ContentType = "Mid-Roll Ads",
+                            Description = "Should be placed strategically within videos longer than 8 minutes, clearly indicated and relevant to the gadget being reviewed, ensure smooth transitions into and out of the ad segment."
+                        }
+                    ]
+                }
             ]
         };
 
@@ -117,90 +189,12 @@
             }
         ];
 
-        _influencerRequirements = new InfluencerRequirements
-        {
-            MinimumFollowers = 25_000_000,
-            AverageViews = 250_000,
-            Audience = "Female"
-        };
-
-        _campaignDetails = new CampaignDetails
-        {
-            StartDate = new DateTime(2024, 10, 1),
-            EndDate = new DateTime(2024, 10, 15),
-            CampaignType = "Unboxing",
-            TotalCreators = 25,
-            CurrentCreators = 4
-        };
-
         _platforms =
         [
             new Platform { Icon = Icons.Custom.Brands.Instagram, Name = "Instagram" },
             new Platform { Icon = Icons.Custom.Brands.TikTok, Name = "TikTok" },
             new Platform { Icon = Icons.Custom.Brands.YouTube, Name = "YouTube" }
         ];
-        _deliverables =
-        [
-            new PlatformDeliverable
-            {
-                Platform = new Platform { Icon = Icons.Custom.Brands.Instagram, Name = "Instagram" },
-                ContentRequirements =
-                [
-                    new ContentRequirement
-                    {
-                        ContentType = "Story",
-                        Description = "Up to 15 seconds per story, vertical format (1080 x 1920 pixels), must highlight key features of the gadget, include engaging visuals and polls or questions for interaction."
-                    },
-
-                    new ContentRequirement
-                    {
-                        ContentType = "Posts",
-                        Description = "Square (1080 x 1080 pixels) or landscape (1080 x 566 pixels), captions limited to 2,200 characters, must include relevant hashtags and a clear call-to-action (e.g., 'Check out the full review on my blog!')."
-                    },
-
-                    new ContentRequirement
-                    {
-                        ContentType = "Reels",
-                        Description = "Up to 60 seconds, vertical format, showcase the gadget in use, include trending audio, and provide quick tips or highlights."
-                    }
-                ]
-            },
-            new PlatformDeliverable
-            {
-                Platform = new Platform { Icon = Icons.Custom.Brands.TikTok, Name = "TikTok" },
-                ContentRequirements =
-                [
-                    new ContentRequirement
-                    {
-                        ContentType = "Short Videos",
-                        Description = "15 to 60 seconds in length, vertical format (1080 x 1920 pixels), must include music or sound clips, focus on engaging demonstrations or unboxing experiences, and follow current TikTok trends."
-                    }
-                ]
-            },
-            new PlatformDeliverable
-            {
-                Platform = new Platform { Icon = Icons.Custom.Brands.YouTube, Name = "YouTube" },
-                ContentRequirements =
-                [
-                    new ContentRequirement
-                    {
-                        ContentType = "Long-form Videos",
-                        Description = "Minimum resolution of 720p, video length of 8+ minutes, must provide in-depth reviews, comparisons, and demonstrations, and include a compelling title and description for SEO optimization."
-                    },
-                    new ContentRequirement
-                    {
-                        ContentType = "Shorts",
-                        Description = "Up to 60 seconds, vertical format, should highlight the gadget's standout features quickly, engaging hook in the first few seconds, and can include popular music."
-                    },
-                    new ContentRequirement
-                    {
-                        ContentType = "Mid-Roll Ads",
-                        Description = "Should be placed strategically within videos longer than 8 minutes, clearly indicated and relevant to the gadget being reviewed, ensure smooth transitions into and out of the ad segment."
-                    }
-                ]
-            }
-        ];
     }
-
 
 }

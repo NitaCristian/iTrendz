@@ -114,7 +114,7 @@
                                     <MudCardMedia Image="@(campaign.ImageURL)" Alt="Campaign Image" Height="150"/>
                                     <MudCardContent>
                                         <MudText Typo="Typo.h6">@campaign.Title</MudText>
-                                        <MudText Typo="Typo.body2">@campaign.StartTime</MudText>
+                                        <MudText Typo="Typo.body2">@campaign.CampaignDetails.StartDate</MudText>
                                         <MudText Typo="Typo.body2">Completed</MudText>
                                     </MudCardContent>
                                     <MudCardActions>
@@ -200,7 +200,10 @@
         {
             Title = "Summer Fashion Launch",
             ImageURL = "https://example.com/summerfashion.jpg",
-            StartTime = new(2023, 07, 15),
+            CampaignDetails = new()
+            {
+                StartDate = new(2023, 07, 15),
+            },
             Description = "A successful campaign to promote summer fashion trends.",
         },
 
@@ -208,15 +211,20 @@
         {
             Title = "Tech Gadget Unboxing",
             ImageURL = "https://example.com/techgadget.jpg",
-            StartTime = new(2023, 08, 01),
+            CampaignDetails = new()
+            {
+                StartDate = new(2023, 07, 15),
+            },
             Description = "Influencers unboxed the latest tech gadgets.",
         },
 
         new Campaign
         {
             Title = "Healthy Living Awareness",
-            ImageURL = "https://example.com/healthyliving.jpg",
-            StartTime = new(2023, 09, 20),
+            CampaignDetails = new()
+            {
+                StartDate = new(2023, 07, 15),
+            },
             Description = "Promoting healthy lifestyle choices.",
         }
     ];

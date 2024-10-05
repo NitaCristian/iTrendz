@@ -46,14 +46,6 @@ public class TrendzDbContext(DbContextOptions<TrendzDbContext> options)
             .WithMany(b => b.Campaigns)
             .HasForeignKey(c => c.BrandId);
 
-        modelBuilder.Entity<Campaign>()
-            .Property(c => c.StartTime)
-            .HasColumnType("date");
-
-        modelBuilder.Entity<Campaign>()
-            .Property(c => c.DateTime)
-            .HasColumnType("date");
-
         modelBuilder.Entity<Contract>()
             .HasKey(c => c.Id);
 

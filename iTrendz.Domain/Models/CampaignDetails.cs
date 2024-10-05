@@ -7,4 +7,9 @@ public class CampaignDetails
     public string CampaignType { get; set; }
     public int CurrentCreators { get; set; }
     public int TotalCreators { get; set; }
+    public int TotalPosts { get; set; }
+    public double[] DemographicData { get; set; }
+    public string[] DemographicLabels { get; set; }
+    public double[] AgeGroupData { get; set; }
+    public string[] AgeGroupCategories { get; set; }
 }
