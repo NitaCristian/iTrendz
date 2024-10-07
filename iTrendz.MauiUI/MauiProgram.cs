@@ -31,11 +31,12 @@ public static class MauiProgram
             var logger = sp.GetRequiredService<ILogger<CustomAuthenticationStateProvider>>();
             return new CustomAuthenticationStateProvider(httpClient, logger);
         });
-        builder.Services.AddScoped<ICampaignService, ApiCampaignService>(sp =>
-        {
-            var httpClient = sp.GetRequiredService<HttpClient>();
-            return new ApiCampaignService(httpClient);
-        });
+        // builder.Services.AddScoped<ICampaignService, ApiCampaignService>(sp =>
+        // {
+        //     var httpClient = sp.GetRequiredService<HttpClient>();
+        //     return new ApiCampaignService(httpClient);
+        // });
+        builder.Services.AddScoped<ICampaignService, LocalCampaignService>();
 
         builder.Services.AddScoped<ICreatorService, CreatorService>(sp =>
         {
