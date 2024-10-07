@@ -4,8 +4,13 @@ using iTrendz.Domain.Models;
 
 namespace iTrendz.MauiUI.Services;
 
-public class CampaignService(HttpClient httpClient) : ICampaignService
+public class ApiCampaignService(HttpClient httpClient) : ICampaignService
 {
+    public Task<Campaign> GetCampaignAsync(int campaignId)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<IEnumerable<Campaign>?> GetCampaignsAsync()
     {
         var response = await httpClient.GetAsync("campaign/all");
