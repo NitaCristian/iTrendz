@@ -40,7 +40,7 @@
     private Brand? _brand;
     private string? _description;
 
-    private InfluencerRequirements? _influencerRequirements;
+    private QualificationCriteria? _influencerRequirements;
     private List<Platform>? _platforms;
     private List<PlatformDeliverable>? _deliverables;
     private CampaignDetails? _campaignDetails;
@@ -65,10 +65,10 @@
             ImageUrl = "https://picsum.photos/50/"
         };
         _description = "Join our exciting campaign to promote the latest in cutting-edge technology! We’re looking for tech-savvy influencers to review and create content around our brand-new smart gadgets, including wireless headphones, smart home assistants, and portable charging devices. Selected influencers will receive the product free of charge to showcase its features, usability, and design. Whether it's a deep-dive review video or a creative unboxing, we want your authentic voice to reach tech enthusiasts everywhere!";
-        _influencerRequirements = new InfluencerRequirements
+        _influencerRequirements = new QualificationCriteria
         {
-            MinimumFollowers = 25_000_000,
-            AverageViews = 250_000,
+            MinFollowerCount = 25_000_000,
+            MinEngagementRate = 250_000,
             Audience = "Female"
         };
 

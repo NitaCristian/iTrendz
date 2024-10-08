@@ -111,7 +111,7 @@
                         {
                             <MudItem xs="4">
                                 <MudCard Class="mud-width-full mud-height-auto" Style="width: 250px;">
-                                    <MudCardMedia Image="@(campaign.ImageURL)" Alt="Campaign Image" Height="150"/>
+                                    <MudCardMedia Image="@(campaign.ImageUrl)" Alt="Campaign Image" Height="150"/>
                                     <MudCardContent>
                                         <MudText Typo="Typo.h6">@campaign.Title</MudText>
                                         <MudText Typo="Typo.body2">@campaign.CampaignDetails.StartDate</MudText>
@@ -199,7 +199,7 @@
         new Campaign
         {
             Title = "Summer Fashion Launch",
-            ImageURL = "https://example.com/summerfashion.jpg",
+            ImageUrl = "https://example.com/summerfashion.jpg",
             CampaignDetails = new()
             {
                 StartDate = new(2023, 07, 15),
@@ -210,7 +210,7 @@
         new Campaign
         {
             Title = "Tech Gadget Unboxing",
-            ImageURL = "https://example.com/techgadget.jpg",
+            ImageUrl = "https://example.com/techgadget.jpg",
             CampaignDetails = new()
             {
                 StartDate = new(2023, 07, 15),

@@ -34,16 +34,16 @@
 </MudTimeline>
 
 @code {
-    [Parameter] public List<TimelineEvent>? Events { get; set; }
+    [Parameter] public List<ActionLog>? Events { get; set; }
 
-    private Color ConvertEventTypeToColor(EventType type)
+    private Color ConvertEventTypeToColor(ActionType type)
     {
         return type switch
         {
-            EventType.Info => Color.Info,
-            EventType.Positive => Color.Success,
-            EventType.Negative => Color.Error,
-            EventType.Warning => Color.Warning,
+            ActionType.Info => Color.Info,
+            ActionType.Positive => Color.Success,
+            ActionType.Negative => Color.Error,
+            ActionType.Warning => Color.Warning,
             _ => Color.Default
         };
     }

@@ -1,7 +1,7 @@
 ﻿namespace iTrendz.Domain.Models;
 
-public class ContentRequirement
+public class ContentRequirement : ContentDetail
 {
-    public string ContentType { get; set; }
-    public string Description { get; set; }
+    public int Id { get; set; }
+    public Campaign Campaign { get; set; }
 }

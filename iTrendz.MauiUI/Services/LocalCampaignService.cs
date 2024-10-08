@@ -16,24 +16,24 @@ public class LocalCampaignService : ICampaignService
             Title = "Fitness Wear Launch",
             Description =
                 "Help us launch our new line of performance fitness wear! We are seeking active influencers to showcase our gear, including running shoes, moisture-wicking tops, and compression shorts. Selected influencers will receive a full set of products and must create content showcasing the clothing during workouts or fitness routines.",
-            ImageURL = "https://picsum.photos/300/",
+            ImageUrl = "https://picsum.photos/300/",
             Brand = new Brand
             {
                 UserName = "FitWear",
                 ImageUrl = "https://picsum.photos/50/"
             },
-            TimelineEvents =
+            Logs =
             [
-                new TimelineEvent("Campaign Created", "The campaign was successfully set up and is now ready for further configuration.", timestamp: new DateTime(2024, 3, 5), type: EventType.Info),
-                new TimelineEvent("Initial Creators Invited", "An invitation was sent to a select group of creators based on the brand's preferences.", timestamp: new DateTime(2024, 3, 7), type: EventType.Info),
-                new TimelineEvent("5 Creators Accepted the Invitation", "Five creators agreed to participate in the campaign and began their onboarding process.", timestamp: new DateTime(2024, 3, 10), type: EventType.Positive),
-                new TimelineEvent("Budget Adjustment Required", "The campaign budget exceeded the initial projection due to higher engagement expectations. A revision was needed.", timestamp: new DateTime(2024, 3, 14), type: EventType.Negative),
-                new TimelineEvent("Content Submission Deadline Reminder", "A reminder was sent to all participating creators about the upcoming content submission deadline on March 18.", timestamp: new DateTime(2024, 3, 15), type: EventType.Info),
-                new TimelineEvent("Final Content Submitted for Review", "All creators submitted their final content for review before approval.", timestamp: new DateTime(2024, 3, 18), type: EventType.Warning),
-                new TimelineEvent("Content Approval Meeting Held", "The brand reviewed the content with internal stakeholders and provided feedback for revisions.", timestamp: new DateTime(2024, 3, 22), type: EventType.Warning),
-                new TimelineEvent("Campaign Launch", "The campaign officially launched across multiple social media platforms, with all approved content posted by creators.", timestamp: new DateTime(2024, 3, 31), type: EventType.Positive),
-                new TimelineEvent("Campaign Performance Report Generated", "An initial performance report was generated, indicating positive trends in engagement and reach.", timestamp: new DateTime(2024, 4, 5), type: EventType.Info),
-                new TimelineEvent("Campaign Successfully Completed", "The campaign ended, meeting most of its goals in terms of reach and engagement. Final reports were sent to the brand.", timestamp: new DateTime(2024, 4, 11), type: EventType.Positive)
+                new ActionLog("Campaign Created", "The campaign was successfully set up and is now ready for further configuration.", timestamp: new DateTime(2024, 3, 5), type: ActionType.Info),
+                new ActionLog("Initial Creators Invited", "An invitation was sent to a select group of creators based on the brand's preferences.", timestamp: new DateTime(2024, 3, 7), type: ActionType.Info),
+                new ActionLog("5 Creators Accepted the Invitation", "Five creators agreed to participate in the campaign and began their onboarding process.", timestamp: new DateTime(2024, 3, 10), type: ActionType.Positive),
+                new ActionLog("Budget Adjustment Required", "The campaign budget exceeded the initial projection due to higher engagement expectations. A revision was needed.", timestamp: new DateTime(2024, 3, 14), type: ActionType.Negative),
+                new ActionLog("Content Submission Deadline Reminder", "A reminder was sent to all participating creators about the upcoming content submission deadline on March 18.", timestamp: new DateTime(2024, 3, 15), type: ActionType.Info),
+                new ActionLog("Final Content Submitted for Review", "All creators submitted their final content for review before approval.", timestamp: new DateTime(2024, 3, 18), type: ActionType.Warning),
+                new ActionLog("Content Approval Meeting Held", "The brand reviewed the content with internal stakeholders and provided feedback for revisions.", timestamp: new DateTime(2024, 3, 22), type: ActionType.Warning),
+                new ActionLog("Campaign Launch", "The campaign officially launched across multiple social media platforms, with all approved content posted by creators.", timestamp: new DateTime(2024, 3, 31), type: ActionType.Positive),
+                new ActionLog("Campaign Performance Report Generated", "An initial performance report was generated, indicating positive trends in engagement and reach.", timestamp: new DateTime(2024, 4, 5), type: ActionType.Info),
+                new ActionLog("Campaign Successfully Completed", "The campaign ended, meeting most of its goals in terms of reach and engagement. Final reports were sent to the brand.", timestamp: new DateTime(2024, 4, 11), type: ActionType.Positive)
             ],
             CampaignDetails = new CampaignDetails
             {
@@ -48,7 +48,7 @@ public class LocalCampaignService : ICampaignService
                 AgeGroupData = [15, 30, 45, 10],
                 AgeGroupCategories = ["18-24", "25-34", "35-44", "45-54"],
             },
-            CampaignMetrics = new()
+            Metrics = new()
             {
                 Views = 13100,
                 Likes = 9100,
@@ -66,10 +66,10 @@ public class LocalCampaignService : ICampaignService
                 BudgetAllocationData = [50, 30, 20],
                 BudgetAllocationLabels = ["Marketing", "Development", "Operations"]
             },
-            InfluencerRequirements = new InfluencerRequirements
+            Criteria = new QualificationCriteria
             {
-                MinimumFollowers = 50_000,
-                AverageViews = 10_000,
+                MinFollowerCount = 50_000,
+                MinEngagementRate = 10_000,
                 Audience = "Fitness Enthusiasts"
             },
             Deliverables =

@@ -3,13 +3,13 @@
 
 <TwoPaneLayout>
     <LeftContent>
-        <CampaignHeader ImageUrl="@_campaign.ImageURL" Title="@_campaign.Title" Brand="_campaign.Brand"/>
+        <CampaignHeader ImageUrl="@_campaign.ImageUrl" Title="@_campaign.Title" Brand="_campaign.Brand"/>
         <CampaignInfo CampaignDetails="_campaign.CampaignDetails"/>
     </LeftContent>
     <RightContent>
         <MudStack>
             <CampaignDescription Description="@_campaign.Description"/>
-            <CampaignInfluencerRequirements Requirements="_campaign.InfluencerRequirements"/>
+            <CampaignInfluencerRequirements Requirements="_campaign.Criteria"/>
             <CampaignPlatforms Platforms="_platforms"/>
             <CampaignPlatformDeliverables Deliverables="_campaign.Deliverables"/>
         </MudStack>
