@@ -3,4 +3,5 @@
 public class ContentAgreement : ContentDetail
 {
     public int Id { get; set; }
+    public Contract Contract { get; set; }
 }

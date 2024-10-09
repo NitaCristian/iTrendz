@@ -13,8 +13,8 @@ public sealed class BrandFaker : Faker<Brand>
         RuleFor(u => u.Email, f => f.Internet.Email());
         RuleFor(u => u.NormalizedEmail, (f, u) => u.Email.ToUpper());
         RuleFor(u => u.Description, f => f.Lorem.Sentence());
-        RuleFor(u => u.Domain,
-            f => f.PickRandom(new[] { "Tech", "Fashion", "Sports", "Lifestyle", "Health", "Entertainment" }));
+        // RuleFor(u => u.Domain,
+            // f => f.PickRandom(new[] { "Tech", "Fashion", "Sports", "Lifestyle", "Health", "Entertainment" }));
         RuleFor(u => u.WebsiteUrl, f => f.Internet.Url());
         RuleFor(u => u.ImageUrl, f => f.Internet.Avatar());
         RuleFor(u => u.RefreshToken, f => f.Random.String2(32));

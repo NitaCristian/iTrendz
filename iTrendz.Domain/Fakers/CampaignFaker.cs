@@ -11,7 +11,7 @@ public sealed class CampaignFaker : Faker<Campaign>
         RuleFor(c => c.Title, f => f.Commerce.ProductName());
         RuleFor(c => c.ImageUrl, f => f.Image.PicsumUrl());
         RuleFor(c => c.Description, f => f.Lorem.Paragraph());
-        RuleFor(c => c.BrandId, f => f.Random.Number(1, 10)); 
+        // RuleFor(c => c.BrandId, f => f.Random.Number(1, 10)); 
         RuleFor(c => c.Contracts, f => new ContractFaker().Generate(3)); 
     }
 }
