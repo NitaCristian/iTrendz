@@ -28,7 +28,7 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
 
         builder.HasOne(t => t.Campaign)
             .WithMany(c => c.Transactions)
-            .HasForeignKey(t => t.Campaign.Id)
+            .HasForeignKey("CampaignId")
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

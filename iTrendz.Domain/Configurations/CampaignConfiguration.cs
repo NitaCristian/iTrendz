@@ -10,6 +10,22 @@ public class CampaignConfiguration : IEntityTypeConfiguration<Campaign>
     {
         builder.ToTable("Campaigns");
 
+        builder.OwnsOne(c => c.Criteria, qc =>
+        {
+            qc.Property(q => q.MinFollowerCount).IsRequired();
+            qc.Property(q => q.AverageViews).IsRequired();
+            qc.Property(q => q.MinEngagementRate).IsRequired();
+
+            qc.HasOne(q => q.TargetLocation)
+                .WithMany()
+                .IsRequired(false);
+        });
+
+        builder.HasOne(c => c.Brand)
+            .WithMany(b=>b.Campaigns)
+            .HasForeignKey("BrandId")
+            .IsRequired();
+
         builder.HasKey(campaign => campaign.Id);
 
         builder.Property(campaign => campaign.Title)
@@ -24,7 +40,7 @@ public class CampaignConfiguration : IEntityTypeConfiguration<Campaign>
 
         builder.Property(campaign => campaign.Budget)
             .HasColumnType("decimal(18,2)");
-
+        
         builder.Property(campaign => campaign.ApplicationDeadline)
             .IsRequired();
 
@@ -35,26 +51,24 @@ public class CampaignConfiguration : IEntityTypeConfiguration<Campaign>
         builder.Property(campaign => campaign.State)
             .HasConversion<string>()
             .IsRequired();
-        
-        // TODO figure this one out
+
         builder.HasMany(campaign => campaign.Transactions)
             .WithOne(transaction => transaction.Campaign)
-            .HasForeignKey(transaction => transaction.Campaign.Id)
+            .HasForeignKey("CampaignId")
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(campaign => campaign.Contracts)
             .WithOne(contract => contract.Campaign)
-            .HasForeignKey(contract => contract.Campaign.Id)
+            .HasForeignKey("CampaignId")
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(campaign => campaign.Requirements)
             .WithOne(requirement => requirement.Campaign)
-            .HasForeignKey(requirement => requirement.Campaign.Id)
+            .HasForeignKey("CampaignId")
             .OnDelete(DeleteBehavior.Cascade);
-        
-        // TODO here with niches
+
         builder.HasMany(c => c.Niches)
-            .WithMany()
+            .WithMany(n => n.Campaigns)
             .UsingEntity<Dictionary<string, object>>(
                 "CampaignNiche",
                 j => j.HasOne<Niche>().WithMany().HasForeignKey("NicheId"),
@@ -63,7 +77,9 @@ public class CampaignConfiguration : IEntityTypeConfiguration<Campaign>
 
         builder.HasMany(c => c.Logs)
             .WithOne(l => l.Campaign)
-            .HasForeignKey(l => l.Campaign.Id)
+            .HasForeignKey("CampaignId")
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Ignore(c => c.Metrics);
     }
 }

@@ -16,7 +16,6 @@ public class InfluencerConfiguration : IEntityTypeConfiguration<Influencer>
 
         builder.Ignore(i => i.Metrics);
 
-        // Configure relationships
         builder.HasMany(i => i.Pricings)
             .WithOne(p => p.Influencer)
             .HasForeignKey("InfluencerId")

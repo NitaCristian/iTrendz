@@ -31,7 +31,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasValue<Influencer>("Influencer")
             .HasValue<Brand>("Brand");
 
-        // TODO: Figure this out
         builder.HasOne(user => user.Location)
             .WithMany()
             .HasForeignKey("LocationId")

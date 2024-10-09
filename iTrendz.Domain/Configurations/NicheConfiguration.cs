@@ -16,7 +16,20 @@ public class NicheConfiguration : IEntityTypeConfiguration<Niche>
             .IsRequired()
             .HasMaxLength(100);
 
-        // Configure many-to-many relationships if necessary
-        // e.g., with Users and Campaigns
+        builder.HasMany(n => n.Users)
+            .WithMany(u => u.Niches)
+            .UsingEntity<Dictionary<string, object>>(
+                "UserNiche",
+                j => j.HasOne<User>().WithMany().HasForeignKey("UserId"),
+                j => j.HasOne<Niche>().WithMany().HasForeignKey("NicheId")
+            );
+
+        builder.HasMany(n => n.Campaigns)
+            .WithMany(c => c.Niches)
+            .UsingEntity<Dictionary<string, object>>(
+                "CampaignNiche",
+                j => j.HasOne<Campaign>().WithMany().HasForeignKey("CampaignId"),
+                j => j.HasOne<Niche>().WithMany().HasForeignKey("NicheId")
+            );
     }
 }

@@ -10,10 +10,9 @@ public class BrandConfiguration : IEntityTypeConfiguration<Brand>
     {
         builder.HasBaseType<User>();
 
-        // TODO Figure this one out
         builder.HasMany(brand => brand.Campaigns)
             .WithOne(campaign => campaign.Brand)
-            .HasForeignKey(campaign => campaign.Brand.Id)
+            .HasForeignKey("BrandId")
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
