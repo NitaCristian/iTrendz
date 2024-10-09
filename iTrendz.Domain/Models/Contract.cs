@@ -9,5 +9,5 @@ public class Contract
     public Influencer Influencer { get; set; }
     public Campaign Campaign { get; set; }
     public ICollection<Post> Posts { get; set; }
-    public ICollection<ContentDetail> AgreedContent { get; set; }
+    public ICollection<ContentAgreement> AgreedContent { get; set; }
 }
