@@ -3,5 +3,5 @@
 public class PlatformDeliverable
 {
     public Platform Platform { get; set; }
-    public List<ContentRequirement> ContentRequirements { get; set; }
+    public ICollection<ContentRequirement> ContentRequirements { get; set; }
 }

@@ -17,6 +17,8 @@ public class TrendzDbContext(DbContextOptions<TrendzDbContext> options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TrendzDbContext).Assembly);
+
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<User>()
