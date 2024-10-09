@@ -20,49 +20,5 @@ public class TrendzDbContext(DbContextOptions<TrendzDbContext> options)
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TrendzDbContext).Assembly);
 
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<User>()
-            .ToTable("Users")
-            .HasDiscriminator<string>("UserType")
-            .HasValue<User>("User")
-            .HasValue<Brand>("Brand")
-            .HasValue<Influencer>("Influencer");
-
-        modelBuilder.Entity<Brand>()
-            .HasMany(b => b.Campaigns)
-            .WithOne(c => c.Brand)
-            .HasForeignKey(c => c.BrandId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<Influencer>()
-            .HasMany(i => i.Contracts)
-            .WithOne(c => c.Influencer)
-            .HasForeignKey(c => c.InfluencerId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<Campaign>()
-            .HasKey(c => c.Id);
-
-        modelBuilder.Entity<Campaign>()
-            .HasOne(c => c.Brand)
-            .WithMany(b => b.Campaigns)
-            .HasForeignKey(c => c.BrandId);
-
-        modelBuilder.Entity<Contract>()
-            .HasKey(c => c.Id);
-
-        modelBuilder.Entity<Contract>()
-            .HasOne(c => c.Influencer)
-            .WithMany(i => i.Contracts)
-            .HasForeignKey(c => c.InfluencerId);
-
-        modelBuilder.Entity<Contract>()
-            .HasOne(c => c.Campaign)
-            .WithMany(ca => ca.Contracts)
-            .HasForeignKey(c => c.CampaignId);
-
-        modelBuilder.Entity<Contract>()
-            .Property(c => c.SignedDate)
-            .HasColumnType("date");
     }
 }
