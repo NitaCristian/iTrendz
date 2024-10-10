@@ -1,5 +1,5 @@
 ﻿<MudStack>
-    @if (CampaignDetails is null)
+    @if (Campaign is null)
     {
         <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="200px" Height="24px" Animation="Animation.Wave"/>
         <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="200px" Height="24px" Animation="Animation.Wave"/>
@@ -10,28 +10,28 @@
         <MudText>
             Period:
             <MudChip T="string" Icon="@Icons.Material.Filled.DateRange" Color="Color.Info">
-                @CampaignDetails.StartDate.ToString("dd/MM/yyyy") - @CampaignDetails.EndDate.ToString("dd/MM/yyyy")
+                @Campaign.Period.StartDate.ToString("dd/MM/yyyy") - @Campaign.Period.EndDate.ToString("dd/MM/yyyy")
             </MudChip>
         </MudText>
         <MudText>
             Type:
-            <MudChip T="string" Icon="@Icons.Material.Filled.Campaign" Style="@($"color: white; background-color: {Colors.Purple.Lighten1};")">@CampaignDetails.CampaignType</MudChip>
+            <MudChip T="string" Icon="@Icons.Material.Filled.Campaign" Style="@($"color: white; background-color: {Colors.Purple.Lighten1};")">@Campaign.Type</MudChip>
         </MudText>
         <MudText>
             Creators Wanted:
-            <MudChip T="string" Icon="@Icons.Material.Filled.Person" Color="Color.Tertiary">@CampaignDetails.CurrentCreators/@CampaignDetails.TotalCreators</MudChip>
+            <MudChip T="string" Icon="@Icons.Material.Filled.Person" Color="Color.Tertiary">@Campaign.Contracts.Count/@Campaign.CreatorLimit</MudChip>
         </MudText>
-        if (ContractDetails is not null)
+        if (Contract is not null)
         {
             <MudText>
                 Application Status:
-                <MudChip T="string" Icon="@Icons.Material.Filled.Pending" Color="Color.Warning">@ContractDetails.Status</MudChip>
+                <MudChip T="string" Icon="@Icons.Material.Filled.Pending" Color="Color.Warning">@Contract.State</MudChip>
             </MudText>
         }
     }
 </MudStack>
 
 @code {
-    [Parameter] public CampaignDetails? CampaignDetails { get; set; }
-    [Parameter] public ContractDetails? ContractDetails { get; set; }
+    [Parameter] public Campaign? Campaign { get; set; }
+    [Parameter] public Contract? Contract { get; set; }
 }

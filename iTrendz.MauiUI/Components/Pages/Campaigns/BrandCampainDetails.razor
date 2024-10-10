@@ -4,7 +4,7 @@
 <TwoPaneLayout>
     <LeftContent>
         <CampaignHeader ImageUrl="@_campaign?.ImageUrl" Title="@_campaign?.Title" Brand="_campaign?.Brand"/>
-        <CampaignInfo CampaignDetails="_campaign.CampaignDetails"/>
+        <CampaignInfo Campaign="_campaign"/>
     </LeftContent>
     <RightContent>
         <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
@@ -12,18 +12,18 @@
                 <MudStack>
                     <CampaignDescription Description="@_campaign?.Description"/>
                     <CampaignInfluencerRequirements Requirements="_campaign?.Criteria"/>
-                    <CampaignPlatforms Platforms="_platforms"/>
-                    <CampaignPlatformDeliverables Deliverables="_campaign?.Deliverables"/>
+                    <CampaignPlatforms Platforms="GetPlatforms()"/>
+                    <CampaignPlatformDeliverables Deliverables="_campaign?.Requirements"/>
                 </MudStack>
             </MudTabPanel>
             <MudTabPanel Text="Influencers">
-                <InfluencersDataGrid Influencers="_influencers"/>
+                <InfluencersDataGrid Influencers="GetInfluencers()"/>
             </MudTabPanel>
             <MudTabPanel Text="Insights">
-                <CampaignInsights TimelineEvents="_campaign?.Logs" BudgetStatistics="_campaign.BudgetStatistics" CampaignDetails="_campaign.CampaignDetails" CampaignMetrics="_campaign.Metrics"/>
+                <CampaignInsights Campaign="_campaign"/>
             </MudTabPanel>
             <MudTabPanel Text="Posts">
-                <CampaignVideos Videos="_videos"/>
+                <CampaignVideos Videos="GetVideos()"/>
             </MudTabPanel>
         </MudTabs>
     </RightContent>
@@ -32,9 +32,6 @@
 @code {
     [Parameter] public int Id { get; set; }
 
-    private IEnumerable<Influencer>? _influencers;
-    private List<Video>? _videos;
-    private List<Platform>? _platforms;
     private Campaign? _campaign;
 
     protected override async Task OnInitializedAsync()
@@ -42,57 +39,31 @@
         await Task.Delay(10000);
 
         _campaign = await CampaignService.GetCampaignAsync(Id);
+    }
 
-        _videos =
-        [
-            new Video
-            {
-                Id = 1,
-                Title = "Car in Forest",
-                VideoUrl = "/assets/videos/video.mp4",
-                PosterUrl = "/assets/image/poster.jpg"
-            },
-            new Video()
-            {
-                Id = 2,
-                Title = "Car in Forest",
-                VideoUrl = "/assets/videos/video.mp4",
-                PosterUrl = "/assets/image/poster.jpg"
-            },
-            new Video()
-            {
-                Id = 3,
-                Title = "Car in Forest",
-                VideoUrl = "/assets/videos/video.mp4",
-                PosterUrl = "/assets/image/poster.jpg"
-            },
-            new Video()
-            {
-                Id = 4,
-                Title = "Car in Forest",
-                VideoUrl = "/assets/videos/video.mp4",
-                PosterUrl = "/assets/image/poster.jpg"
-            }
-        ];
+    public List<Platform> GetPlatforms()
+    {
+        return _campaign.Requirements
+            .Select(requirement => requirement.Platform)
+            .Distinct()
+            .ToList();
+    }
 
-        _platforms =
-        [
-            new Platform { Icon = Icons.Custom.Brands.Instagram, Name = "Instagram" },
-            new Platform { Icon = Icons.Custom.Brands.TikTok, Name = "TikTok" },
-            new Platform { Icon = Icons.Custom.Brands.YouTube, Name = "YouTube" }
-        ];
-        
-        _influencers = new List<Influencer>
-        {
-            new()
-            {
-                UserName = "Sam",
-                ImageUrl = "https://picsum.photos/200",
-                Status = "Active",
-                Price = 250,
-                Followers = 87_000
-            }
-        };
+    public List<Influencer> GetInfluencers()
+    {
+        return _campaign.Contracts
+            .Select(contract => contract.Influencer)
+            .Distinct()
+            .ToList();
+    }
+
+    public List<Video> GetVideos()
+    {
+        return _campaign.Contracts
+            .SelectMany(contract => contract.Posts)
+            .Where(post => post.Media is Video)
+            .Select(post => post.Media as Video)
+            .ToList(); // 
     }
 
 }

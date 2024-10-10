@@ -1,51 +1,52 @@
 ﻿<MudStack>
-    <CampaignTimeline Events="TimelineEvents"/>
+    <CampaignTimeline Events="Campaign.Logs"/>
 
     @if (ForInfluencer == false)
     {
-        <CampaignBudgetStatistics Statistics="BudgetStatistics"/>
+        <CampaignBudgetStatistics CurrentBudget="Campaign.Budget"/>
     }
 
     <MudGrid Spacing="8">
         <MudItem xs="4">
-            <StatCard Title="Organic Reach" Value="@Metrics.Reach" MaxValue="@Metrics.Views"/>
+            <StatCard Title="Organic Reach" Value="@Campaign.Metrics.Reach" MaxValue="@Campaign.Metrics.Views"/>
         </MudItem>
         <MudItem xs="4">
-            <StatCard Title="Organic Engagement" Value="@Metrics.Engagement" MaxValue="@Metrics.Views"/>
+            <StatCard Title="Organic Engagement" Value="@Campaign.Metrics.Engagement" MaxValue="@Campaign.Metrics.Views"/>
         </MudItem>
         <MudItem xs="4">
-            <IconCard Label="Total Posts" Value="@CampaignDetails.TotalPosts.ToString()" Icon="@Icons.Material.Filled.Image" IconColor="Color.Primary"/>
-            <IconCard Label="Total Creators" Value="@CampaignDetails.TotalCreators.ToString()" Icon="@Icons.Material.Filled.People" IconColor="Color.Primary"/>
+            <IconCard Label="Total Posts" Value="@CountPostsForCampaign().ToString()" Icon="@Icons.Material.Filled.Image" IconColor="Color.Primary"/>
+            <IconCard Label="Total Creators" Value="@Campaign.Contracts.Count.ToString()" Icon="@Icons.Material.Filled.People" IconColor="Color.Primary"/>
         </MudItem>
         <MudItem xs="3">
-            <MediaCard Label="Views" Value="@FormatNumber(Metrics.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary"/>
+            <MediaCard Label="Views" Value="@FormatNumber(Campaign.Metrics.Views)" Icon="@Icons.Material.Filled.RemoveRedEye" IconColor="Color.Tertiary"/>
         </MudItem>
         <MudItem xs="3">
-            <MediaCard Label="Likes" Value="@FormatNumber(Metrics.Likes)" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary"/>
+            <MediaCard Label="Likes" Value="@FormatNumber(Campaign.Metrics.Likes)" Icon="@Icons.Material.Rounded.HeartBroken" IconColor="Color.Secondary"/>
         </MudItem>
         <MudItem xs="3">
-            <MediaCard Label="Comments" Value="@FormatNumber(Metrics.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary"/>
+            <MediaCard Label="Comments" Value="@FormatNumber(Campaign.Metrics.Comments)" Icon="@Icons.Material.Rounded.Comment" IconColor="Color.Secondary"/>
         </MudItem>
         <MudItem xs="3">
-            <MediaCard Label="Shares" Value="@FormatNumber(Metrics.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary"/>
+            <MediaCard Label="Shares" Value="@FormatNumber(Campaign.Metrics.Shares)" Icon="@Icons.Material.Filled.Share" IconColor="Color.Secondary"/>
         </MudItem>
         <MudItem xs="6">
-            <PieChartCard Title="Age Group" ChartData="@CampaignDetails.AgeGroupData" ChartLabels="@AgeGroupLabels"/>
+            <PieChartCard Title="Age Group" ChartData="@AgeGroupData" ChartLabels="@AgeGroupLabels"/>
         </MudItem>
         <MudItem xs="6">
-            <PieChartCard Title="Demographic Data" ChartData="@CampaignDetails.DemographicData" ChartLabels="@CampaignDetails.DemographicLabels"/>
+            <PieChartCard Title="Demographic Data" ChartData="@DemographicData" ChartLabels="@DemographicLabels"/>
         </MudItem>
     </MudGrid>
 </MudStack>
 
 @code {
     [Parameter] public bool ForInfluencer { get; set; }
-    [Parameter] public List<ActionLog>? TimelineEvents { get; set; }
-    [Parameter] public BudgetStatistics BudgetStatistics { get; set; }
-    [Parameter] public Metrics Metrics { get; set; }
-    [Parameter] public CampaignDetails CampaignDetails { get; set; }
+    [Parameter] public Campaign Campaign { get; set; }
 
-    private string[] AgeGroupLabels => CampaignDetails.AgeGroupCategories.Select((label, index) => $"{label} ({CampaignDetails.AgeGroupData[index] / CampaignDetails.AgeGroupData.Sum() * 100:0.0}%)").ToArray();
+    private string[] AgeGroupLabels => AgeGroupCategories.Select((label, index) => $"{label} ({AgeGroupData[index] / AgeGroupData.Sum() * 100:0.0}%)").ToArray();
+    double[] AgeGroupData;
+    double[] DemographicData;
+    string[] DemographicLabels;
+    List<string> AgeGroupCategories;
 
     private static string FormatNumber(int number)
     {
@@ -55,6 +56,13 @@
             >= 1000000 => (number / 1000000D).ToString("0.#") + "M",
             _ => number.ToString()
         };
+    }
+
+    public int CountPostsForCampaign()
+    {
+        return Campaign.Contracts
+            .SelectMany(contract => contract.Posts)
+            .Count();
     }
 
 }

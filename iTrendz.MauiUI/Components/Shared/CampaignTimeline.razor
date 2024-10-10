@@ -34,7 +34,7 @@
 </MudTimeline>
 
 @code {
-    [Parameter] public List<ActionLog>? Events { get; set; }
+    [Parameter] public ICollection<ActionLog>? Events { get; set; }
 
     private Color ConvertEventTypeToColor(ActionType type)
     {

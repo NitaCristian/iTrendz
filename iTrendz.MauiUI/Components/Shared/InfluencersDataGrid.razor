@@ -15,14 +15,12 @@
             </CellTemplate>
         </TemplateColumn>
 
-        <PropertyColumn Property="x => x.Followers" Title="Followers"/>
-        <PropertyColumn Property="x => x.Price" Format="Price"/>
-        <PropertyColumn Property="x => x.Status" Title="Status"/>
+        <PropertyColumn Property="x => x.Metrics.Followers" Title="Followers"/>
         <PropertyColumn Property="x => x.Location" Format="Location"/>
 
         <TemplateColumn Title="Rating">
             <CellTemplate>
-                <MudRating Size="@Size.Small" SelectedValue="@context.Item.Rating"/>
+                <MudRating Size="@Size.Small" SelectedValue="@Convert.ToInt32(context.Item.Rating)"/>
             </CellTemplate>
         </TemplateColumn>
 
