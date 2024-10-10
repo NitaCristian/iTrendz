@@ -4,10 +4,11 @@ using iTrendz.Domain.Models;
 
 namespace iTrendz.MauiUI.Services;
 
-public class ApiCampaignService(HttpClient httpClient) : ICampaignService
+public class CampaignService(HttpClient httpClient) : ICampaignService
 {
     public Task<Campaign> GetCampaignAsync(int campaignId)
     {
+        // TODO: Implement this method
         throw new NotImplementedException();
     }
 
@@ -28,5 +29,11 @@ public class ApiCampaignService(HttpClient httpClient) : ICampaignService
     {
         var response = await httpClient.PutAsync($"campaign/{campaignId}/pin", null);
         return response.IsSuccessStatusCode;
+    }
+
+    public Task<IEnumerable<Campaign>> GetBrandPastCampaignsAsync(int brandId)
+    {
+        // TODO: Implement this method
+        throw new NotImplementedException();
     }
 }

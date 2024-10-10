@@ -1,23 +1,27 @@
-﻿@page "/brands/{Id:int}"
+﻿@page "/brands/{BrandId:int}"
+@inject ICampaignService CampaignService
+@inject IBrandService BrandService
 
 <MudGrid>
     <MudItem xl="3" lg="4" md="5" sm="6" xs="12">
         <MudGrid>
             <MudItem>
-                <MudImage Src="https://picsum.photos/100" Alt="Profile Picture" Elevation="25" Class="rounded-lg"/>
+                <MudImage Src="@_brand.ImageUrl" Alt="Profile Picture" Elevation="25" Class="rounded-lg"/>
             </MudItem>
             <MudItem>
-                <MudText>NextGen</MudText>
+                <MudText>@_brand.UserName</MudText>
                 <MudText>@@nextgen</MudText>
-                <MudText><MudIcon Icon="@Icons.Material.Filled.LocationOn" Title="Location"/> Paris, France</MudText>
+                <MudText>
+                    <MudIcon Icon="@Icons.Material.Filled.LocationOn" Title="Location"/> @_brand.Location.ToString()
+                </MudText>
             </MudItem>
         </MudGrid>
 
         <MudStack Row Spacing="2">
-            <MudChip T="string" Color="Color.Primary" Size="Size.Small">#fashion</MudChip>
-            <MudChip T="string" Color="Color.Primary" Size="Size.Small">#design</MudChip>
-            <MudChip T="string" Color="Color.Primary" Size="Size.Small">#art</MudChip>
-            <MudChip T="string" Color="Color.Primary" Size="Size.Small">#beauty</MudChip>
+            @foreach (var niche in _brand.Niches)
+            {
+                <MudChip T="string" Color="Color.Primary" Size="Size.Small">#@niche.Name</MudChip>
+            }
         </MudStack>
 
         <MudIconButton Icon="@Icons.Material.Filled.Bookmark" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Medium"/>
@@ -107,15 +111,15 @@
                 <MudCardContent>
                     <MudText>Past Campaigns</MudText>
                     <MudGrid Spacing="2">
-                        @foreach (var campaign in PastCampaigns)
+                        @foreach (var campaign in _pastCampaign)
                         {
                             <MudItem xs="4">
                                 <MudCard Class="mud-width-full mud-height-auto" Style="width: 250px;">
                                     <MudCardMedia Image="@(campaign.ImageUrl)" Alt="Campaign Image" Height="150"/>
                                     <MudCardContent>
                                         <MudText Typo="Typo.h6">@campaign.Title</MudText>
-                                        <MudText Typo="Typo.body2">@campaign.CampaignDetails.StartDate</MudText>
-                                        <MudText Typo="Typo.body2">Completed</MudText>
+                                        <MudText Typo="Typo.body2">@campaign.Period.StartDate</MudText>
+                                        <MudText Typo="Typo.body2">@campaign.State</MudText>
                                     </MudCardContent>
                                     <MudCardActions>
                                         <MudButton Variant="Variant.Filled" Color="Color.Primary">View Details</MudButton>
@@ -174,7 +178,8 @@
 
 
 @code {
-    [Parameter] public int Id { get; set; }
+    [Parameter] public int BrandId { get; set; }
+
 
     private List<ChartSeries> _series =
     [
@@ -194,43 +199,14 @@
         "Coal", "Gas", "Biomass", "Hydro", "Geothermal"
     ];
 
-    public List<Campaign> PastCampaigns =
-    [
-        new Campaign
-        {
-            Title = "Summer Fashion Launch",
-            ImageUrl = "https://example.com/summerfashion.jpg",
-            CampaignDetails = new()
-            {
-                StartDate = new(2023, 07, 15),
-            },
-            Description = "A successful campaign to promote summer fashion trends.",
-        },
+    private Brand? _brand;
+    private IEnumerable<Campaign> _pastCampaign;
 
-        new Campaign
-        {
-            Title = "Tech Gadget Unboxing",
-            ImageUrl = "https://example.com/techgadget.jpg",
-            CampaignDetails = new()
-            {
-                StartDate = new(2023, 07, 15),
-            },
-            Description = "Influencers unboxed the latest tech gadgets.",
-        },
-
-        new Campaign
-        {
-            Title = "Healthy Living Awareness",
-            CampaignDetails = new()
-            {
-                StartDate = new(2023, 07, 15),
-            },
-            Description = "Promoting healthy lifestyle choices.",
-        }
-    ];
-
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+        _brand = await BrandService.GetBrandAsync(BrandId);
+        _pastCampaign = await CampaignService.GetBrandPastCampaignsAsync(BrandId);
+
         _options.InterpolationOption = InterpolationOption.NaturalSpline;
         _options.YAxisFormat = "c2";
         _options.ShowLegend = false;
