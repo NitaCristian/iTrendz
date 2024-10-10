@@ -22,8 +22,8 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
-        
-        builder.Services.AddScoped(_ => new HttpClient() { BaseAddress = new Uri("https://localhost:7061/api/")});
+
+        builder.Services.AddScoped(_ => new HttpClient() { BaseAddress = new Uri("https://localhost:7061/api/") });
         builder.Services.AddAuthorizationCore();
         builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>(sp =>
         {
@@ -40,6 +40,11 @@ public static class MauiProgram
         {
             var httpClient = sp.GetRequiredService<HttpClient>();
             return new BrandService(httpClient);
+        });
+        builder.Services.AddScoped<IContractService, ContractService>(sp =>
+        {
+            var httpClient = sp.GetRequiredService<HttpClient>();
+            return new ContractService(httpClient);
         });
         builder.Services.AddScoped<ICreatorService, CreatorService>(sp =>
         {

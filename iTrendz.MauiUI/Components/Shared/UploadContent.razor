@@ -3,7 +3,7 @@
 @inject ISnackbar Snackbar
 
 <MudCard>
-    <MudForm Model="@_model" @ref="@_form" Validation="@(_validationRules.ValidateValue)" ValidationDelay="0">
+    <MudForm Model="@_model" @ref="@_form">
         <MudCardContent>
             <MudStack>
                 <MudTextField @bind-Value="_model.Title" For="@(() => _model.Title)" Immediate="true" Label="Title"/>
@@ -27,7 +27,7 @@
 
                 <MudGrid Justify="@Justify.FlexEnd" Spacing="1">
                     <MudItem>
-                        <MudFileUpload @ref="@_fileUpload" T="IBrowserFile" For="@(() => _model.File!)" @bind-Files="_model.File" OnFilesChanged="UploadFiles" SuppressOnChangeWhenInvalid="true">
+                        <MudFileUpload @ref="@_fileUpload" T="IBrowserFile" OnFilesChanged="UploadFiles" SuppressOnChangeWhenInvalid="true">
                             <ActivatorContent>
                                 <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.CloudUpload">Upload File</MudButton>
                             </ActivatorContent>
@@ -38,12 +38,12 @@
                     </MudItem>
                 </MudGrid>
 
-                @if (_model.File is not null)
-                {
-                    <MudList T="string">
-                        <MudListItem Icon="@Icons.Material.Filled.AttachFile" @key="@_model.File">@_model.File.Name</MudListItem>
-                    </MudList>
-                }
+                <MudList T="string">
+                    @foreach (var media in Post.Media)
+                    {
+                        <MudListItem Icon="@Icons.Material.Filled.AttachFile" @key="@_model">@media.Url</MudListItem>
+                    }
+                </MudList>
             </MudStack>
         </MudCardContent>
         <MudCardActions>
@@ -53,7 +53,7 @@
 </MudCard>
 
 @code {
-    [Parameter] public Contract? Contract { get; set; }
+    [Parameter] public Post? Post { get; set; }
 
     private bool _expanded;
     private bool _hashtags;
@@ -79,13 +79,10 @@
 
     private MudForm _form = new();
     private Post _model = new();
-    private PostFluentValidator _validationRules = new();
     private MudFileUpload<IBrowserFile> _fileUpload = new();
 
     private void UploadFiles(InputFileChangeEventArgs e)
     {
-        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
-        Snackbar.Add($"This file has the extension {_model.File?.Name.Split(".").Last()}", Severity.Info);
     }
 
     private async Task Submit()
@@ -99,31 +96,5 @@
 
     private Task ClearAsync()
         => _fileUpload.ClearAsync();
-
-    public class Post
-    {
-        public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public IBrowserFile? File { get; set; }
-    }
-
-    public class PostFluentValidator : AbstractValidator<Post>
-    {
-        public PostFluentValidator()
-        {
-            RuleFor(x => x.Title)
-                .NotEmpty()
-                .Length(1, 100);
-            RuleFor(x => x.File)
-                .NotEmpty();
-            When(x => x.File != null, () => { RuleFor(x => x.File!.Size).LessThanOrEqualTo(10485760).WithMessage("The maximum file size is 10 MB"); });
-        }
-
-        public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
-        {
-            var result = await ValidateAsync(ValidationContext<Post>.CreateWithOptions((Post)model, x => x.IncludeProperties(propertyName)));
-            return result.IsValid ? Array.Empty<string>() : result.Errors.Select(e => e.ErrorMessage);
-        };
-    }
 
 }
