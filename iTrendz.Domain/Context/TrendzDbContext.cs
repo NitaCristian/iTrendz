@@ -9,7 +9,7 @@ namespace iTrendz.Domain.Context;
 public class TrendzDbContext(DbContextOptions<TrendzDbContext> options)
     : IdentityDbContext<User, IdentityRole<int>, int>(options)
 {
-    // public DbSet<User> Users { get; set; }
+    public DbSet<User> Users { get; set; }
     public DbSet<Brand> Brands { get; set; }
     public DbSet<Influencer> Influencers { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
