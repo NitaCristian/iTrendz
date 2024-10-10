@@ -24,7 +24,7 @@ public class Campaign
 
     public ICollection<ContentRequirement> Requirements { get; set; }
 
-    public Metrics Metrics { get; set; }
     public ICollection<Niche> Niches { get; set; }
     public ICollection<ActionLog> Logs { get; set; }
+    public Metrics Metrics { get; set; }
 }

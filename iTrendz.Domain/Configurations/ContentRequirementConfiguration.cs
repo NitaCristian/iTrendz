@@ -8,8 +8,6 @@ public class ContentRequirementConfiguration : IEntityTypeConfiguration<ContentR
 {
     public void Configure(EntityTypeBuilder<ContentRequirement> builder)
     {
-        builder.HasKey(cr => cr.Id);
-
         builder.HasOne(cr => cr.Campaign)
             .WithMany(c => c.Requirements)
             .HasForeignKey("CampaignId")

@@ -25,10 +25,10 @@ public class ActionLogConfiguration : IEntityTypeConfiguration<ActionLog>
             .HasMaxLength(500);
 
         builder.Property(al => al.Timestamp)
-            .IsRequired()
             .IsRequired();
 
         builder.Property(al => al.Type)
+            .HasConversion<string>()
             .IsRequired();
     }
 }

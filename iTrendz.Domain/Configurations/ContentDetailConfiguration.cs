@@ -15,10 +15,16 @@ public class ContentDetailConfiguration : IEntityTypeConfiguration<ContentDetail
             .HasValue<ContentRequirement>("Requirement")
             .HasValue<ContentAgreement>("Agreement");
 
-        builder.Property(cd => cd.ContentType)
+        builder.HasKey(cd => cd.Id);
+
+        builder.HasOne(cd => cd.ContentType)
+            .WithMany()
+            .HasForeignKey("ContentTypeId")
             .IsRequired();
 
-        builder.Property(cd => cd.Platform)
+        builder.HasOne(cd => cd.Platform)
+            .WithMany()
+            .HasForeignKey("PlatformId")
             .IsRequired();
 
         builder.Property(cd => cd.Price)

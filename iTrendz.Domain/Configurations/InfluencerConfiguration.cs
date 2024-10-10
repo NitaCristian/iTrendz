@@ -20,5 +20,10 @@ public class InfluencerConfiguration : IEntityTypeConfiguration<Influencer>
             .WithOne(p => p.Influencer)
             .HasForeignKey("InfluencerId")
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(i => i.Contracts)
+            .WithOne(c => c.Influencer)
+            .HasForeignKey("InfluencerId")
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

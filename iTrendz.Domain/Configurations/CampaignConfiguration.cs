@@ -10,22 +10,6 @@ public class CampaignConfiguration : IEntityTypeConfiguration<Campaign>
     {
         builder.ToTable("Campaigns");
 
-        builder.OwnsOne(c => c.Criteria, qc =>
-        {
-            qc.Property(q => q.MinFollowerCount).IsRequired();
-            qc.Property(q => q.AverageViews).IsRequired();
-            qc.Property(q => q.MinEngagementRate).IsRequired();
-
-            qc.HasOne(q => q.TargetLocation)
-                .WithMany()
-                .IsRequired(false);
-        });
-
-        builder.HasOne(c => c.Brand)
-            .WithMany(b=>b.Campaigns)
-            .HasForeignKey("BrandId")
-            .IsRequired();
-
         builder.HasKey(campaign => campaign.Id);
 
         builder.Property(campaign => campaign.Title)
@@ -38,12 +22,19 @@ public class CampaignConfiguration : IEntityTypeConfiguration<Campaign>
         builder.Property(campaign => campaign.ImageUrl)
             .HasMaxLength(500);
 
+        builder.HasOne(c => c.Brand)
+            .WithMany(b => b.Campaigns)
+            .HasForeignKey("BrandId")
+            .IsRequired();
+        
         builder.Property(campaign => campaign.Budget)
             .HasColumnType("decimal(18,2)");
-        
-        builder.Property(campaign => campaign.ApplicationDeadline)
-            .IsRequired();
 
+        builder.HasMany(campaign => campaign.Transactions)
+            .WithOne(transaction => transaction.Campaign)
+            .HasForeignKey("CampaignId")
+            .OnDelete(DeleteBehavior.Cascade);
+        
         builder.Property(campaign => campaign.Type)
             .HasConversion<string>()
             .IsRequired();
@@ -51,11 +42,27 @@ public class CampaignConfiguration : IEntityTypeConfiguration<Campaign>
         builder.Property(campaign => campaign.State)
             .HasConversion<string>()
             .IsRequired();
+        
+        builder.Property(campaign => campaign.ApplicationDeadline)
+            .IsRequired();
 
-        builder.HasMany(campaign => campaign.Transactions)
-            .WithOne(transaction => transaction.Campaign)
-            .HasForeignKey("CampaignId")
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.OwnsOne(c => c.Period, p =>
+        {
+            p.Property(pe => pe.StartDate).HasColumnName("PeriodStartDate").IsRequired();
+            p.Property(pe => pe.EndDate).HasColumnName("PeriodEndDate").IsRequired();
+            p.Ignore(pe => pe.Duration); 
+        });
+
+        builder.OwnsOne(c => c.Criteria, qc =>
+        {
+            qc.Property(q => q.MinFollowerCount).IsRequired();
+            qc.Property(q => q.AverageViews).IsRequired();
+            qc.Property(q => q.MinEngagementRate).IsRequired();
+
+            qc.HasOne(q => q.TargetLocation)
+                .WithMany()
+                .IsRequired(false);
+        });
 
         builder.HasMany(campaign => campaign.Contracts)
             .WithOne(contract => contract.Campaign)

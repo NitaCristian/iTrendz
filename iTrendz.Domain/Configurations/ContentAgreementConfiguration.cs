@@ -8,8 +8,6 @@ public class ContentAgreementConfiguration : IEntityTypeConfiguration<ContentAgr
 {
     public void Configure(EntityTypeBuilder<ContentAgreement> builder)
     {
-        builder.HasKey(ca => ca.Id);
-
         builder.HasOne(ca => ca.Contract)
             .WithMany(c => c.AgreedContent)
             .HasForeignKey("ContractId")

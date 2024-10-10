@@ -20,8 +20,8 @@ public class PostConfiguration : IEntityTypeConfiguration<Post>
             .IsRequired()
             .HasMaxLength(2000);
 
-        builder.HasOne(p => p.Media)
-            .WithMany()
+        builder.HasMany(p => p.Media)
+            .WithOne(m => m.Post)
             .HasForeignKey("MediaId")
             .OnDelete(DeleteBehavior.Cascade);
     }

@@ -8,8 +8,6 @@ public class ContentPricingConfiguration : IEntityTypeConfiguration<ContentPrici
 {
     public void Configure(EntityTypeBuilder<ContentPricing> builder)
     {
-        builder.HasKey(cp => cp.Id);
-
         builder.HasOne(cp => cp.Influencer)
             .WithMany(i => i.Pricings)
             .HasForeignKey("InfluencerId")

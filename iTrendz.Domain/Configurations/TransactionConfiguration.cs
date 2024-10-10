@@ -12,6 +12,11 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
 
         builder.HasKey(transaction => transaction.Id);
 
+        builder.HasOne(t => t.Campaign)
+            .WithMany(c => c.Transactions)
+            .HasForeignKey("CampaignId")
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.Property(t => t.Amount)
             .HasColumnType("decimal(18,2)")
             .IsRequired();
@@ -25,10 +30,5 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
 
         builder.Property(t => t.Notes)
             .HasMaxLength(1000);
-
-        builder.HasOne(t => t.Campaign)
-            .WithMany(c => c.Transactions)
-            .HasForeignKey("CampaignId")
-            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -37,7 +37,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(user => user.Niches)
-            .WithMany()
+            .WithMany(niche => niche.Users)
             .UsingEntity<Dictionary<string, object>>(
                 "UserNiche",
                 j => j.HasOne<Niche>().WithMany().HasForeignKey("NicheId"),
