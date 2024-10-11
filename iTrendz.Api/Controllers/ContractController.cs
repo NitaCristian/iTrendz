@@ -20,7 +20,15 @@ public class ContractController(ContractRepository contractRepository) : Control
         return contract;
     }
 
-    [HttpPut("{id:int}")]
+	[HttpPost]
+	public ActionResult<Contract> Create(Contract contract)
+	{
+		// TODO: Validate the contract before adding.
+		// TODO: Implement logic to add the contract to the repository and handle potential errors.
+		throw new NotImplementedException();
+	}
+
+	[HttpPut("{id:int}")]
     public IActionResult Update(int id, Contract contract)
     {
         if (id != contract.Id)

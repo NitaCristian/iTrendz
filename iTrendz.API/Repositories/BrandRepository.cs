@@ -1,6 +1,7 @@
 ﻿using iTrendz.Domain.Context;
 using iTrendz.Domain.Interfaces;
 using iTrendz.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace iTrendz.API.Repositories;
 
@@ -9,7 +10,9 @@ public class BrandRepository(TrendzDbContext dbContext) : IBrandRepository
     public IEnumerable<Brand> GetAll()
     {
         // TODO: Query the database and return all brands.
-        throw new NotImplementedException();
+        return dbContext.Brands
+            .Include(b => b.Campaigns)
+            .ToList();
     }
 
     public Brand? Get(int id)
@@ -20,8 +23,29 @@ public class BrandRepository(TrendzDbContext dbContext) : IBrandRepository
 
     public void Update(Brand brand)
     {
-        // TODO: Update the existing brand in the database and save changes.
-        throw new NotImplementedException();
+		try
+		{
+			// Găsim influencer-ul în baza de date
+			var existingBrand = dbContext.Influencers.Find(brand.Id);
+
+			// Verificăm dacă există influencerul
+			if (existingBrand == null)
+			{
+				throw new ArgumentException("Brand not found.");
+			}
+
+			// Actualizăm influencerul existent cu noile valori
+			dbContext.Entry(existingBrand).CurrentValues.SetValues(brand);
+
+			// Salvăm modificările
+			dbContext.SaveChanges();
+		}
+		catch (Exception ex)
+		{
+			// Tratarea erorilor
+			throw new Exception($"Error updating influencer: {ex.Message}");
+		}
+		throw new NotImplementedException();
     }
 
     public void Delete(int id)

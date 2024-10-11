@@ -1,6 +1,7 @@
 ﻿using iTrendz.Domain.Context;
 using iTrendz.Domain.Interfaces;
 using iTrendz.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace iTrendz.API.Repositories
 {
@@ -8,8 +9,10 @@ namespace iTrendz.API.Repositories
     {
         public IEnumerable<Influencer> GetAll()
         {
-            // TODO: Retrieve all influencers from the database.
-            throw new NotImplementedException();
+            return dbContext.Influencers
+                .Include(i =>i.Contracts)
+                .Include(i =>i.Pricings)
+                .ToList();
         }
 
         public Influencer? Get(int id)
@@ -20,14 +23,58 @@ namespace iTrendz.API.Repositories
 
         public void Update(Influencer influencer)
         {
-            // TODO: Update an existing influencer's details in the database.
-            throw new NotImplementedException();
-        }
+			
+				try
+				{
+					// Găsim influencer-ul în baza de date
+					var existingInfluencer = dbContext.Influencers.Find(influencer.Id);
 
-        public void Delete(int id)
+					// Verificăm dacă există influencerul
+					if (existingInfluencer == null)
+					{
+						throw new ArgumentException("Influencer not found.");
+					}
+
+					// Actualizăm influencerul existent cu noile valori
+					dbContext.Entry(existingInfluencer).CurrentValues.SetValues(influencer);
+
+					// Salvăm modificările
+					dbContext.SaveChanges();
+				}
+				catch (Exception ex)
+				{
+					// Tratarea erorilor
+					throw new Exception($"Error updating influencer: {ex.Message}");
+				}
+			
+
+		}
+
+		public void Delete(int id)
         {
-            // TODO: Delete an influencer from the database by ID.
-            throw new NotImplementedException();
-        }
+			try
+			{
+				// Găsim influencer-ul în baza de date după ID
+				var influencer = dbContext.Influencers.Find(id);
+
+				// Verificăm dacă influencer-ul există
+				if (influencer == null)
+				{
+					throw new ArgumentException("Influencer not found.");
+				}
+
+				// Ștergem influencer-ul din context
+				dbContext.Influencers.Remove(influencer);
+
+				// Salvăm modificările în baza de date
+				dbContext.SaveChanges();
+			}
+			catch (Exception ex)
+			{
+				// Tratarea erorilor
+				throw new Exception($"Error deleting influencer: {ex.Message}");
+			}
+
+		}
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using iTrendz.Domain.Interfaces;
 using iTrendz.Domain.Models;
+using iTrendz.API.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace iTrendz.API.Controllers;
 
@@ -11,28 +13,29 @@ public class InfluencerController(IInfluencerRepository influencerRepository) : 
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Influencer>> GetInfluencerById(int id)
     {
-        // TODO: Implement this method to retrieve an influencer by ID.
-        throw new NotImplementedException();
+		var influencer = influencerRepository.Get(id);
+		if (influencer == null)
+			return NotFound();
+
+		return influencer;
     }
 
     [HttpGet("all")]
     public async Task<ActionResult<IEnumerable<Influencer>>> GetAllInfluencers()
     {
-        // TODO: Implement this method to retrieve all influencers.
-        throw new NotImplementedException();
+        return Ok(influencerRepository.GetAll());
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateInfluencer(int id, Influencer influencer)
     {
-        // TODO: Implement this method to update an influencer.
-        throw new NotImplementedException();
+        return Ok(influencerRepository.Update);
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteInfluencer(int id)
     {
-        // TODO: Implement this method to delete an influencer.
-        throw new NotImplementedException();
+         influencerRepository.Delete(id);
+       
     }
 }
