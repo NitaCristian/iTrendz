@@ -7,7 +7,7 @@ using iTrendz.Domain.Context;
 
 #nullable disable
 
-namespace iTrendz.API.Migrations
+namespace iTrendz.Domain.Migrations
 {
     [DbContext(typeof(TrendzDbContext))]
     partial class TrendzDbContextModelSnapshot : ModelSnapshot
@@ -16,6 +16,21 @@ namespace iTrendz.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
+
+            modelBuilder.Entity("CampaignNiche", b =>
+                {
+                    b.Property<int>("CampaignId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NicheId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CampaignId", "NicheId");
+
+                    b.HasIndex("NicheId");
+
+                    b.ToTable("CampaignNiche");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
                 {
@@ -143,59 +158,167 @@ namespace iTrendz.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("UserNiche", b =>
+                {
+                    b.Property<int>("NicheId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("NicheId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserNiche");
+                });
+
+            modelBuilder.Entity("UserPlatform", b =>
+                {
+                    b.Property<int>("PlatformId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("PlatformId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserPlatform");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ActionLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CampaignId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampaignId");
+
+                    b.ToTable("ActionLogs", (string)null);
+                });
+
             modelBuilder.Entity("iTrendz.Domain.Models.Campaign", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("AllocatedBudget")
-                        .HasColumnType("REAL");
+                    b.Property<DateTime>("ApplicationDeadline")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("BrandId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Comments")
-                        .HasColumnType("INTEGER");
+                    b.Property<decimal>("Budget")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateOnly>("DateTime")
-                        .HasColumnType("date");
+                    b.Property<int?>("CreatorLimit")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Engagement")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("ImageURL")
+                    b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Reach")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Shares")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateOnly>("StartTime")
-                        .HasColumnType("date");
 
                     b.Property<string>("Title")
                         .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Views")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Campaigns");
+                    b.ToTable("Campaigns", (string)null);
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ContentDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ContentDetailType")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ContentTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PlatformId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentTypeId");
+
+                    b.HasIndex("PlatformId");
+
+                    b.ToTable("ContentDetails", (string)null);
+
+                    b.HasDiscriminator<string>("ContentDetailType").HasValue("ContentDetail");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ContentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContentTypes", (string)null);
                 });
 
             modelBuilder.Entity("iTrendz.Domain.Models.Contract", b =>
@@ -207,11 +330,20 @@ namespace iTrendz.API.Migrations
                     b.Property<int>("CampaignId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("InfluencerId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("SignedDate")
-                        .HasColumnType("date");
+                    b.Property<DateOnly>("SignedOnDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -219,7 +351,160 @@ namespace iTrendz.API.Migrations
 
                     b.HasIndex("InfluencerId");
 
-                    b.ToTable("Contracts");
+                    b.ToTable("Contracts", (string)null);
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("State")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations", (string)null);
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Media", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MediaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("MediaType")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MediaId");
+
+                    b.ToTable("Media", (string)null);
+
+                    b.HasDiscriminator<string>("MediaType").HasValue("Media");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Niche", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Niches", (string)null);
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Platform", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Platforms", (string)null);
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ContractId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContractId");
+
+                    b.ToTable("Posts", (string)null);
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CampaignId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampaignId");
+
+                    b.ToTable("Transactions", (string)null);
                 });
 
             modelBuilder.Entity("iTrendz.Domain.Models.User", b =>
@@ -235,10 +520,11 @@ namespace iTrendz.API.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("ContactEmail")
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Domain")
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -249,7 +535,11 @@ namespace iTrendz.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ImageUrl")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
@@ -274,7 +564,13 @@ namespace iTrendz.API.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<double>("Rating")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("REAL")
+                        .HasDefaultValue(0.0);
+
                     b.Property<string>("RefreshToken")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("RefreshTokenExpiry")
@@ -296,9 +592,12 @@ namespace iTrendz.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("WebsiteUrl")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -307,11 +606,65 @@ namespace iTrendz.API.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("AspNetUsers", (string)null);
 
                     b.HasDiscriminator<string>("UserType").HasValue("User");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ContentAgreement", b =>
+                {
+                    b.HasBaseType("iTrendz.Domain.Models.ContentDetail");
+
+                    b.Property<int>("ContractId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasIndex("ContractId");
+
+                    b.HasDiscriminator().HasValue("Agreement");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ContentPricing", b =>
+                {
+                    b.HasBaseType("iTrendz.Domain.Models.ContentDetail");
+
+                    b.Property<int>("InfluencerId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasIndex("InfluencerId");
+
+                    b.HasDiscriminator().HasValue("Pricing");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ContentRequirement", b =>
+                {
+                    b.HasBaseType("iTrendz.Domain.Models.ContentDetail");
+
+                    b.Property<int>("CampaignId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasIndex("CampaignId");
+
+                    b.HasDiscriminator().HasValue("Requirement");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Photo", b =>
+                {
+                    b.HasBaseType("iTrendz.Domain.Models.Media");
+
+                    b.HasDiscriminator().HasValue("Photo");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Video", b =>
+                {
+                    b.HasBaseType("iTrendz.Domain.Models.Media");
+
+                    b.Property<string>("PosterUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue("Video");
                 });
 
             modelBuilder.Entity("iTrendz.Domain.Models.Brand", b =>
@@ -325,13 +678,25 @@ namespace iTrendz.API.Migrations
                 {
                     b.HasBaseType("iTrendz.Domain.Models.User");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Rating")
+                    b.Property<int>("Age")
                         .HasColumnType("INTEGER");
 
                     b.HasDiscriminator().HasValue("Influencer");
+                });
+
+            modelBuilder.Entity("CampaignNiche", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Campaign", null)
+                        .WithMany()
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("iTrendz.Domain.Models.Niche", null)
+                        .WithMany()
+                        .HasForeignKey("NicheId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -385,6 +750,47 @@ namespace iTrendz.API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("UserNiche", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Niche", null)
+                        .WithMany()
+                        .HasForeignKey("NicheId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("iTrendz.Domain.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UserPlatform", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Platform", null)
+                        .WithMany()
+                        .HasForeignKey("PlatformId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("iTrendz.Domain.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ActionLog", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Campaign", "Campaign")
+                        .WithMany("Logs")
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Campaign");
+                });
+
             modelBuilder.Entity("iTrendz.Domain.Models.Campaign", b =>
                 {
                     b.HasOne("iTrendz.Domain.Models.Brand", "Brand")
@@ -393,7 +799,89 @@ namespace iTrendz.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("iTrendz.Domain.Models.Period", "Period", b1 =>
+                        {
+                            b1.Property<int>("CampaignId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<DateTime>("EndDate")
+                                .HasColumnType("TEXT")
+                                .HasColumnName("PeriodEndDate");
+
+                            b1.Property<DateTime>("StartDate")
+                                .HasColumnType("TEXT")
+                                .HasColumnName("PeriodStartDate");
+
+                            b1.HasKey("CampaignId");
+
+                            b1.ToTable("Campaigns");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CampaignId");
+                        });
+
+                    b.OwnsOne("iTrendz.Domain.Models.QualificationCriteria", "Criteria", b1 =>
+                        {
+                            b1.Property<int>("CampaignId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<int>("Audience")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<int>("AverageViews")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<int>("MinEngagementRate")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<int>("MinFollowerCount")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<int>("TargetLocationId")
+                                .HasColumnType("INTEGER");
+
+                            b1.HasKey("CampaignId");
+
+                            b1.HasIndex("TargetLocationId");
+
+                            b1.ToTable("Campaigns");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CampaignId");
+
+                            b1.HasOne("iTrendz.Domain.Models.Location", "TargetLocation")
+                                .WithMany()
+                                .HasForeignKey("TargetLocationId");
+
+                            b1.Navigation("TargetLocation");
+                        });
+
                     b.Navigation("Brand");
+
+                    b.Navigation("Criteria")
+                        .IsRequired();
+
+                    b.Navigation("Period")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ContentDetail", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.ContentType", "ContentType")
+                        .WithMany()
+                        .HasForeignKey("ContentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("iTrendz.Domain.Models.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ContentType");
+
+                    b.Navigation("Platform");
                 });
 
             modelBuilder.Entity("iTrendz.Domain.Models.Contract", b =>
@@ -415,9 +903,104 @@ namespace iTrendz.API.Migrations
                     b.Navigation("Influencer");
                 });
 
+            modelBuilder.Entity("iTrendz.Domain.Models.Media", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Post", "Post")
+                        .WithMany("Media")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Post", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Contract", "Contract")
+                        .WithMany("Posts")
+                        .HasForeignKey("ContractId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Contract");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Transaction", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Campaign", "Campaign")
+                        .WithMany("Transactions")
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Campaign");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.User", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ContentAgreement", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Contract", "Contract")
+                        .WithMany("AgreedContent")
+                        .HasForeignKey("ContractId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Contract");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ContentPricing", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Influencer", "Influencer")
+                        .WithMany("Pricings")
+                        .HasForeignKey("InfluencerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Influencer");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.ContentRequirement", b =>
+                {
+                    b.HasOne("iTrendz.Domain.Models.Campaign", "Campaign")
+                        .WithMany("Requirements")
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Campaign");
+                });
+
             modelBuilder.Entity("iTrendz.Domain.Models.Campaign", b =>
                 {
                     b.Navigation("Contracts");
+
+                    b.Navigation("Logs");
+
+                    b.Navigation("Requirements");
+
+                    b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Contract", b =>
+                {
+                    b.Navigation("AgreedContent");
+
+                    b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("iTrendz.Domain.Models.Post", b =>
+                {
+                    b.Navigation("Media");
                 });
 
             modelBuilder.Entity("iTrendz.Domain.Models.Brand", b =>
@@ -428,6 +1011,8 @@ namespace iTrendz.API.Migrations
             modelBuilder.Entity("iTrendz.Domain.Models.Influencer", b =>
                 {
                     b.Navigation("Contracts");
+
+                    b.Navigation("Pricings");
                 });
 #pragma warning restore 612, 618
         }

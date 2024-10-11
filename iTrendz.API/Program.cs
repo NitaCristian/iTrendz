@@ -104,48 +104,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    
-    using var scope = app.Services.CreateScope();
-    var context = scope.ServiceProvider.GetRequiredService<TrendzDbContext>();
-    context.Database.Migrate();
-    
-    context.Users.RemoveRange(context.Users);
-    context.Brands.RemoveRange(context.Brands);
-    context.Influencers.RemoveRange(context.Influencers);
-    context.Brands.RemoveRange(context.Brands);
-    context.Campaigns.RemoveRange(context.Campaigns);
-    context.Contracts.RemoveRange(context.Contracts);
-
-    context.SaveChanges();
-    
-    var uniqueIdGenerator = new UniqueIdGenerator();
-    var brandFaker = new BrandFaker(uniqueIdGenerator);
-    var influencerFaker = new InfluencerFaker(uniqueIdGenerator);
-    var campaignFaker = new CampaignFaker();
-    var contractFaker = new ContractFaker();
-
-    var brands = brandFaker.Generate(10);
-    var influencers = influencerFaker.Generate(10);
-    var campaigns = campaignFaker.Generate(10);
-    var contracts = contractFaker.Generate(10);
-
-    foreach (var campaign in campaigns)
-    {
-        campaign.BrandId = brands[new Random().Next(brands.Count)].Id;
-    }
-
-    foreach (var contract in contracts)
-    {
-        contract.InfluencerId = influencers[new Random().Next(influencers.Count)].Id;
-        contract.CampaignId = campaigns[new Random().Next(campaigns.Count)].Id;
-    }
-
-    context.Brands.AddRange(brands);
-    context.Influencers.AddRange(influencers);
-    context.Campaigns.AddRange(campaigns);
-    context.Contracts.AddRange(contracts);
-    
-    context.SaveChanges();
 }
 
 app.UseHttpsRedirection();

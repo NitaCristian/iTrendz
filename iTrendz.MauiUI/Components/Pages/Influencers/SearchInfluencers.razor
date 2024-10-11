@@ -1,6 +1,6 @@
 ﻿@page "/influencers/search"
 
-@inject ICreatorService CreatorService
+@inject IInfluencerService InfluencerService
 
 
 @if (AllCreators is null)
@@ -48,7 +48,6 @@ else
                             </MudCardHeader>
                             <MudCardContent>
                                 <MudText Typo="Typo.h5" Class="text-center mt-3" Style="text-align: center">@creator.UserName</MudText>
-                                <MudText Typo="Typo.h6" Class="text-center" Style="text-align: center">@creator.Domain</MudText>
                                 <div class="d-flex justify-center">
                                     <div class="d-flex flex-column align-center mt-3">
                                         <MudRating ReadOnly="true" SelectedValue=@Convert.ToInt32(creator.Rating)/>
@@ -80,12 +79,9 @@ else
                 </CellTemplate>
             </TemplateColumn>
 
-            <PropertyColumn Property="x => x.Domain" Title="Domain"/>
-            <PropertyColumn Property="x => x.Price" Title="Price"/>
-
             <TemplateColumn Title="Rating">
                 <CellTemplate>
-                    <MudRating ReadOnly="true" Size="@Size.Small" SelectedValue="@context.Item.Rating"/>
+                    <MudRating ReadOnly="true" Size="@Size.Small" SelectedValue="@Convert.ToInt32(context.Item.Rating)"/>
                 </CellTemplate>
             </TemplateColumn>
         </Columns>
@@ -101,7 +97,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        AllCreators = await CreatorService.GetAllCreatorsAsync();
+        AllCreators = await InfluencerService.GetAllInfluencersAsync();
         FilteredCreators = AllCreators;
     }
 
@@ -133,4 +129,5 @@ else
         5 => "Awesome!",
         _ => "Rate our product!"
     };
+
 }

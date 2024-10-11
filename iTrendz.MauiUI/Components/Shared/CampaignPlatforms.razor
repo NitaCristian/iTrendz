@@ -15,7 +15,7 @@
         <MudStack Row>
             @foreach (var platform in Platforms)
             {
-                <MudIcon Size="Size.Medium" Icon="@platform.Icon" Title="@platform.Name"/>
+                <MudIcon Size="Size.Medium" Icon="@GetPlatformIcon(platform)" Title="@platform.Name"/>
             }
         </MudStack>
     }
@@ -23,4 +23,18 @@
 
 @code {
     [Parameter] public List<Platform>? Platforms { get; set; }
+
+    public string GetPlatformIcon(Platform platform)
+    {
+        return platform.Name switch
+        {
+            "Instagram" => Icons.Custom.Brands.Instagram,
+            "Facebook" => Icons.Custom.Brands.Facebook,
+            "Twitter" => Icons.Custom.Brands.Twitter,
+            "LinkedIn" => Icons.Custom.Brands.LinkedIn,
+            "TikTok" => Icons.Custom.Brands.TikTok,
+            _ => ""
+        };
+    }
+
 }

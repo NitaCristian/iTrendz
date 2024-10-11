@@ -3,15 +3,15 @@
 
 <TwoPaneLayout>
     <LeftContent>
-        <CampaignHeader ImageUrl="@_campaign.ImageURL" Title="@_campaign.Title" Brand="_campaign.Brand"/>
-        <CampaignInfo CampaignDetails="_campaign.CampaignDetails"/>
+        <CampaignHeader ImageUrl="@_campaign.ImageUrl" Title="@_campaign.Title" Brand="_campaign.Brand"/>
+        <CampaignInfo Campaign="_campaign"/>
     </LeftContent>
     <RightContent>
         <MudStack>
             <CampaignDescription Description="@_campaign.Description"/>
-            <CampaignInfluencerRequirements Requirements="_campaign.InfluencerRequirements"/>
-            <CampaignPlatforms Platforms="_platforms"/>
-            <CampaignPlatformDeliverables Deliverables="_campaign.Deliverables"/>
+            <CampaignInfluencerRequirements Requirements="_campaign.Criteria"/>
+            <CampaignPlatforms Platforms="_campaign.GetPlatforms()"/>
+            <CampaignPlatformDeliverables Deliverables="_campaign.Requirements"/>
         </MudStack>
     </RightContent>
 </TwoPaneLayout>
@@ -20,20 +20,12 @@
     [Parameter] public int Id { get; set; }
 
     private Campaign _campaign;
-    private List<Platform>? _platforms;
 
     protected override async Task OnInitializedAsync()
     {
         await Task.Delay(10000);
 
-        _campaign = await CampaignService.GetCampaignAsync(Id);
-
-        _platforms =
-        [
-            new Platform { Icon = Icons.Custom.Brands.Instagram, Name = "Instagram" },
-            new Platform { Icon = Icons.Custom.Brands.TikTok, Name = "TikTok" },
-            new Platform { Icon = Icons.Custom.Brands.YouTube, Name = "YouTube" }
-        ];
+        _campaign = await CampaignService.GetCampaignByIdAsync(Id);
     }
 
 }

@@ -1,27 +1,27 @@
 ﻿<div>
-    @if (Statistics is null)
+    @if (CurrentBudget is null)
     {
         <MudGrid Class="mb-4">
             <MudItem xs="12" sm="6">
                 <MudPaper Elevation="2" Class="pa-4">
-                    <MudSkeleton Width="150px" Height="30px" Class="mb-2" />
-                    <MudSkeleton Width="100px" Height="40px" />
+                    <MudSkeleton Width="150px" Height="30px" Class="mb-2"/>
+                    <MudSkeleton Width="100px" Height="40px"/>
                 </MudPaper>
             </MudItem>
 
             <MudItem xs="12" sm="6">
                 <MudPaper Elevation="2" Class="pa-4">
-                    <MudSkeleton Width="150px" Height="30px" Class="mb-2" />
-                    <MudSkeleton Width="100px" Height="40px" />
+                    <MudSkeleton Width="150px" Height="30px" Class="mb-2"/>
+                    <MudSkeleton Width="100px" Height="40px"/>
                 </MudPaper>
             </MudItem>
         </MudGrid>
 
-        <MudSkeleton Width="200px" Height="30px" Class="mb-2" />
-        <MudSkeleton Width="100%" Height="350px" Class="mb-4" />
+        <MudSkeleton Width="200px" Height="30px" Class="mb-2"/>
+        <MudSkeleton Width="100%" Height="350px" Class="mb-4"/>
 
-        <MudSkeleton Width="200px" Height="30px" Class="mb-2" />
-        <MudSkeleton Width="200px" Height="200px" />
+        <MudSkeleton Width="200px" Height="30px" Class="mb-2"/>
+        <MudSkeleton Width="200px" Height="200px"/>
     }
     else
     {
@@ -30,7 +30,7 @@
                 <MudPaper Elevation="2" Class="pa-4">
                     <MudText Typo="Typo.h6">Initial Budget</MudText>
                     <MudText Typo="Typo.h4" Color="Color.Primary" Class="font-weight-bold">
-                        @($"{Statistics.InitialBudget:C}")
+                        @($"{InitialBudget:C}")
                     </MudText>
                 </MudPaper>
             </MudItem>
@@ -39,40 +39,32 @@
                 <MudPaper Elevation="2" Class="pa-4">
                     <MudText Typo="Typo.h6">Remaining Budget</MudText>
                     <MudText Typo="Typo.h4" Color="Color.Secondary" Class="font-weight-bold">
-                        @($"{Statistics.RemainingBudget:C}")
+                        @($"{CurrentBudget:C}")
                     </MudText>
                 </MudPaper>
             </MudItem>
-        </MudGrid>    
-    
+        </MudGrid>
+
         <MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500">Budget History</MudText>
-        <MudChart ChartType="ChartType.Line" ChartSeries="@_budgetSeries" XAxisLabels="@Statistics.BudgetHistoryLabels" Width="100%" Height="350"></MudChart>
+        <MudChart ChartType="ChartType.Line" ChartSeries="@_budgetSeries" XAxisLabels="@BudgetHistoryLabels" Width="100%" Height="350"></MudChart>
 
         <MudText Typo="Typo.h5" Class="mb-2" Style="font-weight:500">Budget Allocation</MudText>
-        <MudChart ChartType="ChartType.Pie" Width="200px" Height="200px" InputData="@Statistics.BudgetAllocationData" InputLabels="@Statistics.BudgetAllocationLabels"/>
+        <MudChart ChartType="ChartType.Pie" Width="200px" Height="200px" InputData="@BudgetAllocationData" InputLabels="@BudgetAllocationLabels"/>
     }
 </div>
 
 
 @code {
-    [Parameter] public BudgetStatistics? Statistics { get; set; }
+    [Parameter] public decimal? CurrentBudget { get; set; }
     private List<ChartSeries>? _budgetSeries;
+
+    string[] BudgetHistoryLabels;
+    double[] BudgetAllocationData;
+    string[] BudgetAllocationLabels;
+    decimal InitialBudget;
 
     protected override void OnParametersSet()
     {
-        if (Statistics is not null)
-        {
-            _budgetSeries =
-            [
-                new ChartSeries
-                {
-                    Data = Statistics.BudgetHistoryData
-                }
-            ];
-        }
-        else
-        {
-            _budgetSeries = [];
-        }
     }
+
 }

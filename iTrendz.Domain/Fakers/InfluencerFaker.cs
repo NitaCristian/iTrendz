@@ -13,8 +13,8 @@ public sealed class InfluencerFaker : Faker<Influencer>
         RuleFor(u => u.Email, f => f.Internet.Email());
         RuleFor(u => u.NormalizedEmail, (f, u) => u.Email.ToUpper());
         RuleFor(u => u.Description, f => f.Lorem.Sentence());
-        RuleFor(u => u.Domain,
-            f => f.PickRandom("Tech", "Fashion", "Sports", "Lifestyle", "Health", "Entertainment"));
+        // RuleFor(u => u.Domain,
+            // f => f.PickRandom("Tech", "Fashion", "Sports", "Lifestyle", "Health", "Entertainment"));
         RuleFor(u => u.WebsiteUrl, f => f.Internet.Url());
         RuleFor(u => u.ImageUrl, f => f.Internet.Avatar());
         RuleFor(u => u.RefreshToken, f => f.Random.String2(32));
@@ -23,7 +23,7 @@ public sealed class InfluencerFaker : Faker<Influencer>
         RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber());
 
         RuleFor(i => i.Rating, f => f.Random.Number(1, 5));
-        RuleFor(i => i.Price, f => f.Random.Number(100, 10000));
+        // RuleFor(i => i.Price, f => f.Random.Number(100, 10000));
         RuleFor(i => i.Contracts, f => new ContractFaker().Generate(3));
     }
 }

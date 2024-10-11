@@ -1,4 +1,5 @@
 ﻿using iTrendz.API.Repositories;
+using iTrendz.Domain.Interfaces;
 using iTrendz.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,7 @@ namespace iTrendz.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CampaignController(CampaignRepository campaignRepository) : ControllerBase
+public class CampaignController(ICampaignRepository campaignRepository) : ControllerBase
 {
     [HttpGet("all")]
     public ActionResult<IEnumerable<Campaign>> GetAll() => Ok(campaignRepository.GetAll());
@@ -19,6 +20,14 @@ public class CampaignController(CampaignRepository campaignRepository) : Control
             return NotFound();
 
         return campaign;
+    }
+
+    [HttpPost]
+    public IActionResult Create(Campaign newCampaign)
+    {
+        // TODO: Add validation for the incoming campaign object (e.g., required fields)
+        // TODO: Call the repository to add the campaign, then return a CreatedAtAction result with the new campaign's ID
+        return Ok();
     }
 
     [HttpPut("{id:int}")]

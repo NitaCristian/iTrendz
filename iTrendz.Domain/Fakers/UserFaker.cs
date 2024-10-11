@@ -13,7 +13,7 @@ public sealed class UserFaker : Faker<User>
         RuleFor(u => u.Email, f => f.Internet.Email()); 
         RuleFor(u => u.NormalizedEmail, (f, u) => u.Email.ToUpper());
         RuleFor(u => u.Description, f => f.Lorem.Sentence());
-        RuleFor(u => u.Domain, f => f.Internet.DomainName());
+        // RuleFor(u => u.Domain, f => f.Internet.DomainName());
         RuleFor(u => u.WebsiteUrl, f => f.Internet.Url()); 
         RuleFor(u => u.ImageUrl, f => f.Internet.Avatar());
         RuleFor(u => u.RefreshToken, f => f.Random.String2(32)); 

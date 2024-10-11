@@ -12,14 +12,14 @@
     else
     {
         <MudText Typo="Typo.h6" GutterBottom="true">Requirements</MudText>
-        <MudChip T="string" Variant="Variant.Text">Followers: @FormatNumber(Requirements.MinimumFollowers)+</MudChip>
-        <MudChip T="string" Variant="Variant.Text">Average Views: @FormatNumber(Requirements.AverageViews)+</MudChip>
+        <MudChip T="string" Variant="Variant.Text">Followers: @FormatNumber(Requirements.MinFollowerCount)+</MudChip>
+        <MudChip T="string" Variant="Variant.Text">Average Views: @FormatNumber(Requirements.MinEngagementRate)+</MudChip>
         <MudChip T="string" Variant="Variant.Text">Audience: @Requirements.Audience</MudChip>
     }
 </div>
 
 @code {
-    [Parameter] public InfluencerRequirements? Requirements { get; set; }
+    [Parameter] public QualificationCriteria? Requirements { get; set; }
 
     public static string FormatNumber(int number)
     {

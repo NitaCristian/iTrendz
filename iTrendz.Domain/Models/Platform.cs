@@ -2,6 +2,6 @@
 
 public class Platform
 {
-    public string Icon { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; }
 }

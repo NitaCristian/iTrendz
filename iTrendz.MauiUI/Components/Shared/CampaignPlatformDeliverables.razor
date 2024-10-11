@@ -13,14 +13,13 @@
     {
         <MudText Typo="Typo.h6" GutterBottom="true">Deliverables</MudText>
         <MudTabs ApplyEffectsToContainer="true" Elevation="2" PanelClass="pa-6" Rounded="true">
-
-            @foreach (var deliverable in Deliverables)
+            @foreach (var group in GetGroupedRequirements())
             {
-                <MudTabPanel Icon="@deliverable.Platform.Icon" Text="@deliverable.Platform.Name">
+                <MudTabPanel Icon="@GetPlatformIcon(group.Key)" Text="@group.Key.Name">
                     <MudExpansionPanels Class="mt-2" MultiExpansion="true">
-                        @foreach (var requirement in deliverable.ContentRequirements)
+                        @foreach (var requirement in group)
                         {
-                            <MudExpansionPanel Text="@requirement.ContentType">@requirement.Description</MudExpansionPanel>
+                            <MudExpansionPanel Text="@requirement.ContentType.Name">@requirement.Description</MudExpansionPanel>
                         }
                     </MudExpansionPanels>
                 </MudTabPanel>
@@ -30,5 +29,26 @@
 </div>
 
 @code {
-    [Parameter] public List<PlatformDeliverable>? Deliverables { get; set; }
+    [Parameter] public ICollection<ContentRequirement>? Deliverables { get; set; }
+
+    public string GetPlatformIcon(Platform platform)
+    {
+        return platform.Name switch
+        {
+            "Instagram" => Icons.Custom.Brands.Instagram,
+            "Facebook" => Icons.Custom.Brands.Facebook,
+            "Twitter" => Icons.Custom.Brands.Twitter,
+            "LinkedIn" => Icons.Custom.Brands.LinkedIn,
+            "TikTok" => Icons.Custom.Brands.TikTok,
+            _ => ""
+        };
+    }
+
+    public List<IGrouping<Platform, ContentRequirement>> GetGroupedRequirements()
+    {
+        return Deliverables
+            .GroupBy(req => req.Platform)
+            .ToList();
+    }
+
 }

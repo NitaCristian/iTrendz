@@ -7,7 +7,7 @@
         <MudPaper Class="pa-2" Elevation="5">
             <MudGrid>
                 <MudItem xs="4">
-                    <MudImage Src="@campaign.ImageURL" Fluid="true" Alt="Random Image" Elevation="25" Class="rounded-lg ma-4"/>
+                    <MudImage Src="@campaign.ImageUrl" Fluid="true" Alt="Random Image" Elevation="25" Class="rounded-lg ma-4"/>
                 </MudItem>
                 <MudItem xs="8">
                     <MudText Typo="Typo.h5">@campaign.Title</MudText>
@@ -15,8 +15,8 @@
                     <MudText Typo="Typo.subtitle1">by @campaign.Brand.UserName</MudText>
 
                     <MudText>Campaign Period: <MudChip T="string">05/25/2022</MudChip> - <MudChip T="string">06/03/2022</MudChip></MudText>
-                    <MudText>Creators Wanted: <MudChip T="string">@campaign.CampaignDetails.CurrentCreators/@campaign.CampaignDetails.TotalCreators</MudChip></MudText>
-                    <CampaignInfluencerRequirements Requirements="campaign.InfluencerRequirements"/>
+                    <MudText>Creators Wanted: <MudChip T="string">@campaign.Contracts.Count/@campaign.CreatorLimit</MudChip></MudText>
+                    <CampaignInfluencerRequirements Requirements="campaign.Criteria"/>
                     <MudText>@campaign.Description</MudText>
 
                     <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Send" Color="Color.Primary">Apply</MudButton>
@@ -31,7 +31,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _campaigns = await CampaignService.GetCampaignsAsync();
+        _campaigns = await CampaignService.GetAllCampaignsAsync();
     }
 
 }
