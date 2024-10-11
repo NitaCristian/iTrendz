@@ -10,7 +10,7 @@
         <MudStack>
             <CampaignDescription Description="@_campaign.Description"/>
             <CampaignInfluencerRequirements Requirements="_campaign.Criteria"/>
-            <CampaignPlatforms Platforms="GetPlatforms()"/>
+            <CampaignPlatforms Platforms="_campaign.GetPlatforms()"/>
             <CampaignPlatformDeliverables Deliverables="_campaign.Requirements"/>
         </MudStack>
     </RightContent>
@@ -25,16 +25,7 @@
     {
         await Task.Delay(10000);
 
-        _campaign = await CampaignService.GetCampaignAsync(Id);
+        _campaign = await CampaignService.GetCampaignByIdAsync(Id);
     }
-
-    public List<Platform> GetPlatforms()
-    {
-        return _campaign.Requirements
-            .Select(requirement => requirement.Platform)
-            .Distinct()
-            .ToList();
-    }
-
 
 }

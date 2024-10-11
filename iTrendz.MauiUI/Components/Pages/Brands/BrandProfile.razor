@@ -111,7 +111,7 @@
                 <MudCardContent>
                     <MudText>Past Campaigns</MudText>
                     <MudGrid Spacing="2">
-                        @foreach (var campaign in _pastCampaign)
+                        @foreach (var campaign in _brand.GetPastCampaigns())
                         {
                             <MudItem xs="4">
                                 <MudCard Class="mud-width-full mud-height-auto" Style="width: 250px;">
@@ -200,12 +200,10 @@
     ];
 
     private Brand? _brand;
-    private IEnumerable<Campaign> _pastCampaign;
 
     protected override async Task OnInitializedAsync()
     {
-        _brand = await BrandService.GetBrandAsync(BrandId);
-        _pastCampaign = await CampaignService.GetBrandPastCampaignsAsync(BrandId);
+        _brand = await BrandService.GetBrandByIdAsync(BrandId);
 
         _options.InterpolationOption = InterpolationOption.NaturalSpline;
         _options.YAxisFormat = "c2";

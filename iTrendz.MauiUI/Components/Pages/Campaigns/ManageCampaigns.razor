@@ -19,8 +19,6 @@ else
                 <MudCard Elevation="1" Class="relative" OnClick="NavigateToPage">
                     <div class="relative" Style="height: 165px;">
                         <MudCardMedia Image=@campaign.ImageUrl Height="165" Style="width: 100%; height: 100%;"/>
-                        <MudFab Color="Color.Primary" StartIcon=@Icons.Material.Filled.PushPin Size="Size.Small"
-                                Class="absolute" Style="right: 10px; top: 10px; z-index: 10;" OnClick="() => PinCampaign(campaign.Id)"/>
                     </div>
 
                     <MudCardContent Class="relative">
@@ -43,7 +41,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        Campaigns = await CampaignService.GetCampaignsAsync();
+        const int brandId = 1;
+        Campaigns = await CampaignService.GetCampaignsByBrandIdAsync(brandId);
     }
 
     private async Task DeleteCampaign(int campaignId)
@@ -56,13 +55,6 @@ else
     private void EditCampaign(int campaignId)
     {
         Navigation.NavigateTo($"campaigns/{campaignId}");
-    }
-
-    private async Task PinCampaign(int campaignId)
-    {
-        var isToggled = await CampaignService.TogglePinCampaignAsync(campaignId);
-        // TODO: If the campaign's pinned status was not changed, log the error and display a message
-        RefreshPage();
     }
 
     private void RefreshPage()

@@ -6,17 +6,29 @@ namespace iTrendz.MauiUI.Services;
 
 public class CampaignService(HttpClient httpClient) : ICampaignService
 {
-    public Task<Campaign> GetCampaignAsync(int campaignId)
+    public Task<Campaign> GetCampaignByIdAsync(int campaignId)
     {
-        // TODO: Implement this method
+        // TODO: Call the API to get a campaign by its ID
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Campaign>?> GetCampaignsAsync()
+    public async Task<IEnumerable<Campaign>?> GetAllCampaignsAsync()
     {
         var response = await httpClient.GetAsync("campaign/all");
         if (!response.IsSuccessStatusCode) return new List<Campaign>();
         return await response.Content.ReadFromJsonAsync<List<Campaign>>();
+    }
+
+    public Task<Campaign> CreateCampaignAsync(Campaign newCampaign)
+    {
+        // TODO: Call the API to create a new campaign
+        throw new NotImplementedException();
+    }
+
+    public Task<Campaign> UpdateCampaignAsync(int campaignId, Campaign updatedCampaign)
+    {
+        // TODO: Call the API to update an existing campaign by ID
+        throw new NotImplementedException();
     }
 
     public async Task<bool> DeleteCampaignAsync(int campaignId)
@@ -25,15 +37,9 @@ public class CampaignService(HttpClient httpClient) : ICampaignService
         return response.IsSuccessStatusCode;
     }
 
-    public async Task<bool> TogglePinCampaignAsync(int campaignId)
+    public Task<IEnumerable<Campaign>> GetCampaignsByBrandIdAsync(int brandId)
     {
-        var response = await httpClient.PutAsync($"campaign/{campaignId}/pin", null);
-        return response.IsSuccessStatusCode;
-    }
-
-    public Task<IEnumerable<Campaign>> GetBrandPastCampaignsAsync(int brandId)
-    {
-        // TODO: Implement this method
+        // TODO: Call the API to get all campaigns of a specific brand by brandId
         throw new NotImplementedException();
     }
 }

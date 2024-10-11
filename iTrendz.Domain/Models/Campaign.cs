@@ -27,4 +27,29 @@ public class Campaign
     public ICollection<Niche> Niches { get; set; }
     public ICollection<ActionLog> Logs { get; set; }
     public Metrics Metrics { get; set; }
+    
+    public List<Platform> GetPlatforms()
+    {
+        return Requirements
+            .Select(requirement => requirement.Platform)
+            .Distinct()
+            .ToList();
+    }
+
+    public List<Influencer> GetInfluencers()
+    {
+        return Contracts
+            .Select(contract => contract.Influencer)
+            .Distinct()
+            .ToList();
+    }
+
+    public List<Video> GetVideos()
+    {
+        return Contracts
+            .SelectMany(contract => contract.Posts)
+            .Where(post => post.Media is Video)
+            .Select(post => post.Media as Video)
+            .ToList(); 
+    }
 }

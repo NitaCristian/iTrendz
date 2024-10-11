@@ -1,6 +1,6 @@
 ﻿@page "/influencers/search"
 
-@inject ICreatorService CreatorService
+@inject IInfluencerService InfluencerService
 
 
 @if (AllCreators is null)
@@ -97,7 +97,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        AllCreators = await CreatorService.GetAllCreatorsAsync();
+        AllCreators = await InfluencerService.GetAllInfluencersAsync();
         FilteredCreators = AllCreators;
     }
 

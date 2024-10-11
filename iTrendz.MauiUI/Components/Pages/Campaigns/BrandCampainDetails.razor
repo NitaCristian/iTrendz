@@ -12,18 +12,18 @@
                 <MudStack>
                     <CampaignDescription Description="@_campaign?.Description"/>
                     <CampaignInfluencerRequirements Requirements="_campaign?.Criteria"/>
-                    <CampaignPlatforms Platforms="GetPlatforms()"/>
+                    <CampaignPlatforms Platforms="_campaign.GetPlatforms()"/>
                     <CampaignPlatformDeliverables Deliverables="_campaign?.Requirements"/>
                 </MudStack>
             </MudTabPanel>
             <MudTabPanel Text="Influencers">
-                <InfluencersDataGrid Influencers="GetInfluencers()"/>
+                <InfluencersDataGrid Influencers="_campaign.GetInfluencers()"/>
             </MudTabPanel>
             <MudTabPanel Text="Insights">
                 <CampaignInsights Campaign="_campaign"/>
             </MudTabPanel>
             <MudTabPanel Text="Posts">
-                <CampaignVideos Videos="GetVideos()"/>
+                <CampaignVideos Videos="_campaign.GetVideos()"/>
             </MudTabPanel>
         </MudTabs>
     </RightContent>
@@ -38,32 +38,6 @@
     {
         await Task.Delay(10000);
 
-        _campaign = await CampaignService.GetCampaignAsync(Id);
+        _campaign = await CampaignService.GetCampaignByIdAsync(Id);
     }
-
-    public List<Platform> GetPlatforms()
-    {
-        return _campaign.Requirements
-            .Select(requirement => requirement.Platform)
-            .Distinct()
-            .ToList();
-    }
-
-    public List<Influencer> GetInfluencers()
-    {
-        return _campaign.Contracts
-            .Select(contract => contract.Influencer)
-            .Distinct()
-            .ToList();
-    }
-
-    public List<Video> GetVideos()
-    {
-        return _campaign.Contracts
-            .SelectMany(contract => contract.Posts)
-            .Where(post => post.Media is Video)
-            .Select(post => post.Media as Video)
-            .ToList(); // 
-    }
-
 }

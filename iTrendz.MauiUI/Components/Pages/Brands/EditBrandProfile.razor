@@ -18,7 +18,7 @@
     <MudTextField Label="Handle" Required="true" RequiredError="Handle is required!" T="string"/>
     <MudTextField Label="Email" Required="true" RequiredError="Email is required!" T="string" Validation="@(new EmailAddressAttribute { ErrorMessage = "The email address is invalid" })"/>
     <MudTextField Label="Location" Placeholder="Enter Location" T="string"/>
-    
+
     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Submit</MudButton>
 </MudForm>
 
@@ -84,7 +84,7 @@
     private void UploadFiles(IBrowserFile file)
     {
         _files.Add(file);
-//TODO upload the files to the server
+        // TODO upload the files to the server
     }
 
 }

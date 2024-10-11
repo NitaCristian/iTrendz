@@ -4,5 +4,9 @@ namespace iTrendz.Domain.Interfaces;
 
 public interface IContractService
 {
-    Task<Contract> GetContractAsync(int contractId);
+    Task<IEnumerable<Contract>> GetAllContractsAsync();
+    Task<Contract> GetContractByIdAsync(int contractId);
+    Task<Contract> AddContractAsync(Contract contract);
+    Task<Contract> UpdateContractAsync(int contractId, Contract updatedContract);
+    Task<bool> DeleteContractAsync(int contractId);
 }

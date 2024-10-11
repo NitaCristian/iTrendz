@@ -46,10 +46,10 @@ public static class MauiProgram
             var httpClient = sp.GetRequiredService<HttpClient>();
             return new ContractService(httpClient);
         });
-        builder.Services.AddScoped<ICreatorService, CreatorService>(sp =>
+        builder.Services.AddScoped<IInfluencerService, InfluencerService>(sp =>
         {
             var httpClient = sp.GetRequiredService<HttpClient>();
-            return new CreatorService(httpClient);
+            return new InfluencerService(httpClient);
         });
 
         return builder.Build();
