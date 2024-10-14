@@ -30,21 +30,29 @@ public class BrandController(IBrandRepository brandRepository) : ControllerBase
     public async Task<IActionResult> AddBrand([FromBody] Brand brand)
     {
         
-        throw new NotImplementedException();
+       
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateBrand(int id, [FromBody] Brand brand)
     {
-        return Ok(brandRepository.Update);
-
-		throw new NotImplementedException();
+        if( id!= brand.Id)
+        return BadRequest();
+        var existingBrand =brandRepository.Get(id);
+        if (existingBrand == null)
+            return NotFound();
+        brandRepository.Update(brand);
+        return NoContent();
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteBrand(int id)
     {
-        // TODO: Call the repository to delete the brand by ID and handle errors.
-        throw new NotImplementedException();
+       var brand= brandRepository.Get(id);
+        if(brand == null)
+            return NotFound();
+        brandRepository.Delete(id);
+        return NoContent();
+
     }
 }

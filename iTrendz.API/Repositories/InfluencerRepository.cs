@@ -15,65 +15,22 @@ namespace iTrendz.API.Repositories
                 .ToList();
         }
 
-        public Influencer? Get(int id)
-        {
-            // TODO: Retrieve a specific influencer by ID from the database.
-            throw new NotImplementedException();
-        }
+        public Influencer? Get(int id) => dbContext.Influencers.FirstOrDefault(p => p.Id == id);
+        
 
         public void Update(Influencer influencer)
         {
-			
-				try
-				{
-					// Găsim influencer-ul în baza de date
-					var existingInfluencer = dbContext.Influencers.Find(influencer.Id);
-
-					// Verificăm dacă există influencerul
-					if (existingInfluencer == null)
-					{
-						throw new ArgumentException("Influencer not found.");
-					}
-
-					// Actualizăm influencerul existent cu noile valori
-					dbContext.Entry(existingInfluencer).CurrentValues.SetValues(influencer);
-
-					// Salvăm modificările
-					dbContext.SaveChanges();
-				}
-				catch (Exception ex)
-				{
-					// Tratarea erorilor
-					throw new Exception($"Error updating influencer: {ex.Message}");
-				}
-			
-
+				dbContext.Influencers.Update(influencer);
+				dbContext.SaveChanges();
 		}
 
 		public void Delete(int id)
         {
-			try
-			{
-				// Găsim influencer-ul în baza de date după ID
-				var influencer = dbContext.Influencers.Find(id);
-
-				// Verificăm dacă influencer-ul există
-				if (influencer == null)
-				{
-					throw new ArgumentException("Influencer not found.");
-				}
-
-				// Ștergem influencer-ul din context
-				dbContext.Influencers.Remove(influencer);
-
-				// Salvăm modificările în baza de date
-				dbContext.SaveChanges();
-			}
-			catch (Exception ex)
-			{
-				// Tratarea erorilor
-				throw new Exception($"Error deleting influencer: {ex.Message}");
-			}
+			var brand= Get(id);
+            if (brand is null)
+                return;
+            dbContext.Influencers.Remove(brand); 
+            dbContext.SaveChanges();
 
 		}
     }

@@ -15,42 +15,26 @@ public class BrandRepository(TrendzDbContext dbContext) : IBrandRepository
             .ToList();
     }
 
-    public Brand? Get(int id)
-    {
-        // TODO: Query the database to find a brand by its ID and return it.
-        throw new NotImplementedException();
-    }
+    public Brand? Get(int id)=> dbContext.Brands.FirstOrDefault(p => p.Id == id);
+  
 
     public void Update(Brand brand)
     {
-		try
-		{
-			// Găsim influencer-ul în baza de date
-			var existingBrand = dbContext.Influencers.Find(brand.Id);
-
-			// Verificăm dacă există influencerul
-			if (existingBrand == null)
-			{
-				throw new ArgumentException("Brand not found.");
-			}
-
-			// Actualizăm influencerul existent cu noile valori
-			dbContext.Entry(existingBrand).CurrentValues.SetValues(brand);
-
-			// Salvăm modificările
-			dbContext.SaveChanges();
-		}
-		catch (Exception ex)
-		{
-			// Tratarea erorilor
-			throw new Exception($"Error updating influencer: {ex.Message}");
-		}
-		throw new NotImplementedException();
-    }
+		dbContext.Brands.Update(brand);
+		dbContext.SaveChanges();
+	}
 
     public void Delete(int id)
     {
-        // TODO: Find the brand by ID, remove it from the database, and save changes.
-        throw new NotImplementedException();
-    }
+        var brand  = Get(id);
+        if (brand == null)
+            return;
+        dbContext.Brands.Remove(brand);
+		dbContext.SaveChanges();
+	}
+	public void Add(Brand brand)
+	{
+		dbContext.Brands.Add(brand);
+		dbContext.SaveChanges();
+	}
 }
