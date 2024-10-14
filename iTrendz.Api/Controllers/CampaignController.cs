@@ -15,7 +15,7 @@ public class CampaignController(ICampaignRepository campaignRepository) : Contro
     [HttpGet("{id:int}")]
     public ActionResult<Campaign> Get(int id)
     {
-        var campaign = campaignRepository.Get(id);
+        var campaign = campaignRepository.GetById(id);
         if (campaign == null)
             return NotFound();
 
@@ -25,9 +25,8 @@ public class CampaignController(ICampaignRepository campaignRepository) : Contro
     [HttpPost]
     public IActionResult Create(Campaign newCampaign)
     {
-        // TODO: Add validation for the incoming campaign object (e.g., required fields)
-        // TODO: Call the repository to add the campaign, then return a CreatedAtAction result with the new campaign's ID
-        return Ok();
+        campaignRepository.Add(newCampaign);
+		return CreatedAtAction(nameof(Get), new { id = newCampaign.Id }, newCampaign); ;
     }
 
     [HttpPut("{id:int}")]
@@ -36,7 +35,7 @@ public class CampaignController(ICampaignRepository campaignRepository) : Contro
         if (id != campaign.Id)
             return BadRequest();
 
-        var existingCampaign = campaignRepository.Get(id);
+        var existingCampaign = campaignRepository.GetById(id);
         if (existingCampaign is null)
             return NotFound();
 
@@ -47,7 +46,7 @@ public class CampaignController(ICampaignRepository campaignRepository) : Contro
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        var campaign = campaignRepository.Get(id);
+        var campaign = campaignRepository.GetById(id);
         if (campaign is null)
             return NotFound();
 

@@ -9,50 +9,46 @@ namespace iTrendz.API.Controllers;
 [ApiController]
 public class BrandController(IBrandRepository brandRepository) : ControllerBase
 {
-    [HttpGet("{id:int}")]
-    public async Task<ActionResult<Brand>> GetBrandById(int id)
-    {
-		var brand = brandRepository.Get(id);
+	[HttpGet("{id:int}")]
+	public async Task<ActionResult<Brand>> GetById(int id)
+	{
+		var brand = brandRepository.GetById(id);
 		if (brand == null)
 			return NotFound();
 
 		return brand;
-    }
+	}
 
-    [HttpGet("all")]
-    public async Task<ActionResult<IEnumerable<Brand>>> GetAllBrands()
-    {
-        return Ok(brandRepository.GetAll());
-        
-    }
+	[HttpGet("all")]
+	public async Task<ActionResult<IEnumerable<Brand>>> GetAll()
+	{
+		return Ok(brandRepository.GetAll());
 
-    [HttpPost]
-    public async Task<IActionResult> AddBrand([FromBody] Brand brand)
-    {
-        
-       
-    }
+	}
 
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> UpdateBrand(int id, [FromBody] Brand brand)
-    {
-        if( id!= brand.Id)
-        return BadRequest();
-        var existingBrand =brandRepository.Get(id);
-        if (existingBrand == null)
-            return NotFound();
-        brandRepository.Update(brand);
-        return NoContent();
-    }
+	[HttpPut("{id:int}")]
+	public async Task<IActionResult> Update(int id, [FromBody] Brand brand)
+	{
+		if (id != brand.Id)
+			return BadRequest();
 
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> DeleteBrand(int id)
-    {
-       var brand= brandRepository.Get(id);
-        if(brand == null)
-            return NotFound();
-        brandRepository.Delete(id);
-        return NoContent();
+		var existingBrand = brandRepository.GetById(id);
+		if (existingBrand == null)
+			return NotFound();
 
-    }
+		brandRepository.Update(brand);
+		return NoContent();
+	}
+
+	[HttpDelete("{id:int}")]
+	public async Task<IActionResult> Delete(int id)
+	{
+		var brand = brandRepository.GetById(id);
+		if (brand == null)
+			return NotFound();
+
+		brandRepository.Delete(id);
+		return NoContent();
+
+	}
 }

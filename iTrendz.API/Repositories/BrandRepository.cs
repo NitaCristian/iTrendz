@@ -9,13 +9,12 @@ public class BrandRepository(TrendzDbContext dbContext) : IBrandRepository
 {
     public IEnumerable<Brand> GetAll()
     {
-        // TODO: Query the database and return all brands.
         return dbContext.Brands
             .Include(b => b.Campaigns)
             .ToList();
     }
 
-    public Brand? Get(int id)=> dbContext.Brands.FirstOrDefault(p => p.Id == id);
+    public Brand? GetById(int id)=> dbContext.Brands.FirstOrDefault(p => p.Id == id);
   
 
     public void Update(Brand brand)
@@ -26,7 +25,7 @@ public class BrandRepository(TrendzDbContext dbContext) : IBrandRepository
 
     public void Delete(int id)
     {
-        var brand  = Get(id);
+        var brand  = GetById(id);
         if (brand == null)
             return;
         dbContext.Brands.Remove(brand);

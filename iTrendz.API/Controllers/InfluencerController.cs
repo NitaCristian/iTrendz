@@ -10,43 +10,44 @@ namespace iTrendz.API.Controllers;
 [ApiController]
 public class InfluencerController(IInfluencerRepository influencerRepository) : ControllerBase
 {
-    [HttpGet("{id:int}")]
-    public async Task<ActionResult<Influencer>> GetInfluencerById(int id)
-    {
+	[HttpGet("{id:int}")]
+	public async Task<ActionResult<Influencer>> GetById(int id)
+	{
 		var influencer = influencerRepository.Get(id);
 		if (influencer == null)
 			return NotFound();
 
 		return influencer;
-    }
+	}
 
-    [HttpGet("all")]
-    public async Task<ActionResult<IEnumerable<Influencer>>> GetAllInfluencers()
-    {
-        return Ok(influencerRepository.GetAll());
-    }
+	[HttpGet("all")]
+	public async Task<ActionResult<IEnumerable<Influencer>>> GetAll()
+	{
+		return Ok(influencerRepository.GetAll());
+	}
 
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> UpdateInfluencer(int id, Influencer influencer)
-    {
-        if(id!= influencer.Id)
-            return BadRequest();
+	[HttpPut("{id:int}")]
+	public async Task<IActionResult> Update(int id, Influencer influencer)
+	{
+		if (id != influencer.Id)
+			return BadRequest();
 
-        var existingInfluencer = influencerRepository.Get(id);
-        if( existingInfluencer == null)
-            return NotFound();
+		var existingInfluencer = influencerRepository.Get(id);
+		if (existingInfluencer == null)
+			return NotFound();
 
-        influencerRepository.Update(influencer);
-        return NoContent();
-    }
+		influencerRepository.Update(influencer);
+		return NoContent();
+	}
 
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> DeleteInfluencer(int id)
-    {
-       var influencer= influencerRepository.Get(id);
-        if (influencer == null)
-            return NotFound();
-        influencerRepository.Delete(id);
-        return NoContent();
-    }
+	[HttpDelete("{id:int}")]
+	public async Task<IActionResult> Delete(int id)
+	{
+		var influencer = influencerRepository.Get(id);
+		if (influencer == null)
+			return NotFound();
+
+		influencerRepository.Delete(id);
+		return NoContent();
+	}
 }

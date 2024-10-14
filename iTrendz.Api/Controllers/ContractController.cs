@@ -8,48 +8,47 @@ namespace iTrendz.API.Controllers;
 [Route("api/[controller]")]
 public class ContractController(ContractRepository contractRepository) : ControllerBase
 {
-    [HttpGet("all")]
-    public ActionResult<List<Contract>> GetAll() => Ok(contractRepository.GetAll());
+	[HttpGet("all")]
+	public ActionResult<List<Contract>> GetAll() => Ok(contractRepository.GetAll());
 
-    [HttpGet("{id:int}")]
-    public ActionResult<Contract> Get(int id)
-    {
-        var contract = contractRepository.Get(id);
-        if (contract == null)
-            return NotFound();
-        return contract;
-    }
+	[HttpGet("{id:int}")]
+	public ActionResult<Contract> GetById(int id)
+	{
+		var contract = contractRepository.Get(id);
+		if (contract == null)
+			return NotFound();
+		return contract;
+	}
 
 	[HttpPost]
-	public ActionResult<Contract> Create(Contract contract)
+	public ActionResult<Contract> Create(Contract newContract)
 	{
-		// TODO: Validate the contract before adding.
-		// TODO: Implement logic to add the contract to the repository and handle potential errors.
-		throw new NotImplementedException();
+		contractRepository.Add(newContract);
+		return CreatedAtAction(nameof(GetById), new { id = newContract.Id }, newContract);
 	}
 
 	[HttpPut("{id:int}")]
-    public IActionResult Update(int id, Contract contract)
-    {
-        if (id != contract.Id)
-            return BadRequest();
+	public IActionResult Update(int id, Contract contract)
+	{
+		if (id != contract.Id)
+			return BadRequest();
 
-        var existing = contractRepository.Get(id);
-        if (existing is null)
-            return NotFound();
+		var existing = contractRepository.Get(id);
+		if (existing is null)
+			return NotFound();
 
-        contractRepository.Update(contract);
-        return NoContent();
-    }
+		contractRepository.Update(contract);
+		return NoContent();
+	}
 
-    [HttpDelete("{id:int}")]
-    public IActionResult Delete(int id)
-    {
-        var contract = contractRepository.Get(id);
-        if (contract == null)
-            return NotFound();
+	[HttpDelete("{id:int}")]
+	public IActionResult Delete(int id)
+	{
+		var contract = contractRepository.Get(id);
+		if (contract == null)
+			return NotFound();
 
-        contractRepository.Delete(id);
-        return NoContent();
-    }
+		contractRepository.Delete(id);
+		return NoContent();
+	}
 }
