@@ -13,7 +13,7 @@ public class CampaignController(ICampaignRepository campaignRepository) : Contro
     public ActionResult<IEnumerable<Campaign>> GetAll() => Ok(campaignRepository.GetAll());
 
     [HttpGet("{id:int}")]
-    public ActionResult<Campaign> Get(int id)
+    public ActionResult<Campaign> GetById(int id)
     {
         var campaign = campaignRepository.GetById(id);
         if (campaign == null)
@@ -26,7 +26,7 @@ public class CampaignController(ICampaignRepository campaignRepository) : Contro
     public IActionResult Create(Campaign newCampaign)
     {
         campaignRepository.Add(newCampaign);
-		return CreatedAtAction(nameof(Get), new { id = newCampaign.Id }, newCampaign); ;
+		return CreatedAtAction(nameof(GetById), new { id = newCampaign.Id }, newCampaign); ;
     }
 
     [HttpPut("{id:int}")]

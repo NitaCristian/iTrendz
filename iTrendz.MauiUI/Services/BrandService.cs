@@ -9,7 +9,6 @@ public class BrandService(HttpClient httpClient) : IBrandService
 {
 	public async Task<Brand?> GetBrandByIdAsync(int brandId)
 	{
-
 		var response = await httpClient.GetAsync($"brand/{brandId}");
 		if (!response.IsSuccessStatusCode) return null;
 		return await response.Content.ReadFromJsonAsync<Brand>();

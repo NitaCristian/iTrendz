@@ -7,7 +7,7 @@ namespace iTrendz.MauiUI.Services;
 
 public class CampaignService(HttpClient httpClient) : ICampaignService
 {
-    public async Task<Campaign> GetCampaignByIdAsync(int campaignId)
+    public async Task<Campaign?> GetCampaignByIdAsync(int campaignId)
     {
 		var response = await httpClient.GetAsync($"campaign/{campaignId}");
 		if (!response.IsSuccessStatusCode) return null;
@@ -21,31 +21,24 @@ public class CampaignService(HttpClient httpClient) : ICampaignService
         return await response.Content.ReadFromJsonAsync<List<Campaign>>();
     }
 
-    public async Task<Campaign> CreateCampaignAsync(Campaign newCampaign)
+    public async Task<Campaign?> CreateCampaignAsync(Campaign newCampaign)
     {
 		var response = await httpClient.PostAsJsonAsync("campaig", newCampaign);
 		if (!response.IsSuccessStatusCode) return null;
 		return await response.Content.ReadFromJsonAsync<Campaign>();
 	}
 
-    public async Task<Campaign> UpdateCampaignAsync(int campaignId, Campaign updatedCampaign)
+    public async Task UpdateCampaignAsync(int campaignId, Campaign updatedCampaign)
     {
 		var response = await httpClient.PutAsJsonAsync($"campaign/{campaignId}", updatedCampaign);
-
 		if (!response.IsSuccessStatusCode)
-			throw new Exception($"faild to upadate influencer");
-		return await response.Content.ReadFromJsonAsync<Campaign>();
+			throw new Exception($"Failed to upadate campaign");
 	}
 
-    public async Task<bool> DeleteCampaignAsync(int campaignId)
+    public async Task DeleteCampaignAsync(int campaignId)
     {
         var response = await httpClient.DeleteAsync($"campaign/{campaignId}");
-        return response.IsSuccessStatusCode;
-    }
-
-    public Task<IEnumerable<Campaign>> GetCampaignsByBrandIdAsync(int brandId)
-    {
-        // TODO: Call the API to get all campaigns of a specific brand by brandId
-        throw new NotImplementedException();
-    }
+		if (!response.IsSuccessStatusCode)
+			throw new Exception($"Failed to delete campaign");
+	}
 }
