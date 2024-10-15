@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Diagnostics.Contracts;
+using System.Net.Http.Json;
 using iTrendz.Domain.Interfaces;
 using iTrendz.Domain.Models;
 
@@ -6,11 +7,12 @@ namespace iTrendz.MauiUI.Services;
 
 public class CampaignService(HttpClient httpClient) : ICampaignService
 {
-    public Task<Campaign> GetCampaignByIdAsync(int campaignId)
+    public async Task<Campaign> GetCampaignByIdAsync(int campaignId)
     {
-        // TODO: Call the API to get a campaign by its ID
-        throw new NotImplementedException();
-    }
+		var response = await httpClient.GetAsync($"campaign/{campaignId}");
+		if (!response.IsSuccessStatusCode) return null;
+		return await response.Content.ReadFromJsonAsync<Campaign>();
+	}
 
     public async Task<IEnumerable<Campaign>?> GetAllCampaignsAsync()
     {
@@ -19,17 +21,21 @@ public class CampaignService(HttpClient httpClient) : ICampaignService
         return await response.Content.ReadFromJsonAsync<List<Campaign>>();
     }
 
-    public Task<Campaign> CreateCampaignAsync(Campaign newCampaign)
+    public async Task<Campaign> CreateCampaignAsync(Campaign newCampaign)
     {
-        // TODO: Call the API to create a new campaign
-        throw new NotImplementedException();
-    }
+		var response = await httpClient.PostAsJsonAsync("campaig", newCampaign);
+		if (!response.IsSuccessStatusCode) return null;
+		return await response.Content.ReadFromJsonAsync<Campaign>();
+	}
 
-    public Task<Campaign> UpdateCampaignAsync(int campaignId, Campaign updatedCampaign)
+    public async Task<Campaign> UpdateCampaignAsync(int campaignId, Campaign updatedCampaign)
     {
-        // TODO: Call the API to update an existing campaign by ID
-        throw new NotImplementedException();
-    }
+		var response = await httpClient.PutAsJsonAsync($"campaign/{campaignId}", updatedCampaign);
+
+		if (!response.IsSuccessStatusCode)
+			throw new Exception($"faild to upadate influencer");
+		return await response.Content.ReadFromJsonAsync<Campaign>();
+	}
 
     public async Task<bool> DeleteCampaignAsync(int campaignId)
     {

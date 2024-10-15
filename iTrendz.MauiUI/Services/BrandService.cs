@@ -1,31 +1,42 @@
 ﻿using iTrendz.Domain.Interfaces;
 using iTrendz.Domain.Models;
+using System.Diagnostics.Contracts;
+using System.Net.Http.Json;
 
 namespace iTrendz.MauiUI.Services;
 
 public class BrandService(HttpClient httpClient) : IBrandService
 {
-    public Task<Brand?> GetBrandByIdAsync(int brandId)
+    public async Task<Brand?> GetBrandByIdAsync(int brandId)
     {
-        // TODO: Call the API to get a specific brand by ID.
-        throw new NotImplementedException();
-    }
 
-    public Task<IEnumerable<Brand>> GetAllBrandsAsync()
-    {
-        // TODO: Call the API to get all brands.
-        throw new NotImplementedException();
-    }
+		var response = await httpClient.GetAsync($"user/{brandId}");
+		if (!response.IsSuccessStatusCode) return null;
+        return await response.Content.ReadFromJsonAsync<Brand>();
+	}
 
-    public Task UpdateBrandAsync(int brandId, Brand updatedBrand)
+    public async Task<IEnumerable<Brand>> GetAllBrandsAsync()
     {
-        // TODO: Call the API to update an existing brand.
-        throw new NotImplementedException();
-    }
+		var response = await httpClient.GetAsync("brand/all");
+		if (!response.IsSuccessStatusCode) return new List<Brand>();
+		return await response.Content.ReadFromJsonAsync<List<Brand>>();
+	}
 
-    public Task DeleteBrandAsync(int brandId)
+    public async Task UpdateBrandAsync(int brandId, Brand updatedBrand)
     {
-        // TODO: Call the API to delete a brand by ID.
-        throw new NotImplementedException();
-    }
+		var response = await httpClient.PutAsJsonAsync($"brand/{brandId}", updatedBrand);
+
+		if (!response.IsSuccessStatusCode)
+			throw new Exception($"faild to upadate brand");
+		
+	}
+
+    public async Task DeleteBrandAsync(int brandId)
+    {
+		var response = await httpClient.DeleteAsync($"brand/{brandId}");
+
+		if (!response.IsSuccessStatusCode)
+			throw new Exception($"faild to upadate influencer");
+
+	}
 }

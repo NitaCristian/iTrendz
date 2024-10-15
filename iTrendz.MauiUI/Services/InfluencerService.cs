@@ -6,10 +6,11 @@ namespace iTrendz.MauiUI.Services;
 
 public class InfluencerService(HttpClient httpClient) : IInfluencerService
 {
-    public Task<Influencer?> GetInfluencerByIdAsync()
+    public async Task<Influencer?> GetInfluencerByIdAsync(int id)
     {
-        // TODO: Call the API to get a specific influencer by ID.
-        throw new NotImplementedException();
+        var response = await httpClient.GetAsync($"creator/{id}");
+        if (!response.IsSuccessStatusCode) return null;
+        return await response.Content.ReadFromJsonAsync<Influencer>();  
     }
 
     public async Task<IEnumerable<Influencer>?> GetAllInfluencersAsync()
@@ -19,15 +20,21 @@ public class InfluencerService(HttpClient httpClient) : IInfluencerService
         return await response.Content.ReadFromJsonAsync<List<Influencer>>();
     }
 
-    public Task UpdateInfluencerAsync(int influencerId, Brand updatedInfluencer)
+    public async Task UpdateInfluencerAsync(int influencerId, Brand updatedInfluencer)
     {
-        // TODO: Call the API to update an existing influencer.
-        throw new NotImplementedException();
+        var response = await httpClient.PutAsJsonAsync($"creator/{influencerId}",updatedInfluencer);
+
+        if (!response.IsSuccessStatusCode)
+            throw new Exception($"faild to upadate influencer");
+       
     }
 
-    public Task DeleteInfluencerAsync(int influencerId)
+    public async Task DeleteInfluencerAsync(int influencerId)
     {
-        // TODO: Call the API to delete an influencer by ID.
-        throw new NotImplementedException();
-    }
+        var response = await httpClient.DeleteAsync($"creator/{influencerId}");
+		if (!response.IsSuccessStatusCode)
+			throw new Exception($"faild to upadate influencer");
+
+
+	}
 }

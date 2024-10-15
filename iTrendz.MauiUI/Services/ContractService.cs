@@ -1,37 +1,48 @@
 ﻿using iTrendz.Domain.Interfaces;
 using iTrendz.Domain.Models;
+using System.Net.Http.Json;
 
 namespace iTrendz.MauiUI.Services;
 
 public class ContractService(HttpClient httpClient) : IContractService
 {
-    public Task<IEnumerable<Contract>> GetAllContractsAsync()
+    public async Task<IEnumerable<Contract>> GetAllContractsAsync()
     {
-        // TODO: Call the API to retrieve all contracts.
-        throw new NotImplementedException();
-    }
 
-    public Task<Contract> GetContractByIdAsync(int contractId)
-    {
-        // TODO: Implement this method to retrieve a specific contract by ID.
-        throw new NotImplementedException();
-    }
+		var response = await httpClient.GetAsync("contract/all");
+		if (!response.IsSuccessStatusCode) return new List<Contract>();
+		return await response.Content.ReadFromJsonAsync<List<Contract>>();
+	}
 
-    public Task<Contract> AddContractAsync(Contract contract)
+    public async Task<Contract> GetContractByIdAsync(int contractId)
     {
-        // TODO: Implement this method to add a new contract via the API.
-        throw new NotImplementedException();
-    }
+		var response = await httpClient.GetAsync($"brand/{contractId}");
+		if (!response.IsSuccessStatusCode) return null;
+		return await response.Content.ReadFromJsonAsync<Contract>();
+	}
 
-    public Task<Contract> UpdateContractAsync(int contractId, Contract updatedContract)
+    public async Task<Contract> AddContractAsync(Contract contract)
     {
-        // TODO: Implement this method to update an existing contract via the API.
-        throw new NotImplementedException();
-    }
+		var response= await httpClient.PostAsJsonAsync("brand",contract);
+		if (!response.IsSuccessStatusCode) return null;
+		return await response.Content.ReadFromJsonAsync<Contract>();
+		
+	}
 
-    public Task<bool> DeleteContractAsync(int contractId)
+    public async Task<Contract> UpdateContractAsync(int contractId, Contract updatedContract)
     {
-        // TODO: Implement this method to delete a contract by ID via the API.
-        throw new NotImplementedException();
-    }
+		var response = await httpClient.PutAsJsonAsync($"brand/{contractId}", updatedContract);
+
+		if (!response.IsSuccessStatusCode)
+			throw new Exception($"faild to upadate influencer");
+		return await response.Content.ReadFromJsonAsync<Contract>();
+	}
+
+    public async Task<bool> DeleteContractAsync(int contractId)
+    {
+		var response = await httpClient.DeleteAsync($"brand/{contractId}");
+
+		
+		return response.IsSuccessStatusCode;
+	}
 }
