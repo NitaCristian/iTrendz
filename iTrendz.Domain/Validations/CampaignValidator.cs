@@ -8,12 +8,11 @@ public class CampaignValidator : AbstractValidator<Campaign>
 	public CampaignValidator()
 	{
 		RuleFor(campaign => campaign.Title)
-			.NotEmpty().WithMessage("Title is required. ")
-			.Length(3, 100).WithMessage("Title mus be betweend 3 and 100 characters.");
+			.NotEmpty().WithMessage("Title is required.")
+			.Length(3, 200).WithMessage("Title must be betweend 3 and 200 characters.");
 
 		RuleFor(campaign => campaign.Description)
-			.NotEmpty().WithMessage("Description required. ")
-			.MinimumLength(10).WithMessage("MUst be at least 10 characters long");
+			.Length(1, 2000).WithMessage("Description must be at most 2000 characters.");
 
 		RuleFor(campaign => campaign.ImageUrl)
 			.Must(url => Uri.IsWellFormedUriString(url, UriKind.Absolute))
@@ -33,17 +32,13 @@ public class CampaignValidator : AbstractValidator<Campaign>
 
 		RuleFor(campaign => campaign.CreatorLimit)
 			.GreaterThan(0).When(campaign => campaign.CreatorLimit.HasValue)
-			.WithMessage("CReator limit must be greater than 0");
+			.WithMessage("Creator limit must be greater than 0");
 
 		RuleFor(campaign => campaign.Criteria)
 			.NotNull().WithMessage("Qualification criteria is required");
-
-		RuleFor(campaign => campaign.Metrics)
-			.NotNull().WithMessage("Metrics are required");
 		RuleFor(campaign => campaign.Requirements)
 			.NotNull().WithMessage("Requirments are required");
-		RuleFor(campaign => campaign.Criteria)
-			.NotNull().WithMessage("Criteria are required");
 
+		// State, Type, Niches
 	}
 }

@@ -18,18 +18,21 @@ public class ContractValidator : AbstractValidator<Contract>
 
 		RuleFor(contract => contract.Influencer)
 			.NotNull().WithMessage("INfluenecer is requiered");
+
 		RuleFor(contract => contract.Campaign)
 			.NotNull().WithMessage("Campaign is requiered");
-		RuleFor(contract => contract.Posts)
-			.NotNull().WithMessage("Post collection is required.")
-			.Must(post => post.Count > 0)
-			.WithMessage("at least one post is required for contract.")
-			.When(contract => contract.Posts != null);
-		RuleFor(contract => contract.AgreedContent)
-			.NotNull().WithMessage("Agreed content collection is requiered.")
-			.Must(agreedContent => agreedContent.Count > 0)
-			.WithMessage("At least one content agreement is requiered.")
-			.When(contract => contract.AgreedContent != null); 
+
+		//RuleFor(contract => contract.Posts)
+		//	.NotNull().WithMessage("Post collection is required.")
+		//	.Must(post => post.Count > 0)
+		//	.WithMessage("At least one post is required for contract.")
+		//	.When(contract => contract.Posts != null);
+
+		//RuleFor(contract => contract.AgreedContent)
+		//	.NotNull().WithMessage("Agreed content collection is requiered.")
+		//	.Must(agreedContent => agreedContent.Count > 0)
+		//	.WithMessage("At least one content agreement is requiered.")
+		//	.When(contract => contract.AgreedContent != null); 
 
 	}
 }

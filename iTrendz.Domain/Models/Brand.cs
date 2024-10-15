@@ -2,11 +2,10 @@
 
 public class Brand : User
 {
-    public ICollection<Campaign> Campaigns { get; } = new List<Campaign>();
+	public ICollection<Campaign> Campaigns { get; } = new List<Campaign>();
 
-    public IEnumerable<Campaign> GetPastCampaigns()
-    {
-        // TODO: Return campaigns where campaign state is Completed.
-        throw new NotImplementedException();
-    }
+	public IEnumerable<Campaign> GetPastCampaigns()
+	{
+		return Campaigns.Where(c => c.State == CampaignState.Completed);
+	}
 }
