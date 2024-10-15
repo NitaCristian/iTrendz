@@ -6,43 +6,38 @@ namespace iTrendz.MauiUI.Services;
 
 public class ContractService(HttpClient httpClient) : IContractService
 {
-    public async Task<IEnumerable<Contract>> GetAllContractsAsync()
-    {
-
+	public async Task<IEnumerable<Contract>?> GetAllContractsAsync()
+	{
 		var response = await httpClient.GetAsync("contract/all");
 		if (!response.IsSuccessStatusCode) return new List<Contract>();
 		return await response.Content.ReadFromJsonAsync<List<Contract>>();
 	}
 
-    public async Task<Contract> GetContractByIdAsync(int contractId)
-    {
-		var response = await httpClient.GetAsync($"brand/{contractId}");
+	public async Task<Contract?> GetContractByIdAsync(int contractId)
+	{
+		var response = await httpClient.GetAsync($"contract/{contractId}");
 		if (!response.IsSuccessStatusCode) return null;
 		return await response.Content.ReadFromJsonAsync<Contract>();
 	}
 
-    public async Task<Contract> AddContractAsync(Contract contract)
-    {
-		var response= await httpClient.PostAsJsonAsync("brand",contract);
+	public async Task<Contract?> AddContractAsync(Contract contract)
+	{
+		var response = await httpClient.PostAsJsonAsync("contract", contract);
 		if (!response.IsSuccessStatusCode) return null;
 		return await response.Content.ReadFromJsonAsync<Contract>();
-		
 	}
 
-    public async Task<Contract> UpdateContractAsync(int contractId, Contract updatedContract)
-    {
-		var response = await httpClient.PutAsJsonAsync($"brand/{contractId}", updatedContract);
-
+	public async Task UpdateContractAsync(int contractId, Contract updatedContract)
+	{
+		var response = await httpClient.PutAsJsonAsync($"contract/{contractId}", updatedContract);
 		if (!response.IsSuccessStatusCode)
-			throw new Exception($"faild to upadate influencer");
-		return await response.Content.ReadFromJsonAsync<Contract>();
+			throw new Exception($"Failed to upadate contract");
 	}
 
-    public async Task<bool> DeleteContractAsync(int contractId)
-    {
-		var response = await httpClient.DeleteAsync($"brand/{contractId}");
-
-		
-		return response.IsSuccessStatusCode;
+	public async Task DeleteContractAsync(int contractId)
+	{
+		var response = await httpClient.DeleteAsync($"contract/{contractId}");
+		if (!response.IsSuccessStatusCode)
+			throw new Exception($"Failed to delete contract");
 	}
 }
