@@ -11,7 +11,7 @@ using iTrendz.Domain.Fakers;
 using iTrendz.Domain.Models;
 using iTrendz.Domain.Interfaces;
 
-
+/// dani si cristi pe felie 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
