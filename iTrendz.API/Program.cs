@@ -12,6 +12,7 @@ using iTrendz.Domain.Models;
 using iTrendz.Domain.Interfaces;
 
 /// dani si cristi pe felie 
+/// mai dam odata
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
